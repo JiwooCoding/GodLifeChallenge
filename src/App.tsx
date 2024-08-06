@@ -1,40 +1,57 @@
-import './App.css'
-import NavBar from "./components/NavBar";
-import { BrowserRouter, Outlet, Routes,Route } from "react-router-dom";
-import EventPage from './page/EventPage/EventPage';
+// App.tsx
+import './App.css';
+import { Outlet, Routes, Route } from 'react-router-dom';
 import ProductPage from './page/ProductPage/ProductPage';
 import HomePage from './page/HomePage';
-import Attendance from './components/Attendance';
-import Roulette from './components/Roulette';
-import Point from './components/Point';
-
+import EventPage from './page/EventPage/EventPage';
+import RegisterPage from './page/RegisterPage';
+import ProductUpload from './page/UploadPage';
+import LoginPage from './page/LoginPage';
+import MyPage from './page/MyPage';
+import MyInfoModify from './page/MyPage/modify-myInfo/MyInfoModify';
+import Apitest from './components/weather/WeatherApi';
+import Attendance from './page/EventPage/attendance';
+import Roulette from './page/EventPage/roulette';
+import Donation from './page/DonationPage';
+import DonationDetail from './page/DonationPage/DetailPage/DonationDetail';
+import Header from './components/Header';
+import Footer from './components/footer/Footer';
 
 const Layout = () => {
+  // Layout 컴포넌트 내에서 useNavigate를 사용하기 위해 라우터의 컨텍스트가 필요합니다.
+
   return (
     <>
-      <NavBar/>
-      <Outlet/>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
     </>
-  )
-}
-
+  );
+};
 
 const App = () => {
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout/>}> 
-          <Route index element={<HomePage/>}/>
-          <Route path='point' element={<Point/>}/>
-          <Route path='product' element={<ProductPage/>}/>
-          <Route path='attendance' element={<Attendance/>}/>
-          <Route path='roulette' element={<Roulette/>}/>
-          {/* <Route path='*' element={<NotFoundPage/>}/> */}
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  )
-}
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path='event' element={<EventPage />} />
+        <Route path='attendance' element={<Attendance />} />
+        <Route path='roulette' element={<Roulette />} />
+        <Route path='product' element={<ProductPage />} />
+        <Route path='login' element={<LoginPage />} />
+        <Route path='register' element={<RegisterPage />} />
+        <Route path='productUpload' element={<ProductUpload />} />
+        <Route path='mypage' element={<MyPage />} />
+        <Route path='modify' element={<MyInfoModify />} />
+        <Route path='test' element={<Apitest />} />
+        <Route path='donation' element={<Donation />} />
+        <Route path='donation-detail' element={<DonationDetail />} />
+        {/* <Route path='*' element={<NotFoundPage />} /> */}
+      </Route>
+    </Routes>
+  );
+};
 
-export default App
+export default App;

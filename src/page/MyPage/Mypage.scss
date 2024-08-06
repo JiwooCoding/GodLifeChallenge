@@ -1,0 +1,119 @@
+.mypage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .myInfo {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 35px;
+        position: relative;
+
+        .setting-info {
+            width: 48px;
+            position: absolute;
+            top: 138px;
+            left: 118px;
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 21px;
+            margin-top: 20px;
+        }
+
+        // .modify-myinfo {
+        //     background-color: rgb(85 144 255 / 80%);
+        //     color: #fff;
+        //     padding: 7px 10px;
+        //     border-radius: 25px;
+        //     font-size: 14px;
+
+        //     p:hover{
+        //         color: #fff;
+        //     }
+        // }
+    }
+
+    .info-box {
+        display: flex;
+        background-color: rgb(85 97 255);
+        padding: 12px 40px;
+        border-radius: 30px;
+        gap: 40px;
+        position: relative; /* 추가: 가상 요소 위치 기준 */
+        width: 100%;
+        justify-content: center;
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            margin: 0 10px; /* 각 콘텐츠 사이에 약간의 간격을 추가 */
+            gap: 5px;
+            position: relative; /* 추가: 가상 요소 위치 기준 */
+
+            p{
+                font-size: 13px;
+            }
+            
+        }
+
+        .jb-division-line {
+            position: relative;
+            width: 1px;
+            background-color: transparent;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 100%;
+            background-color: #fff;
+            transform: translateX(-10%) scaleY(0.4); /* Y 축으로 스케일을 줄여서 더 얇게 보이도록 설정 */
+        }
+    }
+
+        p {
+            color: #fff;
+        }
+    }
+
+    .info-point{
+        width: 100%;
+        background: #edeef3;
+        border-radius: 20px;
+        margin-top: 50px;
+        padding: 30px;
+        text-align: justify;
+
+        .point-history{
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+
+            p{
+                font-weight: bold;
+                margin-bottom: 15px;
+                font-size: 15px;
+            }
+        }
+
+        h2{
+            font-weight: bold;
+            color: #a7a7a7;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    }
+}

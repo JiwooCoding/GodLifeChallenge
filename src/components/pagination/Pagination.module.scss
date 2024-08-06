@@ -1,0 +1,36 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    align-items: center;
+
+    li{
+        margin-left: 25px;
+
+        &.disabled {
+            cursor: not-allowed;
+            color: #d1d1d1;
+        }
+    }
+
+    .active {
+        color: white; // 활성화된 페이지의 텍스트 컬러
+        font-weight: bold;
+        background-color: rgb(206, 205, 205); // 활성화된 페이지의 백그라운드 컬러
+        border-radius: 50%; // 동그랗게 만들기
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+}

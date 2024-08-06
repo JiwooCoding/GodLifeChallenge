@@ -1,0 +1,41 @@
+.snsRegister{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+
+    .kakao,
+  .naver {
+    padding: 11px 23px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+
+    img {
+      position: absolute;
+      left: 5%;
+    }
+  }
+
+  .kakao {
+    background-color: #fee500;
+    color: #000;
+    transition: all 0.3s ease;
+
+    &:hover{
+      background-color: #fee5005c;
+  }
+  }
+
+  .naver {
+    background-color: #00d337;
+    color: #fff;
+    transition: all 0.3s ease;
+
+    &:hover{
+      background-color: #00d3377d;
+    }
+  }
+
+}
+

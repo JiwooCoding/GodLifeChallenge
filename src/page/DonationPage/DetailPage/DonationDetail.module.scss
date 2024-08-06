@@ -1,0 +1,241 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    justify-content: space-between;
+    display: flex;
+    padding: 20px 300px;
+    align-items: center;
+
+    button{
+        background-color: #ffb33e;
+        color: #fff;
+        padding: 10px 40px;
+
+        &:hover{
+            background-color: #ffb33e;
+        }
+    }
+
+    span{
+        font-size: 25px;
+        font-weight: bold;
+        color: rgb(28, 171, 226);
+    }
+}
+
+.donation_header{
+
+    .donation_title{
+        max-width: 1100px;
+        text-align: left;
+        margin: 0 auto;
+        position: relative;
+
+        .donation_headerTitle{
+            color: #fff;
+            font-size: 41px;
+            font-weight: bold;
+            position: absolute;
+            bottom: 88px;
+        }
+    }
+
+    .donation_page{
+        max-width: 1200px;
+        text-align: left;
+        margin: 0 auto;
+        position: relative;
+        padding-top: 100px;
+        padding-bottom: 100px;
+
+        h1{
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 32px;
+        }
+
+        span{
+            margin-top: 32px;
+            line-height: 1.7;
+            font-size: 19px;
+        }
+
+        .contentbox{
+            display: flex;
+            gap: 50px;
+            margin-top: 108px;
+            
+
+            .image_content{
+                border: 1px solid rgb(229, 230, 232);
+                background: rgb(255, 255, 255);
+                padding: 24px 24px 128px;
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                img{
+                    margin-bottom: 10px;
+                    max-width: 100%;
+                }
+
+                span{
+                    color: rgb(28, 171, 226);
+                    font-weight: bold;
+                    font-size: 23px;
+                    text-align: center;
+                }
+
+                p{
+                    margin-top: 16px;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+    .donation_container{
+        background: rgb(55, 78, 162);
+        margin-top: 100px;
+
+        .donation_page1{
+            max-width: 1200px;
+            text-align: left;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 100px;
+            padding-bottom: 100px;
+
+            h1{
+                color: #fff;
+                font-size: 48px;
+                font-weight: bold;
+                margin-bottom: 96px;
+            }
+
+            .card_list{
+                display: flex;
+                gap: 70px;
+
+                .card{
+                    width: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 250px;
+
+                    .top_card{
+                        height: 375px;
+
+                        &::after{
+                            content: "";
+                            width: 56px;
+                            height: 56px;
+                            background: url(../../../image/arrow.png) center center / 100% no-repeat;
+                            position: absolute;
+                            left: 50%;
+                            top: 472px;
+                            transform: translate(-50%, 0px);
+                        }
+                        
+                        .card_text{
+                            overflow: hidden;
+                            float: right;
+                            border-radius: 0px 0px 40px;
+                            width: 284px;
+                            min-height: 158px;
+                            padding: 24px;
+                            margin: -55px 0px 0px;
+                            line-height: 1.68em;
+                            background: rgb(255, 255, 255);
+                            position: relative;
+                            z-index: 1;
+                            font-size: 15px;
+                        }
+                    }
+
+                    .card_result{
+                        align-items: center;
+                        display: flex;
+                        flex-direction: column;
+
+                        .result_image{
+                            width: 80%;
+                        }
+
+                        .result_text{
+                            text-align: center;
+                            margin-top: 40px;
+
+                            h2{
+                                font-size: 20px;
+                                font-weight: bold;
+                                color: #fff;
+                            }
+
+                            h1{
+                                font-size: 32px;
+                                color: rgb(255, 220, 14);
+                                letter-spacing: -1.6px;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .donation_page3{
+        .donation_detailpage,
+        .donation_contents{
+            max-width: 1200px;
+            text-align: left;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 100px;
+            padding-bottom: 50px;
+    
+            h1{
+                font-weight: bold;
+                font-size: 48px;
+            }
+        }
+    
+        .donation_contents{
+            display: flex;
+            justify-content: space-evenly;
+    
+            .donation_content{
+                border: 1px solid rgb(28, 171, 226);
+                overflow: hidden;
+                min-height: 150px;
+                width: 300px;
+                padding: 20px;
+                border-radius: 40px 7px 40px 7px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+    
+                span{
+                    font-weight: bold;
+                    font-size: 14px;
+                    height: 60px; 
+                    display: flex;
+                    align-items: center;
+                }
+    
+                h2{
+                    margin-top: 20px; 
+                    font-size: 30px;
+                    color: rgb(28, 171, 226);
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    
+}

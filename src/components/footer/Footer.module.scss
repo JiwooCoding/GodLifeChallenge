@@ -1,0 +1,48 @@
+footer{
+    display: flex;
+    justify-content: space-around;
+    /* background: #e5e7eb; */
+    font-size: 13px;
+    align-items: flex-end;
+    padding: 20px 0px;
+    border-top: 1px solid #e9e9e9;
+    margin-top: 200px;
+
+    .footer_info{
+
+        .company_name{
+            margin-bottom: 20px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .company_info{
+            display: flex;
+            gap: 20px;
+            
+            p {
+                position: relative;
+        
+                    &::after {
+                        content: "";
+                        display: block;
+                        width: 1px;
+                        height: 14px;
+                        background: #d9d9d9;
+                        position: absolute;
+                        right: -10px; // Adjust the value to control the distance from the text
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+            
+                p:last-of-type::after {
+                    display: none; // Hide the after element for the last p tag
+                }
+            }
+        }
+
+        .Copyright{
+            margin-top: 15px;
+        }
+    }

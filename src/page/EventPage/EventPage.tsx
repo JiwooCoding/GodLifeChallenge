@@ -1,88 +1,98 @@
-import { useEffect, useState } from 'react';
-import Attendance from '../../components/Attendance';
-import Roulette from '../../components/Roulette';
-import { TbCircleNumber1, TbCircleNumber2 } from "react-icons/tb";
+import { useState } from 'react';
 import eventData from '../../data/eventData';
-
+import { Link } from 'react-router-dom';
+import styles from './EventPage.module.scss';
+import WeatherApi from '../../components/weather/WeatherApi';
+import AutoComplete from '../../components/auto-complete/AutoComplete';
+import { IEventData } from '../../type/eventData';
 
 
 const EventPage = () => {
-    const [selectedTab, setSelectedTab] = useState(1); // 디폴트로 1번 출석체크를 보여줌
-    const [point, setPoint] = useState(0);
-    const [totalPoints, setTotalPoints] = useState<number>(0);
+    const [filter, setFilter] = useState('all');
+    const [filteredEvents, setFilteredEvents] = useState<IEventData[]>(eventData);
 
-    useEffect(() => {
-      setTotalPoints(point);
-    }, [point]);
-    
-    
-  
-    // Roulette에서 포인트를 더하는 함수
-    const addRoulettePoints = (points: number) => {
-      setTotalPoints(prevPoints => prevPoints + points);
+    const isEventPast = (endDate:Date) => {
+        const today = new Date();
+        return today > endDate;
     };
-  
-    // 출첵 포인트를 더하는 함수
-    const addAttendancePoints = (points:number) => {
-      setTotalPoints(prevPoints => prevPoints + points);
-    }
-    const handleTabClick = (tabNumber:number) => {
-    setSelectedTab(tabNumber);
+
+    const filterEvents = () => {
+        switch (filter) {
+            case 'ongoing':
+                return filteredEvents.filter(event => !isEventPast(event.endDate));
+            case 'past':
+                return filteredEvents.filter(event => isEventPast(event.endDate));
+            default:
+                return filteredEvents;
+        }
     };
+
+    const sortedEventData = [...filterEvents()].sort((a, b) => {
+        const aIsPast = isEventPast(a.endDate);
+        const bIsPast = isEventPast(b.endDate);
+
+        if (aIsPast && !bIsPast) return 1;
+        if (!aIsPast && bIsPast) return -1;
+        return 0;
+    });
 
     return (
-        <>
-            {/* <div className='bg-blue-200 text-center pt-16 pb-16'>
-                <div className='mb-[25px]'>
-                    <h2 className='font-bold text-white text-[50px]'>이벤트 참여하고<br/>
-                    포인트 받아가세요!
-                    </h2>
+        <div>
+            <section className={styles.event_back}>
+                <div className={styles.event_title}>
+                    <h1>이벤트</h1>
                 </div>
-                <div className="">
-                    <div className='flex justify-center'>
-                        <TbCircleNumber1
-                            className={`text-4xl cursor-pointer m-2 text-white ${selectedTab === 1 ? 'text-white' : 'text-opacity-50'}`}
-                            onClick={() => handleTabClick(1)}
-                        />
-                        <TbCircleNumber2
-                            className={`text-4xl cursor-pointer text-white m-2 ${selectedTab === 2 ? 'text-white' : 'text-opacity-50'}`}
-                            onClick={() => handleTabClick(2)}
-                        />
+            </section>
+
+            <div className="inner">
+                <div>
+                    {/* <WeatherApi /> */}
+                    <div className={styles.event_top}>
+                        <div className={styles.filterButtons}>
+                            <button onClick={() => setFilter('all')} className={filter === 'all' ? styles.active : ''}>전체</button>
+                            <button onClick={() => setFilter('ongoing')} className={filter === 'ongoing' ? styles.active : ''}>진행중</button>
+                            <button onClick={() => setFilter('past')} className={filter === 'past' ? styles.active : ''}>종료</button>
+                        </div>
+                        <div>
+                            <AutoComplete items={eventData} setFilteredItems={setFilteredEvents} displayProperty="title" />
+                        </div>
                     </div>
 
-                    <div className='mt-[25px]'>
-                        {selectedTab === 1 && (
-                        <Attendance
-                        addAttendancePoints={addAttendancePoints}
-                        />
-                        )}
-                        {selectedTab === 2 && <Roulette addRoulettePoints={addRoulettePoints}/>}
-                    </div>
+                    <hr />
+                    <ul className={styles.eventList}>
+                        {sortedEventData.map(event => {
+                            const isPast = isEventPast(event.endDate);
+                            const statusClass = isPast ? 'past' : 'ongoing';
+                            return (
+                                <li key={event.id} className={`${styles.eventItem} ${isPast ? styles.pastEvent : ''}`}>
+                                    <div>
+                                        <Link to={`/${event.path}`}>
+                                            <img
+                                                src={event.imageUrl}
+                                                alt='eventImage'
+                                                style={{ width: '540px', height: '240px', cursor: 'pointer' }}
+                                            />
+                                        </Link>
+                                    </div>
+                                    <div className={styles.event_text}>
+                                        <div className='mb-5'>
+                                            <h1 className={`${styles.status} ${styles[statusClass]}`}>
+                                                    {isPast ? '종료' : '진행중'}
+                                            </h1>
+                                            <h2 className='font-bold text-[17px] cursor-pointer'>{event.title}</h2>
+                                            <h4 className='text-[14px] cursor-pointer'>{event.description}</h4>
+                                        </div>
+                                        <div>
+                                            <p className='text-sm'>{event.startDate.toLocaleDateString()} ~ {event.endDate.toLocaleDateString()}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
-            </div>  */}
-
-            <div className='inner'>
-                <h2 className='font-bold text-[30px] mt-10 border-t border-gray-100 pt-[50px]'>이벤트</h2>
-                <ul className='mt-10'>
-                    {eventData.map(event => (
-                        <li key={event.id} className='flex items-center gap-11 mb-10'>
-                            <div>
-                                <img src={event.imageUrl} alt='eventImage' style={{width:'250px', height:'auto', borderRadius:'7px', cursor:'pointer'}}/>
-                            </div>
-                            <div className=''>
-                                <div className='mb-5'>
-                                    <h2 className='font-bold text-[22px] cursor-pointer'>{event.title}</h2>
-                                    <h4 className='text-[15px] cursor-pointer'>{event.description}</h4>
-                                </div>
-                                <div>
-                                    {event.date}
-                                </div>    
-                            </div>
-                        </li>
-                    ))}
-                </ul>
             </div>
-        </>
+        </div>
     );
 };
 

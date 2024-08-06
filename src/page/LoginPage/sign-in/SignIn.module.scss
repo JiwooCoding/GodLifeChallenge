@@ -1,0 +1,41 @@
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+    input{
+        border: 1px solid #e9e9e9e9;
+        outline: none;
+        padding: 10px;
+        border-radius: 7px;
+        margin-bottom: 15px;
+
+        &.active{
+            border: 1px solid rgb(255, 130, 85);
+        }
+
+        &:hover{
+            border:1px solid rgb(75,75,75);
+        }
+    }
+
+    button{
+        background-color: rgb(255, 130, 85);
+        color: #fff;
+        padding: 10px;
+        border-radius: 7px;
+        transition: all 0.3s ease;
+        margin: 20px 0px 10px 0px;
+
+        &:hover{
+            background-color: rgba(255, 130, 85, 0.67);
+        }
+    }
+
+    .password-error-msg,
+    .email-error-msg,
+    .login-error-msg{
+        font-size: 13px;
+        color: red;
+    }
+}

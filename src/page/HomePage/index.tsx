@@ -1,9 +1,12 @@
 import React from 'react'
+import RCalendar from '../../components/calendar/RCalendar'
 
-const HomePage = () => {
+const index = () => {
   return (
-    <div>HomePage</div>
+    <div>
+      안냐ㅕㅇ
+    </div>
   )
 }
 
-export default HomePage
+export default index
