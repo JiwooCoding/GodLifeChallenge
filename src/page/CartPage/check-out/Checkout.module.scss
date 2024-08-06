@@ -1,0 +1,98 @@
+.checkout {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 130px;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 90%;
+        align-items: center;
+
+        p {
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: start;
+            color: #000;
+            border-radius: 5px;
+        }
+        
+        .totalPrice_text{
+            font-size: 20px;
+
+            // &::after{
+            //     content: "";
+            //     display: block;
+            //     width: 1px;
+            //     height: 20px;
+            //     background: #d9d9d9;
+            //     position: absolute;
+            //     top: 89%;
+            //     right: 85%;
+            //     transform: translateY(-50%);
+            // }
+        }
+
+        .totalPrice_amount{
+            font-size: 14px;
+            font-weight: 500;
+            b{
+                color: rgb(255, 130, 85);
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 510px) {
+            flex-direction: row;
+            // justify-content: flex-end;
+            width: 100%;
+
+            p {
+                display: flex;
+                justify-content: flex-start;
+                margin-right: 30px;
+                align-items: center;
+                margin-bottom: 0;
+                border-radius: 5px;
+
+                span {
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+}
+
+.checkout_button {
+    padding: 10px 40px;
+    color:rgb(255, 130, 85);
+    font-weight: 400;
+    font-size: 15px;
+    background: #fff;
+    border: 1px solid rgb(255, 130, 85);
+    cursor: pointer;
+    transition: 0.3s all ease;
+    border-radius: 5px;
+
+    &:hover {
+        color: #fff;
+        background: rgb(255, 130, 85);
+    }
+
+    &:disabled {
+        color: #ffff;
+        background: #00c4c433;
+    }
+
+    @media (min-width: 510px) {
+        padding: 10px 40px;
+        border-radius: 5px;
+    }
+}

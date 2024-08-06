@@ -1,4 +1,3 @@
-import React from 'react'
 import { IProduct } from '../../../../type/IProduct'
 import { useAppdispatch } from '../../../../hooks/redux';
 import { decrementProduct, deleteFromCart, incrementProduct } from '../../../../store/cart/cartSlice';
@@ -37,9 +36,9 @@ const CartItem = ({product}:CartItemProps) => {
       <div className={styles.cart_description}>
         <h3>{product.category}</h3>
         <h2>{product.productName}</h2>
-        <span>
-          {product.price}p x {product.quantity} = {product.total.toFixed(0)}p
-        </span>
+        <div className={styles.point_cal}>
+          <span>{product.price}포인트</span>  <span>x {product.quantity}</span>  <span> = {product.total.toFixed(0)}포인트</span>
+        </div>
       </div>
         <div className={styles.cart_count}>
           <div>

@@ -1,5 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProduct } from "../../type/IProduct";
+import api from "../../api/api";
+
+
+export const postOrder = createAsyncThunk(
+    "cart/postOrder",
+    async(order:cartState, thunkAPI) => {
+        try {
+            await api.post('/api/orders' ,order)
+            thunkAPI.dispatch(sendOrder());
+        } catch (error) {
+            return thunkAPI.rejectWithValue('카트 에러!!!')
+        }
+    }
+)
 
 type cartState = {
     products:IProduct[];

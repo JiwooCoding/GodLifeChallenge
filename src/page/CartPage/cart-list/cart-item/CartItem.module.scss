@@ -19,6 +19,14 @@
     margin-left: 55px;
     text-align: start;
 
+    .point_cal{
+        display: flex;
+        span{
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    }
+
     h3 {
         margin: 0;
         margin-bottom: 10px;
