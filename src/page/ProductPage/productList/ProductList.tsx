@@ -4,6 +4,7 @@ import { IProduct } from '../../../type/IProduct';
 import api from '../../../api/api';
 import Pagination from '../../../components/pagination/Pagination';
 import AutoComplete from '../../../components/auto-complete/AutoComplete';
+import products from '../../../data/productsData';
 
 interface ProductListProps {
     selectedCategory: string; // active된 카테고리
@@ -14,42 +15,46 @@ interface ProductListProps {
 }
 
 const ProductList = ({ selectedCategory, currentPage, productsPerPage, handlePageClick, handlePurchaseClick }: ProductListProps) => {
-    const [products, setProducts] = useState<IProduct[]>([]); // 모든 상품
-    const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]); // 필터된 상품
+    // const [products, setProducts] = useState<IProduct[]>([]); // 모든 상품
+    // const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]); // 필터된 상품
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await api.get('/shop');
-                setProducts(response.data);
-                setFilteredProducts(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         try {
+    //             const response = await api.get('/shop');
+    //             setProducts(response.data);
+    //             setFilteredProducts(response.data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
 
-        fetchProducts();
-    }, []);
+    //     fetchProducts();
+    // }, []);
 
-    // 선택한 카테고리에 따른 필터링
     const filteredCategoryProducts = selectedCategory === '전체'
-        ? filteredProducts
-        : filteredProducts.filter(product => product.category === selectedCategory);
+        ? products
+        : products.filter(product => product.category === selectedCategory);
 
-    // 현재 페이지에 해당하는 상품 계산
-    const offset = currentPage * productsPerPage;
-    const currentProducts = filteredCategoryProducts.slice(offset, offset + productsPerPage);
-    const pageCount = Math.ceil(filteredCategoryProducts.length / productsPerPage);
+    // // 선택한 카테고리에 따른 필터링
+    // const filteredCategoryProducts = selectedCategory === '전체'
+    //     ? filteredProducts
+    //     : filteredProducts.filter(product => product.category === selectedCategory);
+
+    // // 현재 페이지에 해당하는 상품 계산
+    // const offset = currentPage * productsPerPage;
+    // const currentProducts = filteredCategoryProducts.slice(offset, offset + productsPerPage);
+    // const pageCount = Math.ceil(filteredCategoryProducts.length / productsPerPage);
 
     return (
         <>
-            <AutoComplete
+            {/* <AutoComplete
                 items={products}
                 setFilteredItems={setFilteredProducts}
                 displayProperty="productName"
-            />
+            /> */}
             <ul className='product-list'>
-                {currentProducts.map(product => (
+                {products.map(product => (
                     <ProductItem
                         key={product.id}
                         product={product}
@@ -58,12 +63,12 @@ const ProductList = ({ selectedCategory, currentPage, productsPerPage, handlePag
                 ))}
             </ul>
 
-            {filteredCategoryProducts.length > productsPerPage && (
+            {/* {filteredCategoryProducts.length > productsPerPage && (
                 <Pagination
                     pageCount={pageCount}
                     handlePageClick={handlePageClick}
                 />
-            )}
+            )} */}
         </>
     );
 }

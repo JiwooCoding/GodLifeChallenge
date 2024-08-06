@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useUser } from '../UserProvider';
 import api from '../api/api';
 import pointSmile from '../image/pointsmile.png'
+import { useAppSelector } from '../hooks/redux';
 
 const Header = () => {
 
@@ -10,6 +11,8 @@ const Header = () => {
 
     const navigate = useNavigate();
     const {user} = useUser();
+
+    const {products} = useAppSelector((state)=> state.cartSlice);
 
     const handlerLogout = async() => {
         try {
@@ -35,6 +38,7 @@ const Header = () => {
                                 <>
                                     <Link to={'/mypage'}><h3 className='navbar_right'>마이페이지</h3></Link>
                                     <h3 className='navbar_right' onClick={handlerLogout}>로그아웃</h3>
+                                    <Link to={'/cart'}><h3 className='navbar_right'>장바구니</h3></Link>
                                 </>
                             ) : (
                                 <>
@@ -43,6 +47,7 @@ const Header = () => {
                                     </Badge> */}
                                     <Link to={'/login'}><h3 className='navbar_right'>로그인</h3></Link>
                                     <Link to={'/register'}><h3 className='navbar_right'>회원가입</h3></Link>
+                                    <Link to={'/cart'}><h3 className='navbar_right'>장바구니 (<span className='font-bold text-red-500'>{products.length}</span>)</h3></Link>
                                 </>
                             )}
                         </div>
