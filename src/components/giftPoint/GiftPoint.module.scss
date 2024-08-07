@@ -105,7 +105,6 @@
 
     .point_input{
         background-color: #eeeaea;
-        margin-bottom: 20px;
         position: relative;
     }
 
@@ -126,7 +125,7 @@
         border-radius: 7px;
 
         &:disabled{
-            background-color: rgba(238, 235, 234, 0.533);
+            background-color: rgba(255, 130, 85, 0.56);
         }
     }
 

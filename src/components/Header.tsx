@@ -38,7 +38,7 @@ const Header = () => {
                                 <>
                                     <Link to={'/mypage'}><h3 className='navbar_right'>마이페이지</h3></Link>
                                     <h3 className='navbar_right' onClick={handlerLogout}>로그아웃</h3>
-                                    <Link to={'/cart'}><h3 className='navbar_right'>장바구니</h3></Link>
+                                    <Link to={'/cart'}><h3 className='navbar_right'>장바구니 (<span className='font-bold text-red-500'>{products.length}</span>)</h3></Link>
                                 </>
                             ) : (
                                 <>

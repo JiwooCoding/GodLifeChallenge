@@ -23,8 +23,8 @@
             color: #000;
             border-radius: 5px;
         }
-        
-        .totalPrice_text{
+
+        .totalPrice_text {
             font-size: 20px;
 
             // &::after{
@@ -40,10 +40,11 @@
             // }
         }
 
-        .totalPrice_amount{
+        .totalPrice_amount {
             font-size: 14px;
             font-weight: 500;
-            b{
+
+            b {
                 color: rgb(255, 130, 85);
                 font-size: 18px;
             }
@@ -72,7 +73,7 @@
 
 .checkout_button {
     padding: 10px 40px;
-    color:rgb(255, 130, 85);
+    color: rgb(255, 130, 85);
     font-weight: 400;
     font-size: 15px;
     background: #fff;

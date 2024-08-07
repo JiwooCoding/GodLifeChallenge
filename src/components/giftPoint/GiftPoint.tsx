@@ -40,12 +40,16 @@ const GiftPoint = () => {
 
     const handleCustomPointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.replace(/,/g, '');
-        const numberValue = Number(value);
-        if(user && numberValue > user.totalPoint){
+        let numberValue = Number(value);
+
+        if (user && numberValue > user.totalPoint) {
             setPointError('포인트가 부족합니다');
-            setDisabled(true);
-            return;
+            numberValue = user.totalPoint;  // 보유 포인트로 설정
+        } else {
+            setPointError('');
+            setDisabled(false);
         }
+
         setCustomPoint(formatNumberWithCommas(numberValue));
         setTotalPoint(numberValue);
         setActiveButton(null);
@@ -129,6 +133,13 @@ const GiftPoint = () => {
             ));
         }
     };
+
+
+    const handleBlur  = () => {
+        if(!emailMessage){
+            setEmailMessage('아이디를 확인해주세요')
+        }
+    }
     
     
 
@@ -143,6 +154,7 @@ const GiftPoint = () => {
                         placeholder='선물 받을 상대방 아이디 입력'
                         value={recipientId}
                         onChange={handleRecipientIdChange}
+                        onBlur={handleBlur}
                     />
                     <button onClick={checkId} className={styles.confirmId}>확인</button>
                 </div>

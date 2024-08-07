@@ -56,8 +56,8 @@ const RCalendar: React.FC = () => {
 
     const BtnClickHandler = async () => {
         if(!user){
-          dispatch(openModal(<NoUserModal/>));
-          return;
+            dispatch(openModal(<NoUserModal/>));
+            return;
         };
 
         if (hasAttendance) {

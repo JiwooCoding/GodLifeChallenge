@@ -52,7 +52,7 @@ const ProductList = ({ selectedCategory, currentPage, productsPerPage, handlePag
                 items={products}
                 setFilteredItems={setFilteredProducts}
                 displayProperty="productName"
-            /> */}
+            />  */}
             <ul className='product-list'>
                 {products.map(product => (
                     <ProductItem

@@ -4,7 +4,6 @@ interface User {
     nickname: string;
     profileImage: string;
     totalPoint:number;
-    id:string;
 }
 
 

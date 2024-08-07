@@ -1,4 +1,3 @@
-import noImage from '../../image/girl2.png'
 import EarnPoints from './point/EarnPoints';
 import { Link } from 'react-router-dom';
 import './Mypage.scss'
@@ -18,8 +17,8 @@ const MyPage = () => {
                 <h1>마이페이지</h1>
                 {/* 기본정보 */}
                 <div className='myInfo'> 
-                    <img src={user?.user?.profileImage} alt='profile-image' style={{width:'160px', borderRadius:'40%'}}/>
-                    <img src={noImage} alt='profile-image' style={{width:'160px', borderRadius:'40%'}}/>
+                    <img src={user?.user?.profileImage} alt='profile-image' style={{width:'160px', borderRadius:'40%', marginTop:'20px'}}/>
+                    {/* <img src={noImage} alt='profile-image' style={{width:'160px', borderRadius:'40%'}}/> */}
                     <Link to={'/modify'}><img src={setting} alt='setting-myinfo' className='setting-info'/></Link>
                     <p className='username'> {user?.user?.nickname}</p>
                 </div>

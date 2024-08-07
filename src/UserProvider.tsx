@@ -1,6 +1,6 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import api from './api/api';
-
+import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
+import { convertToUser, UserProfile } from './page/KakaoRedirectPage/Redirect';
 
 interface UserContextType {
     user: User | null;
@@ -24,8 +24,15 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     throw new Error('access토큰이 없습니다!!');
                 }
 
-                const response = await api.get<User>('/user');
-                setUser(response.data);
+                const response = await axios.get<UserProfile>('https://kapi.kakao.com/v2/user/me', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+
+                const user = convertToUser(response.data);
+                setUser(user);
+
             } catch (error) {
                 console.log('유저 데이터 못가져옴', error);
             }

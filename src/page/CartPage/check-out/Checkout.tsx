@@ -4,6 +4,8 @@ import { useAppdispatch, useAppSelector } from '../../../hooks/redux'
 import { useUser } from '../../../UserProvider';
 import { getTotalPrice, postOrder } from '../../../store/cart/cartSlice';
 import { Link } from 'react-router-dom';
+import { openModal } from '../../../store/modal/modal.slice';
+import CheckoutModal from '../../../components/modal/checkout/CheckoutModal';
 
 const CheckOut = () => {
   
@@ -11,9 +13,15 @@ const CheckOut = () => {
   const cart = useAppSelector((state) => state.cartSlice); // Redux 스토어에서 'cartSlice' 상태 가져옴
   const {user} = useUser();
 
+  const modalOpen = () => {
+    dispatch(openModal(<CheckoutModal sendOrder={sendOrder}/>));
+  }
+
   const sendOrder = () => {
     dispatch(postOrder(cart));
   }
+
+
 
   useEffect(() => {
     dispatch(getTotalPrice());
@@ -33,7 +41,7 @@ const CheckOut = () => {
         ) : (
           <button
           className={styles.checkout_button}
-          onClick={() => sendOrder()}
+          onClick={() => modalOpen()}
           >구매하기</button>
         )}
       </div>

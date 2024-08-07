@@ -17,6 +17,7 @@ import DonationDetail from './page/DonationPage/DetailPage/DonationDetail';
 import Header from './components/Header';
 import Footer from './components/footer/Footer';
 import CartPage from './page/CartPage';
+import Redirect from './page/KakaoRedirectPage/Redirect';
 
 const Layout = () => {
   // Layout 컴포넌트 내에서 useNavigate를 사용하기 위해 라우터의 컨텍스트가 필요합니다.
@@ -50,6 +51,7 @@ const App = () => {
         <Route path='donation' element={<Donation />} />
         <Route path='donation-detail' element={<DonationDetail />} />
         <Route path='cart' element={<CartPage/>}/>
+        <Route path='kakaoauth' element={<Redirect/>}/>
         {/* <Route path='*' element={<NotFoundPage />} /> */}
       </Route>
     </Routes>

@@ -96,6 +96,7 @@ const ProductPage = () => {
           </button>
         ))}
       </div>
+      
 
       {selectedCategory === '포인트 전환' ? (
         <GiftPoint/>

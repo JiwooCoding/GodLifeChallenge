@@ -132,7 +132,7 @@ const MyInfoModify = () => {
                                 <label htmlFor='email'>이메일</label>
                                 <input 
                                     type='email'
-                                    value={user?.email || ''}
+                                    value={user?.email || '정보가 없습니다'}
                                     readOnly
                                     id='email'
                                     className='readonly-input email'

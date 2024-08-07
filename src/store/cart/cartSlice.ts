@@ -7,7 +7,7 @@ export const postOrder = createAsyncThunk(
     "cart/postOrder",
     async(order:cartState, thunkAPI) => {
         try {
-            await api.post('/api/orders' ,order)
+            await api.post('/api/orders' ,order);
             thunkAPI.dispatch(sendOrder());
         } catch (error) {
             return thunkAPI.rejectWithValue('카트 에러!!!')
@@ -17,7 +17,7 @@ export const postOrder = createAsyncThunk(
 
 type cartState = {
     products:IProduct[];
-    totalPrice:number;
+    totalPrice:number; //총 예상금액 (장바구니에 담긴 모든 상품에 총 가격)
     userId:string;
 }
 

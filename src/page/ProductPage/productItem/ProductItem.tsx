@@ -22,8 +22,8 @@ const ProductItem = ({product, handlePurchaseClick}:ProductItemProps) => {
             <img src={product.productImages} alt={product.productName} style={{ width: '80px', height: '100px' }} />
             <p>{product.productName}</p>
             <p>{product.price} P</p>
-            <button onClick={() => addItemToCart()}>장바구니</button>
-            <button className='product_button' onClick={() => handlePurchaseClick(product.price)}>구매하기</button>
+            <button className='product_button' onClick={() => addItemToCart()}>장바구니</button>
+            {/* <button className='product_button' onClick={() => handlePurchaseClick(product.price)}>구매하기</button> */}
         </div>
     </li>
 
