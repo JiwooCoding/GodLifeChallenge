@@ -1,5 +1,5 @@
 .event_back{
-    background-color: rgb(76, 196, 243);
+    background-color: rgb(28, 171, 226);
     height: 200px;
     color: rgb(255, 255, 255);
 
@@ -54,12 +54,12 @@
     margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    gap: 70px; 
-    justify-content: space-between; 
+    gap: 70px; /* Add some space between the items */
+    justify-content: space-between; /* Distribute items evenly */
     
 
     .eventItem{
-        width: calc(50% - 40px);
+        width: calc(50% - 40px); /* Adjust the width to fit 2 items per row, considering the gap */
         margin-bottom: 20px;
         border-radius: 0px 0px 40px;
         box-shadow: rgba(0, 0, 0, 0.08) 12px 7px 20px 0px;

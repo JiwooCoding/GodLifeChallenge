@@ -5,7 +5,7 @@ import { useUser } from '../../UserProvider';
 import api from '../../api/api';
 
 export interface UserProfile {
-    id: number;
+    id: string;
     connected_at: string;
     kakao_account: {
         profile: {
@@ -14,15 +14,6 @@ export interface UserProfile {
             profile_image_url: string;
         };
     };
-}
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    nickname: string;
-    profileImage: string;
-    totalPoint: number;
 }
 
 export const convertToUser = (userProfile: UserProfile): User => {

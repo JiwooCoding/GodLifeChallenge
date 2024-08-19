@@ -5,10 +5,10 @@ import { fetchPointsStatus } from '../../../hooks/fetchPointsStatus';
 
 
 const GetPoint = () => {
-  const [isMouseMoved, setIsMouseMoved] = useState(false);
-  const [timeSpent, setTimeSpent] = useState(10);
-  const [pointsGranted, setPointsGranted] = useState(false);
-  const [isPageVisible, setIsPageVisible] = useState(true);
+  const [isMouseMoved, setIsMouseMoved] = useState(false); //마우스 움직임
+  const [timeSpent, setTimeSpent] = useState(10); //카운팅 시간 설정
+  const [pointsGranted, setPointsGranted] = useState(false); //참여여부(포인트 적립여부)
+  const [isPageVisible, setIsPageVisible] = useState(true); //페이지 가시성
   const eventId = "e18a7572-bac0-4cb7-af12-dd969f9050ab";
 
   // 참여 여부 확인
@@ -20,7 +20,7 @@ const GetPoint = () => {
     };
 
     checkPointStatus();
-  }, []);
+  }, []); 
 
   
 
@@ -77,7 +77,7 @@ const GetPoint = () => {
           }
         });
       } catch (error) {
-        console.error('Error updating points on server:', error);
+        console.error('기부 페이지 포인트 이벤트 오류', error);
       }
     }
   };

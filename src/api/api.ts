@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL:'http://localhost:3001',
+    //프록시 하면서 baseURL없이 전달합니다. (/api/*로 시작하게 설정해야해요)
+    baseURL:'',
     withCredentials:true, //쿠키 포함 요청
 });
 
@@ -39,7 +40,7 @@ api.interceptors.response.use(
             originalRequest._retry = true; //요청이 재시도 되지 않았다 
             //새로운 토큰 발급 중 
             try {
-                const response = await axios.post('http://localhost:3001/api/refresh-token', {}, { withCredentials: true });
+                const response = await axios.post('/api/refresh-token', {}, { withCredentials: true });
                 const newAccessToken = response.data.accessToken;
                 localStorage.setItem('accessToken', newAccessToken);
 

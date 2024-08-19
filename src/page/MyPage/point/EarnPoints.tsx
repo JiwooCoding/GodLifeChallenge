@@ -5,9 +5,9 @@ import { formatDate } from '../../../utils/formatData';
 
 interface PointHistory {
   type: string;
-  amount: number;
+  points: number;
   description: string;
-  date: string;
+  createdAt: string;
 }
 
 const EarnPoints = () => {
@@ -21,7 +21,7 @@ const EarnPoints = () => {
 
   const getPointHistory = async () => {
     try {
-      const response = await api.get<PointHistory[]>('/api/point-history');
+      const response = await api.get<PointHistory[]>('/api/user/record');
       setPointHistories(response.data);
       setLoading(false);
     } catch (error) {
@@ -53,10 +53,10 @@ const EarnPoints = () => {
           {pointHistories.length > 0 ? (
             pointHistories.map((history, index) => (
               <tr key={index}>
-                <td>{history.type === 'earn' ? '적립' : '사용'}</td>
-                <td>{history.amount}</td>
+                <td>{history.type}</td>
+                <td>{history.points}</td>
                 <td>{history.description}</td>
-                <td>{formatDate(history.date)}</td>
+                <td>{formatDate(history.createdAt)}</td>
               </tr>
             ))
           ) : (

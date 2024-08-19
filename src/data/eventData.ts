@@ -1,6 +1,7 @@
 import attendance from '../image/event/attendance-cover.png'
 import roulette from '../image/event/roulette-cover.png'
 import page from '../image/event/pageevent.png'
+import attendance8 from '../image/event/출석체크 이벤트 (3).png'
 
 const date = new Date();
 const month = date.getMonth() + 1;
@@ -17,7 +18,7 @@ const eventData = [
     },
     {
         id:2, 
-        imageUrl: attendance,
+        imageUrl: attendance8,
         title:`${month}월 출석체크 이벤트`,
         description: '출석체크하고 최대 5000포인트 받아세요❣️',
         startDate: new Date('2024-08-01'),

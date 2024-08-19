@@ -29,7 +29,7 @@ const GiftPoint = () => {
     const handleGiftPointChange = (points: number) => {
         const newTotal = totalPoint + points;
         if(user && newTotal > user.totalPoint){
-            setPointError('포인트가 부족합니다');
+            // setPointError('포인트가 부족합니다');
             setDisabled(true);
             return;
         }
@@ -43,7 +43,7 @@ const GiftPoint = () => {
         let numberValue = Number(value);
 
         if (user && numberValue > user.totalPoint) {
-            setPointError('포인트가 부족합니다');
+            // setPointError('포인트가 부족합니다');
             numberValue = user.totalPoint;  // 보유 포인트로 설정
         } else {
             setPointError('');
@@ -67,17 +67,17 @@ const GiftPoint = () => {
             return;
         }
 
-        if (!user || user.totalPoint < totalPoint) {
-            setPointError('포인트가 부족합니다');
-            return;
-        }
+        // if (!user || user.totalPoint < totalPoint) {
+        //     setPointError('포인트가 부족합니다');
+        //     return;
+        // }
 
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const response = await api.post('/points/gift', {
+            const response = await api.post('/api/points/gift', {
                 recipientId,
                 points: totalPoint,
-                senderId: user.email
+                senderId: user!.email
             }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
@@ -106,7 +106,7 @@ const GiftPoint = () => {
 
     const checkId = async () => {
         try {
-            const response = await api.post('/points/check-email', { recipientId });
+            const response = await api.post('/api/points/check-email', { recipientId });
             if (response.data.email) {
                 if (recipientId === user?.email) {
                     setEmailMessage('자신에게는 선물하기가 불가능합니다');

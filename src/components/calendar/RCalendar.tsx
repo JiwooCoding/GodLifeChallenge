@@ -1,5 +1,4 @@
-// RCalendar.tsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './RCalendar.scss';
@@ -11,14 +10,14 @@ import { useAppdispatch } from '../../hooks/redux';
 import { openModal } from '../../store/modal/modal.slice';
 import NoUserModal from '../modal/no-user/NoUserModal';
 
+const RCalendar = () => {
 
-const RCalendar: React.FC = () => {
     const [date, setDate] = useState<Date>(new Date());
-    const [checkIns, setCheckIns] = useState<string[]>([]);
-    const [attendance, setAttendance] = useState(0);
-    const [hasAttendance, setHasAttendance] = useState(false);
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const [point, setPoint] = useState<number>(0);
+    const [checkIns, setCheckIns] = useState<string[]>([]); //출석체크 한 날짜들
+    const [attendanceCount, setAttendance] = useState(0); //누적출석 횟수
+    const [hasAttendance, setHasAttendance] = useState(false); //출석 여부
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false); //버튼 비활
+    const [totalPoints, setTotalPoints] = useState<number>(0); //누적포인트 
 
     const { user } = useUser();
     const dispatch = useAppdispatch();
@@ -30,14 +29,16 @@ const RCalendar: React.FC = () => {
     const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
 
     const todayString = new Date().toDateString();
+    
+    const eventId = "cea04e38-5393-4c3c-b78c-c660b1becb1f";
 
     useEffect(() => {
         const fetchAttendanceData = async () => {
             try {
-                const response = await api.get('/api/points/attendancePoints');
-                setPoint(response.data.point || 0);
-                setAttendance(response.data.attendance || 0);
-                setHasAttendance(response.data.hasAttendance);
+                const response = await api.get(`/api/event/monthlyCount/${eventId}`);
+                setTotalPoints(response.data.totalPoints || 0); // 서버에서 가져온 출석 누적 포인트
+                setAttendance(response.data.attendanceCount || 0); // 서버에서 가져온 출석 횟수
+                setHasAttendance(response.data.hasAttendance); // 서버에서 가져온 출첵 여부
 
                 if (response.data.hasAttendance === true) {
                     setIsButtonDisabled(true);
@@ -66,36 +67,35 @@ const RCalendar: React.FC = () => {
             return;
         }
 
-        const newAttendance = attendance + 1;
+        const newAttendance = attendanceCount + 1;
         setAttendance(newAttendance);
         setHasAttendance(true);
         setIsButtonDisabled(true);
 
         const earnedPoints = newAttendance % 10 === 0 ? 200 : 100;
-        const updatePoints = point + earnedPoints;
-        setPoint(updatePoints);
+        const updatePoints = totalPoints + earnedPoints;
+        setTotalPoints(updatePoints);
 
         const todayDateString = new Date().toDateString();
         const updatedCheckIns = [...checkIns, todayDateString];
         setCheckIns(updatedCheckIns);
 
         try {
-            await api.post('/api/attendance', {
-                earnedPoints,
-                attendance: newAttendance,
-                hasattendance: hasAttendance
+            await api.post(`/api/event/participate/${eventId}`,{
+                attendanceCount,
+                hasAttendance,
+                totalPoints
             });
-
         } catch (error) {
-            console.log(error);
+        console.log(error);
         }
     };
 
     return (
         <div>
             <div className='attendance_info'>
-                <span>출석 <b>{attendance}</b>일차</span>
-                <span>누적 포인트 <b>{point}</b></span>
+                <span>출석 <b>{attendanceCount}</b>일차</span>
+                <span>누적 포인트 <b>{totalPoints}</b></span>
             </div>
             <Calendar
                 value={date}
@@ -115,7 +115,7 @@ const RCalendar: React.FC = () => {
                     }
                     return null;
                 }}
-                tileDisabled={({ _, view }) => {
+                tileDisabled={({ _ , view }) => {
                     if (view === 'month') {
                         return false;
                     }

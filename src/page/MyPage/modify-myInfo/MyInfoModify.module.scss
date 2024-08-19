@@ -1,19 +1,19 @@
-.modify-myinfo {
+.modify_myinfo {
 
     h1 {
         font-size: 20px;
         font-weight: bold;
     }
 
-    .modify-profile {
+    .modify_profile {
         margin: 40px auto;
         
-        .profile-change-input {
+        .profile_change_input {
             display: none;
         }
     }
 
-    .modify-input {
+    .modify_input {
         display: flex;
         flex-direction: column;
         
@@ -35,24 +35,24 @@
                 box-sizing: border-box;
             }
 
-            .readonly-input {
+            .readonly_input {
                 background-color: #f0f0f0;
                 margin-bottom: 20px;
             }
 
-            .name-email-input {
+            .name_email_input {
                 margin-bottom: 20px;
             }
 
-            .nickname-input {
+            .nickname_input {
                 margin-bottom: 10px;
             }
 
-            .nickname-wrapper {
+            .nickname_wrapper {
                 display: flex;
                 align-items: center;
 
-                input.modify-nickname {
+                input.modify_nickname {
                     flex: 1;
                     padding: 10px;
                     outline: none;
@@ -62,7 +62,7 @@
                     box-sizing: border-box;
                 }
 
-                button.nickname-button {
+                button.nickname_button {
                     font-size: 13px;
                     background-color: rgb(255, 130, 85);
                     padding: 10px 7px;
@@ -72,7 +72,7 @@
                 }
             }
 
-            .nickname-message {
+            .nickname_message {
                 margin: 5px auto auto 10px;
                 color: red; /* 원하는 스타일로 변경하세요 */
             }
@@ -83,30 +83,49 @@
         margin-top: 60px;
         display: flex;
         font-size: 14px;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
 
-        .profile-save-button {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 5px 20px;
-            border-radius: 5px;
-            margin-right: 10px;
-            transition: all 0.3s ease;
-
-            &:hover {
-                background-color: #4caf5091;
+        .delete_account{
+            .account_delete_button{
+                border: 1px solid #333;
+                color: #333;
+                padding: 5px 20px;
+                border-radius: 5px;
+                margin-right: 10px;
+                transition: all 0.3s ease;
+    
+                &:hover {
+                    background-color: #333;
+                    color: #fff;
+                }
             }
         }
-    
-        .profile-cancle-button {
-            border: 1px solid rgba(233, 233, 233, 0.9137254902);
-            color: #000;
-            padding: 5px 20px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
 
-            &:hover {
-                background-color: rgb(233 233 233 / 44%);
+        .modify_account{
+            .profile_save_button {
+                background-color: #4CAF50;
+                color: #fff;
+                padding: 5px 20px;
+                border-radius: 5px;
+                margin-right: 10px;
+                transition: all 0.3s ease;
+    
+                &:hover {
+                    background-color: #4caf5091;
+                }
+            }
+        
+            .profile_cancle_button {
+                border: 1px solid rgba(233, 233, 233, 0.9137254902);
+                color: #000;
+                padding: 5px 20px;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+    
+                &:hover {
+                    background-color: rgb(233 233 233 / 44%);
+                }
             }
         }
     }

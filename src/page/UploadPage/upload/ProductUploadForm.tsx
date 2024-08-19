@@ -33,7 +33,7 @@ const ProductUploadForm: React.FC = () => {
         formData.append('stock', data.stock.toString());
 
         try {
-            const response = await api.post('/admin/shop/product/register', formData, {
+            const response = await api.post('/api/admin/shop/product/register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

@@ -1,10 +1,9 @@
-import React from 'react'
-import RCalendar from '../../components/calendar/RCalendar'
+import bg from '../../image/포인트 적립, 만들기 노하우 (4).png'
 
 const index = () => {
   return (
     <div>
-      안냐ㅕㅇ
+      {/* <img src={bg}/> */}
     </div>
   )
 }

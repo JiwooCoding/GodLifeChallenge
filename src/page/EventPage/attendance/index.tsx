@@ -1,4 +1,4 @@
-import styles from './attendance-content/AttendanceContent.module.scss'
+import styles from './AttendanceContent.module.scss'
 import background from '../../../image/event/attendance-cover/출석체크 이벤트 (6).png'
 import RCalendar from '../../../components/calendar/RCalendar'
 
@@ -19,9 +19,6 @@ const Attendance = () => {
                 <div className={styles.inner_calendar}>
                     <div className={styles.inner_text}>
                         <h1>{month}월</h1>
-                        <div className={styles.inner_text_check}>
-                            
-                        </div>
                     </div>
                     <RCalendar/>
                 </div>  

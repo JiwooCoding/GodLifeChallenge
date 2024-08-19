@@ -5,10 +5,10 @@ import { IProduct } from '../../../type/IProduct';
 
 type ProductItemProps = {
     product: IProduct;
-    handlePurchaseClick: (productPoints:number) => void;
+    //handlePurchaseClick: (productPoints:number) => void;
 }
 
-const ProductItem = ({product, handlePurchaseClick}:ProductItemProps) => {
+const ProductItem = ({product}:ProductItemProps) => {
     
     const dispatch = useAppdispatch();
 

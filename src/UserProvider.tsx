@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
+import api from './api/api';
 import axios from 'axios';
 import { convertToUser, UserProfile } from './page/KakaoRedirectPage/Redirect';
 
@@ -24,21 +25,41 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     throw new Error('access토큰이 없습니다!!');
                 }
 
-                const response = await axios.get<UserProfile>('https://kapi.kakao.com/v2/user/me', {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
+                const kakaoApiUrl = 'https://kapi.kakao.com/v2/user/me';
+                const headers = {
+                    Authorization: `Bearer ${accessToken}`
+                };
+
+                try {
+                    const response = await axios.get<UserProfile>(kakaoApiUrl, { headers });
+                    const user = convertToUser(response.data);
+                    setUser(user);
+                } catch (kakaoError) {
+                    // 카카오 API가 실패하면 이메일 토큰으로 간주하고 서버에서 사용자 정보를 가져옴
+                    try {
+                        const response = await api.get<User>('/user', { headers });
+                        setUser(response.data);
+                    } catch (emailError) {
+                        console.log('유저 데이터 못가져옴', emailError);
                     }
-                });
-
-                const user = convertToUser(response.data);
-                setUser(user);
-
+                }
             } catch (error) {
                 console.log('유저 데이터 못가져옴', error);
             }
         };
 
+        const handleBeforeUnload = () => {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
         fetchUser();
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
     return (

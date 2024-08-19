@@ -8,7 +8,7 @@
         outline: none;
         padding: 10px;
         border-radius: 7px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
 
         &.active{
             border: 1px solid rgb(255, 130, 85);
@@ -32,10 +32,11 @@
         }
     }
 
-    .password-error-msg,
-    .email-error-msg,
-    .login-error-msg{
+    .password_error_msg,
+    .email_error_msg,
+    .login_error_msg{
         font-size: 13px;
         color: red;
+        margin-bottom: 7px;
     }
 }

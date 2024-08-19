@@ -3,7 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import ProfileImage from '../profile-image/ProfileImage';
 import noProfile from '../../../image/girl2.png';
 import Modal from '../modal/Modal';
-import './MyInfoModify.scss';
+import styles from './MyInfoModify.module.scss';
 import { useUser } from '../../../UserProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../../api/api';
@@ -15,23 +15,68 @@ interface ProfileImageUploadData {
 
 const MyInfoModify = () => {
     const { user, setUser } = useUser(); 
-    const methods = useForm<ProfileImageUploadData>();
+    const methods = useForm<ProfileImageUploadData>({
+        defaultValues: {
+            nickname: user?.nickname || ''
+        }
+    });
+
     const [updateProfileMessage, setUpdateProfileMessage] = useState('');
-    const [modalOpen, setModalOpen] = useState(false);
-    const [nicknameChecked, setNicknameChecked] = useState(false);
     const [nicknameMessage, setNicknameMessage] = useState('');
-    const [nicknameExist, setNicknameExist] = useState(false);
-    const [nickname, setNickname] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+
     const navigate = useNavigate();
 
-    const onSubmit: SubmitHandler<ProfileImageUploadData> = async (data) => {
-        try {
-            
-            if(!nicknameChecked){
-                setNicknameMessage('닉네임 중복확인을 해주세요');
-                return;
-            }
+    //닉네임 체크
+    const checkNickname = async () => {
+        const nickname = methods.getValues('nickname');
+        methods.clearErrors('nickname');
 
+        try {
+            const response = await api.post('/api/check-nickname', { nickname });
+            if (response.data.nickname) {
+                methods.setError('nickname',{
+                    type:'manual',
+                    message:'이미 존재하는 닉네임입니다'
+                });
+                setNicknameMessage('이미 존재하는 메시지입니다');
+            } else {
+                setNicknameMessage('사용 가능한 닉네임입니다');
+            }
+        } catch (error) {
+            console.log('닉네임 중복 오류',error);
+        }
+    };
+
+    const handleModalClose = () => {
+        setModalOpen(false);
+    };
+
+    //탈퇴하기
+    const handleDeleteAccount = async() => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            await api.delete('/api/deleteToken', {
+                headers:{
+                    Authorization:`Bearer ${accessToken}`
+                }
+            });
+            localStorage.removeItem('accessToken');
+            setUser(null);
+            navigate('/')
+        } catch (error) {
+            console.log('유저 탈퇴 실패',error)
+        }
+    }
+
+    //폼 제출
+    const onSubmit: SubmitHandler<ProfileImageUploadData> = async (data) => {
+        
+        if(methods.formState.errors.nickname){
+            return;
+        }
+        
+        try {
             const accessToken = localStorage.getItem('accessToken');
             const formData = new FormData();
             if (data.profileImage && data.profileImage.length > 0) {
@@ -60,112 +105,81 @@ const MyInfoModify = () => {
         }
     };
 
-    const checkNickname = async () => {
-        setNicknameChecked(false);
-        try {
-            const response = await api.post('/api/check-nickname', { nickname });
-            if (response.data.nickname) {
-                setNicknameExist(true);
-                setNicknameMessage('이미 존재하는 닉네임입니다');
-                
-            } else {
-                setNicknameExist(false);
-                setNicknameMessage('사용 가능한 닉네임입니다');
-            }
-            setNicknameChecked(true);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleModalClose = () => {
-        setModalOpen(false);
-    };
-
-    //탈퇴하기
-    const handleDeleteAccount = async() => {
-        try {
-            const accessToken = localStorage.getItem('accessToken');
-            await api.delete('/api/deleteToken', {
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
-            });
-            localStorage.removeItem('accessToken');
-            setUser(null);
-            navigate('/')
-        } catch (error) {
-            console.log('유저 탈퇴 실패',error)
-        }
-    }
-
 
     return (
         <div className='page'>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <div className='modify-myinfo'>
+                    <div className={styles.modify_myinfo}>
                         <h1>내 정보 수정</h1>
                         {/* 프로필 사진 변경 */}
-                        <div className='modify-profile'>
+                        <div className={styles.modify_profile}>
                             <ProfileImage initialProfileImage={user?.profileImage || noProfile} />
                             <input 
                                 type="file" 
                                 {...methods.register('profileImage')}
-                                className='profile-change-input'
+                                className={styles.profile_change_input}
                             />
                         </div>
 
                         {/* 이름, 이메일, 닉네임 */}
-                        <div className='modify-input'>
-                            <div className='inputbox name-email-input'>
+                        <div className={styles.modify_input}>
+                            <div className={`${styles.inputbox} ${styles.name_email_input}`}>
                                 <label htmlFor='username'>이름</label>
                                 <input 
                                     type='text'
                                     value={user?.name || ''}
                                     readOnly
                                     id='username'
-                                    className='readonly-input username'
+                                    className={styles.readonly_input}
                                 />
                             </div>
-                            <div className='inputbox name-email-input'>
+                            <div className={`${styles.inputbox} ${styles.name_email_input}`}>
                                 <label htmlFor='email'>이메일</label>
                                 <input 
                                     type='email'
                                     value={user?.email || '정보가 없습니다'}
                                     readOnly
                                     id='email'
-                                    className='readonly-input email'
+                                    className={styles.readonly_input}
                                 />
                             </div>
-                            <div className='inputbox nickname-input'>
+                            <div className={`${styles.inputbox} ${styles.nickname_input}`}>
                                 <label htmlFor="nickname">닉네임</label>
-                                <div className='nickname-wrapper'>
+                                <div className={styles.nickname_wrapper}>
                                     <input 
                                         id="nickname" 
-                                        className='modify-nickname'
+                                        className={styles.modify_nickname}
                                         defaultValue={user?.nickname} 
-                                        {...methods.register('nickname')}
-                                        onChange={(e) => setNickname(e.target.value)}
+                                        {...methods.register('nickname',{
+                                            required:'닉네임을 입력하세요',
+                                            onChange: (e) => {
+                                                methods.setValue('nickname', e.target.value);
+                                            }
+                                        })}
                                     />
                                     <button 
-                                        className='nickname-button'
+                                        className={styles.nickname_button}
                                         onClick={checkNickname}
+                                        type='button'
                                     >
                                         중복확인
                                     </button>
                                 </div>
-                                {nicknameMessage && <p className='nickname-message'>{nicknameMessage}</p>}
-                            </div>
-                            <div>
-                                <button onClick={handleDeleteAccount}>탈퇴하기</button>
+                                {nicknameMessage && <p className={styles.nickname_message}>{nicknameMessage}</p>}
+                                {methods.formState.errors.nickname && <p className={styles.nickname_message}>{methods.formState.errors.nickname.message}</p>}
                             </div>
                         </div>
-                        <div className='saveAndcancleButton'>
-                            <button type='submit' className='profile-save-button'>
-                                저장
-                            </button>
-                            <Link to={'/mypage'}><button className='profile-cancle-button'>취소</button></Link>
+                        <div className={styles.saveAndcancleButton}>
+                            <div className={styles.delete_account}>
+                                <button type='button' className={styles.account_delete_button} onClick={handleDeleteAccount}>탈퇴하기</button>
+                            </div>
+                            <div className={styles.modify_account}>
+                                <button type='submit' className={styles.profile_save_button}>저장</button>
+                                <Link to={'/mypage'}>
+                                    <button type='button' className={styles.profile_cancle_button}>취소</button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -19,6 +19,8 @@ const RouletteContent = () => {
   const {user} = useUser();
   const dispatch = useAppdispatch();
 
+
+  const eventId = "f924a3b4-3c1b-4468-b735-5260b858789b";
   useEffect(() => {
     fetchPointData(); // 초기 로드 시 스핀 카운트 서버에서 받아옴
   }, []);
@@ -26,11 +28,11 @@ const RouletteContent = () => {
   const fetchPointData = async () => {
     try {
       // 서버에서 스핀 카운트 가져오기
-      const response = await api.get('/api/roulette/spinCount');
-      setSpinCount(response.data.spinCount);
+      const response = await api.get(`/api/event/roulette/count/${eventId}`);
+      setSpinCount(response.data);
       
       // 스핀 카운트가 0이면 버튼 비활성화
-      if (response.data.spinCount === 0) {
+      if (response.data === 0) {
         setIsButtonDisabled(true); 
       }
     } catch (error) {
@@ -45,13 +47,13 @@ const RouletteContent = () => {
       return;
     };
     
-    // spin이 false이고 남은 스핀 카운트가 있을 때만 실행
+    // spinStop false이고 남은 스핀 카운트가 있을 때만 실행
     if (!spin && spinCount > 0) { 
       const pivot = Math.floor((Math.random() * 99) + 1);
       let stack = 0;
 
       let percentage = rouletteData.map((row) => {
-        return row.percentage; // [10,20,50,15,5]
+        return row.percentage; 
       });
 
       let newPrizeNumber: number | null = null;
@@ -86,9 +88,8 @@ const RouletteContent = () => {
 
       // 서버로 룰렛 데이터 보내기
       try {
-        const response = await api.post('/api/roulette/updatePoint', {
-          earnedPoints: selectedOption.points,
-          rewardType: selectedOption.option
+        const response = await api.post(`/api/event/roulette/updatePoint/${eventId}`, {
+          earnedPoints: selectedOption.points
         });
         console.log(response.data); 
 
@@ -100,30 +101,20 @@ const RouletteContent = () => {
         if (updatedSpinCount === 0) {
           setIsButtonDisabled(true);
         }
-
-        // 업데이트된 스핀 횟수 서버로 보내기
-        await api.post('/api/roulette/updateSpinCount', {
-          spinCount: updatedSpinCount
-        });
       } catch (error) {
-        console.log(error); 
+        console.error("Update Points Error:", error); // 에러 로그
       }
     }
   };
 
   return (
     <>
-      {/* {isModalOpen && (
-          <Modal>
-              {modalContent}
-          </Modal>
-        )} */}
     <div className=''>
       <div className={styles.wheel_container}>
         <Wheel
           spinDuration={0.2} // spin 속도
           startingOptionIndex={Math.floor(Math.random() * rouletteData.length)}
-          mustStartSpinning={spin}
+          mustStartSpinning={spin} //true일 경우 스핀 시작
           prizeNumber={prizeNumber ?? 0}
           data={rouletteData}
           onStopSpinning={stopSpinning}

@@ -4,8 +4,8 @@ interface User {
     nickname: string;
     profileImage: string;
     totalPoint:number;
+    id:string;
 }
-
 
 interface ProfileImageUploadData {
     profileImage: FileList;
@@ -18,4 +18,9 @@ interface RegisterFormData {
     password: string;
     passwordConfirm: string;
     profileImage?: FileList; 
+}
+
+interface LoginFormData {
+    email:string;
+    password:string;
 }

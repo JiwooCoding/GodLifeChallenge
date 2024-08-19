@@ -24,8 +24,12 @@ type cartState = {
 const initialState:cartState = {
     products:localStorage.getItem('cartProducts') ? JSON.parse(localStorage.getItem('cartProducts') || "") : [],
     totalPrice:0,
-    userId:localStorage.getItem('user_id') ? JSON.parse(localStorage.getItem('user_id') || "") : ""
+    userId:localStorage.getItem('userId') ? JSON.parse(localStorage.getItem('userId') || "") : ""
 }
+
+const updateLocalStorageCart = (userId: string, products: IProduct[]) => {
+    localStorage.setItem(`cart_${userId}`, JSON.stringify(products));
+};
 
 export const cartSlice = createSlice({
     name:'cart',
@@ -33,19 +37,37 @@ export const cartSlice = createSlice({
     reducers:{
         setUserId:(state, action) => {
             state.userId = action.payload;
-            localStorage.setItem('userId', JSON.stringify(state.userId));
+            const savedCart = localStorage.getItem(`cart_${state.userId}`);
+            if(savedCart){
+                state.products = JSON.parse(savedCart);
+            }
         },
-        removeUserId:(state, action) => {
+        removeUserId:(state) => {
+            localStorage.removeItem(`cart_${state.userId}`);
             state.userId = "";
-            localStorage.setItem('userId', JSON.stringify(state.userId));
+            state.products = [];
+            // localStorage.setItem('userId', JSON.stringify(state.userId));
         },
         addToCart:(state, action) => {
-            state.products.push({
-                ...action.payload,
-                quantity:1,
-                total: action.payload.price
-            })
-            localStorage.setItem('cartProducts', JSON.stringify(state.products));
+            const existingProduct = state.products.find(item => item.id === action.payload.id);
+
+            if(existingProduct){
+                if(existingProduct.quantity < 10){
+                    existingProduct.quantity += 1;
+                    existingProduct.total += action.payload.price;
+                }else{
+                    alert('해당 상품은 최대 10개까지만 구매할 수 있습니다!')
+                }
+            }else{
+                state.products.push({
+                    ...action.payload,
+                    quantity:1,
+                    total:action.payload.price
+                })
+            }
+            if (state.userId) {
+                updateLocalStorageCart(state.userId, state.products);
+            }
         },
         deleteFromCart:(state, action) => {
             state.products = state.products.filter((item) => item.id !== action.payload)
@@ -83,8 +105,10 @@ export const cartSlice = createSlice({
         sendOrder:(state) => {
             //빈 객체인 이유?
             //주문하기 버튼 눌러서 주문을 보냈으면 카트에 있는 products들은 비워주어야 하기 때문이다.
-            state.products = [],
-            localStorage.setItem("cartProducts", JSON.stringify(state.products))
+            state.products = [];
+            if(state.userId){
+                updateLocalStorageCart(state.userId, state.products);
+            }
         }
     }
 })

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import eventData from '../../data/eventData';
 import { Link } from 'react-router-dom';
 import styles from './EventPage.module.scss';
-import WeatherApi from '../../components/weather/WeatherApi';
 import AutoComplete from '../../components/auto-complete/AutoComplete';
 import { IEventData } from '../../type/eventData';
 
