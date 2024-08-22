@@ -9,7 +9,7 @@ import rainyIcon from '../../image/rainy.png';
 import sunnyIcon from '../../image/sunny.png';
 import { CityName, WeatherData } from '../../type/Weather';
 import api from '../../api/api';
-import { useUser } from '../../UserProvider';
+import { useUser } from '../../contexts/UserProvider';
 import { useNavigate } from 'react-router-dom';
 
 const API_KEY = import.meta.env.VITE_API_KEY;

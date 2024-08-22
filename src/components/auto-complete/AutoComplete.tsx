@@ -29,7 +29,7 @@ const AutoComplete = <T extends {}>({ items, setFilteredItems, displayProperty }
     };
 
     return (
-        <div className='relative z-50'>
+        <div className='relative mb-[61px]'>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <input
                     type='text'

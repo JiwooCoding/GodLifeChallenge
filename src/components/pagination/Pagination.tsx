@@ -11,7 +11,6 @@ interface PaginationProps{
 const Pagination = ({pageCount,handlePageClick}:PaginationProps) => {
     return (
             <ReactPaginate 
-                // className={styles.pagination}
                 previousLabel={<SlArrowLeft/>}
                 nextLabel={<SlArrowRight/>}
                 breakLabel={'...'}

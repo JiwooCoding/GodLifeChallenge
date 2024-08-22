@@ -4,7 +4,7 @@ import rouletteData from '../../../../data/rouletteData';
 import arrow from '../../../../image/event/arrow.png'
 import api from '../../../../api/api';
 import styles from './RouletteContent.module.scss'
-import { useUser } from '../../../../UserProvider';
+import { useUser } from '../../../../contexts/UserProvider';
 import { useAppdispatch } from '../../../../hooks/redux';
 import { openModal } from '../../../../store/modal/modal.slice';
 import NoUserModal from '../../../../components/modal/no-user/NoUserModal';
@@ -16,7 +16,7 @@ const RouletteContent = () => {
   const [prizeNumber, setPrizeNumber] = useState<number | null>(null); // 당첨 인덱스
   const [isButtonDisabled, setIsButtonDisabled] = useState(false); // 룰렛 버튼 활성화/비활성화
 
-  const {user} = useUser();
+  const {user, setUser} = useUser();
   const dispatch = useAppdispatch();
 
 
@@ -88,11 +88,19 @@ const RouletteContent = () => {
 
       // 서버로 룰렛 데이터 보내기
       try {
-        const response = await api.post(`/api/event/roulette/updatePoint/${eventId}`, {
+        await api.post(`/api/event/roulette/updatePoint/${eventId}`, {
           earnedPoints: selectedOption.points
         });
-        console.log(response.data); 
 
+        setUser((prevUser) => {
+          if (!prevUser) return prevUser;
+
+          return {
+              ...prevUser,
+              totalPoint: prevUser.totalPoint + selectedOption.points,
+          };
+      });
+        
         // 스핀 횟수 업데이트
         const updatedSpinCount = spinCount - 1;
         setSpinCount(updatedSpinCount);

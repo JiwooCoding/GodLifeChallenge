@@ -1,11 +1,13 @@
 import { useAppdispatch } from '../../../hooks/redux';
 import { addToCart } from '../../../store/cart/cartSlice';
 import { IProduct } from '../../../type/IProduct';
+import { formatNumberWithCommas } from '../../../utils/fomatNumberWithCommas';
+import styles from './ProductItem.module.scss'
+import cart from '../../../image/cart/free-icon-shopping-bag-2956820.png'
 
 
 type ProductItemProps = {
     product: IProduct;
-    //handlePurchaseClick: (productPoints:number) => void;
 }
 
 const ProductItem = ({product}:ProductItemProps) => {
@@ -17,13 +19,15 @@ const ProductItem = ({product}:ProductItemProps) => {
     }
 
     return (
-    <li key={product.id} className='product-item'>
-        <div className='flex flex-col items-center'>
-            <img src={product.productImages} alt={product.productName} style={{ width: '80px', height: '100px' }} />
-            <p>{product.productName}</p>
-            <p>{product.price} P</p>
-            <button className='product_button' onClick={() => addItemToCart()}>장바구니</button>
-            {/* <button className='product_button' onClick={() => handlePurchaseClick(product.price)}>구매하기</button> */}
+    <li key={product.id} className={styles.product_items}>
+        <div className={styles.product_item}>
+            <img src={product.productImages} alt={product.productName} style={{marginBottom:"10px"}}/>
+            <p className={styles.productCompany}>{product.productCompany}</p>
+            <p className={styles.productName}>{product.productName}</p>
+            <div className={styles.priceNcart}>
+                <p className={styles.productPrice}>{formatNumberWithCommas(product.price)} P</p>
+                <img src={cart} style={{width:'33px', cursor:'pointer'}} onClick={() => addItemToCart()}/>
+            </div>
         </div>
     </li>
 

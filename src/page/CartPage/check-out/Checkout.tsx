@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import styles from './Checkout.module.scss'
 import { useAppdispatch, useAppSelector } from '../../../hooks/redux'
-import { useUser } from '../../../UserProvider';
+import { useUser } from '../../../contexts/UserProvider';
 import { getTotalPrice, postOrder } from '../../../store/cart/cartSlice';
 import { Link } from 'react-router-dom';
 import { openModal } from '../../../store/modal/modal.slice';

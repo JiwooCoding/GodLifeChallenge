@@ -5,11 +5,12 @@ import event from '../../image/mypage/event.png'
 import money from '../../image/mypage/6.png'
 import service from '../../image/mypage/service.png'
 import setting from '../../image/mypage/8.png'
-import { useUser } from '../../UserProvider';
+import { useUser } from '../../contexts/UserProvider';
+import { formatNumberWithCommas } from '../../utils/fomatNumberWithCommas';
 
 const MyPage = () => {
 
-    const user = useUser();
+    const {user} = useUser();
 
     return (
         <div className='page'>
@@ -17,9 +18,9 @@ const MyPage = () => {
                 <h1>마이페이지</h1>
                 {/* 기본정보 */}
                 <div className='myInfo'> 
-                    <img src={user?.user?.profileImage} alt='profile-image' style={{width:'160px', borderRadius:'40%', marginTop:'20px'}}/>
+                    <img src={user?.profileImage} alt='profile-image' style={{width:'160px', height:'160px', borderRadius:'40%', marginTop:'20px'}}/>
                     <Link to={'/modify'}><img src={setting} alt='setting-myinfo' className='setting-info'/></Link>
-                    <p className='username'> {user?.user?.nickname}</p>
+                    <p className='username'> {user?.name}</p>
                 </div>
 
                 {/* 인포 박스 */}
@@ -33,7 +34,8 @@ const MyPage = () => {
                     <div className="jb-division-line"></div>
                     <div className='info-box__content'>
                     <img src={money} alt='event-icon' style={{width:'45px'}}/>
-                        <p>{user?.user?.totalPoint === 0 ? '0' : user?.user?.totalPoint} P</p>
+                        {/* user의 totalPoint가 undefined일 경우 0으로 대체한다는 의미 */}
+                        <p>{formatNumberWithCommas(user?.totalPoint ?? 0)} P</p>
                     </div>
                     <div className="jb-division-line"></div>
                     <div className='info-box__content'>

@@ -13,7 +13,7 @@ import result3 from '../../../image/donation/result_image3.png'
 import donation from '../../../image/donation/donation1.png'
 import { useEffect, useState } from 'react'
 import Modal from './modal/Modal'
-import { useUser } from '../../../UserProvider'
+import { useUser } from '../../../contexts/UserProvider'
 
 
 const DonationDetail = () => {

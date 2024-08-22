@@ -1,8 +1,9 @@
 import styles from './Modal.module.scss'
 import React, { useState } from 'react';
-import { useUser } from '../../../../UserProvider';
+import { useUser } from '../../../../contexts/UserProvider';
 import api from '../../../../api/api';
 import { useNavigate } from 'react-router-dom';
+import { formatNumberWithCommas } from '../../../../utils/fomatNumberWithCommas';
 
 interface ModalProps {
     isOpen: boolean;
@@ -23,6 +24,11 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
         if(!user){
             navigate('/login');
         }
+
+        if (points <= 0) {
+            alert('포인트를 선택해주세요!');
+            return;
+        }
         
         if(points !== null){
             try {
@@ -30,10 +36,8 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                 alert('기부가 성공적으로 완료되었습니다!');
                 onClose();
             } catch (error) {
-                console.log('기부 실패 ㅠㅠ',error);
+                console.log('기부가 실패했습니다!',error);
             }
-        }else{
-            alert('포인트를 선택해주세요!');
         }
     };
 
@@ -47,17 +51,17 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                     <p>※ 원하시는 금액을 선택해주세요</p>
                 </div>
                 {user && (
-                    <p className={styles.userpoint}>보유 포인트 {user?.totalPoint} P</p>
+                    <p className={styles.userpoint}>보유 포인트 {formatNumberWithCommas(user?.totalPoint)} P</p>
                 )}
                 <div className={styles.select_button}>
                     <label>
                         <input 
-                        name='supportRadio'
-                        type='radio'
-                        value={1000}
-                        checked={points === 1000}
-                        className={styles.input}
-                        onChange={handlePointChane}
+                            name='supportRadio'
+                            type='radio'
+                            value={1000}
+                            checked={points === 1000}
+                            className={styles.input}
+                            onChange={handlePointChane}
                         />
                         <div className={styles.inputRadio}>
                             <span>1,000</span>
@@ -65,12 +69,12 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                     </label>
                     <label>
                         <input 
-                        name='supportRadio'
-                        type='radio'
-                        value={3000}
-                        checked={points === 3000}
-                        className={styles.input}
-                        onChange={handlePointChane}
+                            name='supportRadio'
+                            type='radio'
+                            value={3000}
+                            checked={points === 3000}
+                            className={styles.input}
+                            onChange={handlePointChane}
                         />
                         <div className={styles.inputRadio}>
                             <span>3,000</span>
@@ -78,12 +82,12 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                     </label>
                     <label>
                         <input 
-                        name='supportRadio'
-                        type='radio'
-                        value={5000}
-                        checked={points === 5000}
-                        className={styles.input}
-                        onChange={handlePointChane}
+                            name='supportRadio'
+                            type='radio'
+                            value={5000}
+                            checked={points === 5000}
+                            className={styles.input}
+                            onChange={handlePointChane}
                         />
                         <div className={styles.inputRadio}>
                             <span>5,000</span>
@@ -91,12 +95,12 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                     </label>
                     <label>
                         <input 
-                        name='supportRadio'
-                        type='radio'
-                        value={10000}
-                        checked={points === 10000}
-                        className={styles.input}
-                        onChange={handlePointChane}
+                            name='supportRadio'
+                            type='radio'
+                            value={10000}
+                            checked={points === 10000}
+                            className={styles.input}
+                            onChange={handlePointChane}
                         />
                         <div className={styles.inputRadio}>
                             <span>10,000</span>
@@ -104,12 +108,12 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                     </label>
                     <label>
                         <input 
-                        name='supportRadio'
-                        type='radio'
-                        value={30000}
-                        checked={points === 30000}
-                        className={styles.input}
-                        onChange={handlePointChane}
+                            name='supportRadio'
+                            type='radio'
+                            value={30000}
+                            checked={points === 30000}
+                            className={styles.input}
+                            onChange={handlePointChane}
                         />
                         <div className={styles.inputRadio}>
                             <span>30,000</span>
@@ -117,12 +121,12 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                     </label>
                     <label>
                         <input 
-                        name='supportRadio'
-                        type='radio'
-                        value={50000}
-                        checked={points === 50000}
-                        className={styles.input}
-                        onChange={handlePointChane}
+                            name='supportRadio'
+                            type='radio'
+                            value={50000}
+                            checked={points === 50000}
+                            className={styles.input}
+                            onChange={handlePointChane}
                         />
                         <div className={styles.inputRadio}>
                             <span>50,000</span>

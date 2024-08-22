@@ -1,7 +1,6 @@
 // App.tsx
 import './App.css';
 import { Outlet, Routes, Route } from 'react-router-dom';
-import ProductPage from './page/ProductPage/ProductPage';
 import HomePage from './page/HomePage';
 import EventPage from './page/EventPage/EventPage';
 import RegisterPage from './page/RegisterPage';
@@ -18,6 +17,8 @@ import Header from './components/Header';
 import Footer from './components/footer/Footer';
 import CartPage from './page/CartPage';
 import Redirect from './page/KakaoRedirectPage/Redirect';
+import ProductPage from './page/ProductPage';
+
 
 const Layout = () => {
   // Layout 컴포넌트 내에서 useNavigate를 사용하기 위해 라우터의 컨텍스트가 필요합니다.

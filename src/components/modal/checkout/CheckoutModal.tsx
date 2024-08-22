@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppdispatch, useAppSelector } from '../../../hooks/redux'
-import { useUser } from '../../../UserProvider';
+import { useUser } from '../../../contexts/UserProvider';
 import loginalert from '../../../image/products/free-icon-warning-752755.png'
 import alert from '../../../image/alert.png'
 import { closeModal } from '../../../store/modal/modal.slice';

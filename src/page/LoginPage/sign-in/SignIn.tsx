@@ -1,17 +1,14 @@
 import { useState } from 'react'
 import styles from './SignIn.module.scss'
-import { useNavigate } from 'react-router-dom';
 import api from '../../../api/api'
 import { useForm } from 'react-hook-form';
-
+import Button from '../../../components/button/Button';
 
 const SignIn = () => {
 
   const {register, handleSubmit, formState:{errors}, setError} = useForm<LoginFormData>();
 
   const [activeInput, setActiveInput]= useState('');
-
-  const navigate= useNavigate();
 
   const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
@@ -22,13 +19,12 @@ const SignIn = () => {
         password:data.password
       });
 
-      const {accessToken, refreshToken} = response.data;
+      const {accessToken, refreshToken, userId} = response.data;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      //유저 정보를 로컬에 저장 => 마이페이지에서 가져와 사용
-      //localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('userId', userId);
 
-      navigate('/')
+      window.location.replace("/");
     } catch (error) {
       console.log('로그인 에러', error);
       setError('root', {type:'manual', message:'로그인에 실패했습니다. 다시 시도해주세요.'})
@@ -82,7 +78,7 @@ const SignIn = () => {
         {/* 로그인 에러 메시지 */}
         {errors.root && <div className={styles.login_error_msg}>{errors.root.message}</div>}
         
-        <button type='submit'>로그인하기</button>
+        <Button type='submit' variant='main'>로그인하기</Button>
       </form>
     </div>
   )

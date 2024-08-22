@@ -7,7 +7,7 @@ export const postOrder = createAsyncThunk(
     "cart/postOrder",
     async(order:cartState, thunkAPI) => {
         try {
-            await api.post('/api/orders' ,order);
+            await api.post('/api/shop/order' ,order);
             thunkAPI.dispatch(sendOrder());
         } catch (error) {
             return thunkAPI.rejectWithValue('카트 에러!!!')
@@ -24,7 +24,7 @@ type cartState = {
 const initialState:cartState = {
     products:localStorage.getItem('cartProducts') ? JSON.parse(localStorage.getItem('cartProducts') || "") : [],
     totalPrice:0,
-    userId:localStorage.getItem('userId') ? JSON.parse(localStorage.getItem('userId') || "") : ""
+    userId: localStorage.getItem('userId') || "",
 }
 
 const updateLocalStorageCart = (userId: string, products: IProduct[]) => {

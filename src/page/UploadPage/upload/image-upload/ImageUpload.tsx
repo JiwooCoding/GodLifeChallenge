@@ -1,6 +1,7 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormValues } from '../ProductUploadForm';
+import styles from '../ProductUploadForm.module.scss'
 
 type ImageUploadProps = {
     control: Control<FormValues>;
@@ -10,14 +11,14 @@ type ImageUploadProps = {
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ control, preview, handlePhotoChange }) => {
     return (
-        <div className='product-items'>
+        <div className={styles.product_items}>
             <div>
-                <label htmlFor="productPhoto">상품 사진</label>
+                <label htmlFor="productImage">상품 사진</label>
                 <div className='flex gap-8'>
                     <img src={preview} alt="미리보기" style={{ marginTop: '0px', maxWidth: '100px' }} />
                     <div>
                         <Controller
-                            name="productPhoto"
+                            name="productImage"
                             control={control}
                             rules={{ required: true }}
                             render={({ field }) => (

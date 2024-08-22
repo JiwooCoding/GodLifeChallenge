@@ -72,9 +72,16 @@
                 }
             }
 
-            .nickname_message {
+            .nickname_error_message {
                 margin: 5px auto auto 10px;
                 color: red; /* 원하는 스타일로 변경하세요 */
+                font-size: 13px;
+            }
+
+            .nickname_success_message{
+                margin: 5px auto auto 10px;
+                color: green; /* 원하는 스타일로 변경하세요 */
+                font-size: 13px;
             }
         }
     }

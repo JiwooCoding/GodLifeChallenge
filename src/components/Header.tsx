@@ -1,23 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useUser } from '../UserProvider';
+import { useUser } from '../contexts/UserProvider';
 import api from '../api/api';
 import pointSmile from '../image/pointsmile.png';
 import { useAppdispatch, useAppSelector } from '../hooks/redux';
 import { removeUserId } from '../store/cart/cartSlice';
 
 const Header = () => {
-    // const isLoggedIn = localStorage.getItem('accessToken') !== null;
+    const isLoggedIn = localStorage.getItem('accessToken') !== null;
     const navigate = useNavigate();
     const dispatch  = useAppdispatch();
     const { user, setUser } = useUser();
     const { products } = useAppSelector((state) => state.cartSlice);
+    const admin = 'admin@gmail.com'
 
     const handleLogout = async () => {
         try {
             await api.post('/api/logout');
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            localStorage.removeItem('user');
+            localStorage.removeItem('userId');
             dispatch(removeUserId());
             setUser(null);
             navigate('/');
@@ -37,7 +38,7 @@ const Header = () => {
                     </div>
                     <div className='flex flex-col items-end gap-5'>
                         <div className='flex gap-5'>
-                            {user ? (
+                            {isLoggedIn ? (
                                 <>
                                     <Link to={'/mypage'}>
                                         <h3 className='navbar_right'>마이페이지</h3>
@@ -67,15 +68,10 @@ const Header = () => {
                         </div>
                         <div className='flex gap-[100px]'>
                             <Link to={'/product'} className='navbar_left'>포인트 쇼핑</Link>
-                            <Link to={'/donation'}>
-                                <h2 className='navbar_left'>후원과 참여</h2>
-                            </Link>
+                            <Link to={'/donation'}><h2 className='navbar_left'>후원과 참여</h2></Link>
                             <Link to={'/event'} className='navbar_left'>이벤트</Link>
-                            {user?.email === 'asdf' && (
-                                <Link to={'/productupload'}>
-                                    <h2 className='navbar_left'>업로드</h2>
-                                </Link>
-                            )}
+                            {user?.email === admin &&  <Link to={'/productupload'}><h2 className='navbar_left'>업로드</h2></Link>}
+                            
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import noProfile from '../../../image/girl2.png';
 import api from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../../components/button/Button';
 
 const Register = () => {
 
@@ -12,7 +13,9 @@ const Register = () => {
 
   const [activeInput, setActiveInput] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
-  const [nicknameChecked, setNicknameChecked] = useState(false);
+  const [nickNameChecked, setNickNameChecked] = useState(false);
+  const [emailMessage, setEmailMessage] = useState<string | null>(null);  // 이메일 메시지 상태
+  const [nicknameMessage, setNicknameMessage] = useState<string | null>(null);
 
   const methods = useForm<RegisterFormData>();
   const {handleSubmit, register, watch, getValues, setError, clearErrors, formState:{errors}} = methods;
@@ -30,50 +33,55 @@ const Register = () => {
   };
 
   
-  //이메일 확인
+  // 이메일 확인
   const checkedEmail = useCallback(async () => {
     const email = getValues('email');
     try {
-      const response = await api.post<string>('/api/check-email',{email});
-      if(response.data){
+      const response = await api.post<{ email: boolean }>('/api/check-email', { email });
+      if(response.data.email){  
         setError('email', {type:'manual', message:'이미 존재하는 이메일입니다'});
         setEmailChecked(false);
+        setEmailMessage(null);
       }else{
         clearErrors('email');
         setEmailChecked(true);
+        setEmailMessage('사용 가능한 이메일입니다')
       }
     } catch (error) {
-      console.log('이메일 중복 확인 오류!!!!!',error)
+      console.log('이메일 중복 확인 오류!!!!!', error);
     }
   }, [getValues, setError, clearErrors]);
   
-  
-  //닉네임 중복 체크
-  const checkedNickname = useCallback(async () => {
-    const nickname = getValues('nickname');
-    try {
-      const response = await api.post('/api/check-nickname',{nickname});
-      if(response.data){
-        setError('nickname', {type: 'manual', message: '이미 존재하는 닉네임입니다.'});
-        setNicknameChecked(false);
-      }else{
-        clearErrors('nickname');
-        setNicknameChecked(true);
-      }
-    } catch (error) {
-      console.log('닉네임 중복 확인 오류!!!!!',error)
+
+// 닉네임 중복 체크
+const checkedNickname = useCallback(async () => {
+  const nickname = getValues('nickname');
+  try {
+    const response = await api.post<{ nickname: boolean }>('/api/check-nickname', { nickname });
+    if (response.data.nickname) { 
+      setError('nickname', {type: 'manual', message: '이미 존재하는 닉네임입니다.'});
+      setNickNameChecked(false);
+      setNicknameMessage(null);
+    } else {
+      clearErrors('nickname');
+      setNickNameChecked(true);
+      setNicknameMessage('사용 가능한 닉네임입니다')
     }
-  }, [getValues, setError, clearErrors]);
+  } catch (error) {
+    console.log('닉네임 중복 확인 오류!!!!!', error);
+  }
+}, [getValues, setError, clearErrors]);
+
   
   //제출
   const onSubmit = async (data: RegisterFormData) => {
-    if (!nicknameChecked) {
-      alert('닉네임 중복 확인을 해주세요');
+    if(!emailChecked){
+      alert('이메일을 확인해주세요');
       return;
     }
-
-    if(!emailChecked){
-      alert('이메일 중복 확인을 해주세요');
+    
+    if (!nickNameChecked) {
+      alert('닉네임 중복 확인을 해주세요');
       return;
     }
 
@@ -127,11 +135,14 @@ const Register = () => {
                 onFocus={() => handleFocus('email')}
                 onBlur={handleBlur}
               />
-              <button className={styles.confirm_button} type='button' onClick={checkedEmail}>
+              <Button variant='check' type='button' onclick={checkedEmail}>
                 확인하기
-              </button>
+              </Button>
             </div>
-            {errors?.email && <div className={styles.error_msg}>{errors?.email?.message}</div>}
+            {/* 에러 메시지 */}
+            {errors?.email && <div className={styles.error_msg}>{errors.email.message}</div>}
+            {/* 성공 메시지 */}
+            {!errors?.email && emailMessage && <div className={styles.success_msg}>{emailMessage}</div>}
           </div>
 
           {/* 이름 */}
@@ -166,11 +177,14 @@ const Register = () => {
                 onFocus={() => handleFocus('nickname')}
                 onBlur={handleBlur}
               />
-              <button className={styles.confirm_button} type='button' onClick={checkedNickname}>
+              <Button variant='check' type='button' onclick={checkedNickname}>
                 중복확인
-              </button>
+              </Button>
             </div>
+            {/* 오류 메시지 */}
             {errors?.nickname && <div className={styles.error_msg}>{errors?.nickname?.message}</div>}
+            {/* 성공 메시지 */}
+            {!errors?.nickname && nicknameMessage && <div className={styles.success_msg}>{nicknameMessage}</div>}
           </div>
 
           {/* 비밀번호 */}
@@ -215,11 +229,10 @@ const Register = () => {
           </div>
 
           {/* 제출 버튼 */}
-          <button className={styles.register_button} type='submit'>회원가입 완료하기</button>
+          <Button variant='main' type='submit'>회원가입 완료하기</Button>
         
         </form>
       </FormProvider>
-      {/* {modalOpen && <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} />} */}
     </div>
   );
 };

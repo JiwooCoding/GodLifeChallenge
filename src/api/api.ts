@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
     //프록시 하면서 baseURL없이 전달합니다. (/api/*로 시작하게 설정해야해요)
-    baseURL:'',
+    baseURL:'http://localhost:8081',
     withCredentials:true, //쿠키 포함 요청
 });
 

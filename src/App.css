@@ -80,9 +80,10 @@ a:hover {
 }
 
 .product-item img {
-    width: 80px;
+    /* width: 80px;
     height: auto;
-    transition: transform 0.3s;
+    transition: transform 0.3s; */
+    margin-bottom: 10px;
 }
 
 
@@ -96,6 +97,7 @@ a:hover {
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     row-gap: 55px;
+    margin-top: 15px;
 }
 
 .navbar_left{

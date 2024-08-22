@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
-import { useUser } from '../UserProvider';
+import { useUser } from '../contexts/UserProvider';
 
 const NavBar = () => {
 

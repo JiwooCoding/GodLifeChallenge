@@ -18,7 +18,6 @@ const GetPoint = () => {
       setPointsGranted(status);
       setIsPageVisible(!status);
     };
-
     checkPointStatus();
   }, []); 
 
@@ -39,6 +38,7 @@ const GetPoint = () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, [isMouseMoved, isPageVisible, pointsGranted]);
+
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -69,13 +69,9 @@ const GetPoint = () => {
 
       // 서버에 포인트 부여 상태를 업데이트하는 요청
       try {
-        await api.post(`/event/view-point/${eventId}`, {         
-          points: 200 // 전송할 포인트 수
-        }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+        await api.post(`/api/event/view-point/${eventId}`, {         
+          earnedPoints: 200 
+        },);
       } catch (error) {
         console.error('기부 페이지 포인트 이벤트 오류', error);
       }

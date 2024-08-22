@@ -2,6 +2,7 @@
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { FormValues } from '../ProductUploadForm';
+import styles from '../ProductUploadForm.module.scss'
 
 interface InputFieldProps {
     id: string;
@@ -29,14 +30,14 @@ const InputField: React.FC<InputFieldProps> = ({
     min,
 }) => {
     return (
-        <div className={`product-items`}>
+        <div className={styles.product_items}>
             <label htmlFor={id}>{label}</label>
             <input
                 id={id}
                 className={` ${activeInput === id ? 'active' : ''}`}
                 type={type}
                 placeholder={placeholder}
-                {...register(id as keyof FormValues, { required: true })}
+                {...register(id as keyof FormValues, { required: true})}
                 onFocus={() => onFocus(id)}
                 onBlur={onBlur}
                 min={min}

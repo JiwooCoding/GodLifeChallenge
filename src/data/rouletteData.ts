@@ -1,5 +1,5 @@
- const rouletteData = [
-    { option: '5000 P', percentage: 7, points: 10000 },
+const rouletteData = [
+    { option: '5000 P', percentage: 7, points: 5000 },
     { option: '1000 P', percentage: 3, points: 1000 },
     { option: '3000 P', percentage: 10, points: 3000 },
     { option: '100 P', percentage: 20, points: 100 },

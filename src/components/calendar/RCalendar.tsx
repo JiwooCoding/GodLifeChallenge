@@ -4,11 +4,11 @@ import 'react-calendar/dist/Calendar.css';
 import './RCalendar.scss';
 import api from '../../api/api';
 import moment from 'moment';
-import Button from './button/Button';
-import { useUser } from '../../UserProvider';
+import { useUser } from '../../contexts/UserProvider';
 import { useAppdispatch } from '../../hooks/redux';
 import { openModal } from '../../store/modal/modal.slice';
 import NoUserModal from '../modal/no-user/NoUserModal';
+import Button from '../button/Button';
 
 const RCalendar = () => {
 
@@ -19,7 +19,7 @@ const RCalendar = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false); //버튼 비활
     const [totalPoints, setTotalPoints] = useState<number>(0); //누적포인트 
 
-    const { user } = useUser();
+    const { user, setUser } = useUser();
     const dispatch = useAppdispatch();
 
     const currentYear = date.getFullYear();
@@ -44,7 +44,7 @@ const RCalendar = () => {
                     setIsButtonDisabled(true);
                 }
 
-                const checkInsFromServer = response.data.createdAt || [];
+                const checkInsFromServer = response.data.attendanceList || [];
                 setCheckIns(checkInsFromServer.map((date: string) => new Date(date).toDateString()));
 
             } catch (error) {
@@ -85,6 +85,15 @@ const RCalendar = () => {
                 attendanceCount,
                 hasAttendance,
                 totalPoints
+            });
+
+            setUser((prevUser) => {
+                if (!prevUser) return prevUser;
+
+                return {
+                    ...prevUser,
+                    totalPoint: prevUser.totalPoint + earnedPoints,
+                };
             });
         } catch (error) {
         console.log(error);
@@ -133,11 +142,13 @@ const RCalendar = () => {
                 prevLabel={null}
             />
             <div className="button-container">
-                <Button
-                    hasAttendance={hasAttendance}
-                    clickHandler={BtnClickHandler}
+                <Button 
+                    onclick={BtnClickHandler}
                     disabled={isButtonDisabled}
-                />
+                    variant='attendance'
+                >
+                    {hasAttendance ? '내일 또 봐요' : '출석체크'}
+                </Button>
             </div>
         </div>
     );

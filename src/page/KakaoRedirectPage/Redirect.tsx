@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useUser } from '../../UserProvider';
 import api from '../../api/api';
+import { useUser } from '../../contexts/UserProvider';
 
 export interface UserProfile {
     id: string;
@@ -20,7 +20,7 @@ export const convertToUser = (userProfile: UserProfile): User => {
     return {
         id: userProfile.id,
         name: userProfile.kakao_account.profile.nickname,
-        email: '', // 카카오에서는 이메일이 제공되지 않으므로 빈 문자열로 설정
+        email: userProfile.id, // 카카오에서는 이메일이 제공되지 않으므로 빈 문자열로 설정
         nickname: userProfile.kakao_account.profile.nickname,
         profileImage: userProfile.kakao_account.profile.profile_image_url || '',
         totalPoint: 0, // 기본값 설정
@@ -60,8 +60,6 @@ const Redirect = () => {
 
                 const { access_token } = response.data;
 
-                localStorage.setItem('accessToken', access_token);
-
                 const userResponse = await axios.get<UserProfile>('https://kapi.kakao.com/v2/user/me', {
                     headers: {
                         Authorization: `Bearer ${access_token}`
@@ -70,10 +68,23 @@ const Redirect = () => {
 
                 const user = convertToUser(userResponse.data);
                 setUser(user);
+                console.log(user);
 
-                await api.post('/api/oauth', { accessToken: access_token });
+                // 로그 추가
+                const response2 = await api.post('/api/login/oauth', user);
+                console.log("Token Response: ", response2.data);
 
+                const { accessToken, refreshToken, userId } = response2.data;
+
+                if (!accessToken || !refreshToken) {
+                    throw new Error('AccessToken 또는 RefreshToken이 없습니다.');
+                }
+                localStorage.setItem('accessToken_Kakao', access_token);
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+                localStorage.setItem('userId', userId);
                 navigate('/');
+
 
             } catch (err) {
                 console.error(err);
