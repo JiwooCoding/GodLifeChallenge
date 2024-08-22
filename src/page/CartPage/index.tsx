@@ -9,7 +9,7 @@ const CartPage = () => {
 
     return (
         <div className='inner'>
-            {!products.length ? (
+            {products.length === 0 ? (
                 <CartEmpty/>
             ) : (
                 <div>

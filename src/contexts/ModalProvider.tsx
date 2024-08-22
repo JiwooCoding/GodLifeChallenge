@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
+import Modal from '../components/modal/Modal';
 
 interface ModalContextProps {
     isOpen: boolean;
@@ -8,30 +9,30 @@ interface ModalContextProps {
 
 const ModalContext = createContext<ModalContextProps | undefined>(undefined);
 
-const useModalContext = ():ModalContextProps => {
+interface ModalProviderProps {
+    children: React.ReactNode;
+}
 
+const ModalProvider = ({children}:ModalProviderProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
+
+    return (
+        <ModalContext.Provider value={{isOpen, openModal, closeModal}}>
+            {children}
+            {isOpen && <Modal.Dimmed/>}
+        </ModalContext.Provider>
+    )
+}
+
+export const useModal = ():ModalContextProps => {
     const context = useContext(ModalContext);
     if(!context){
-        throw new Error('useModalContext는 ModalProvider와 함께 사용되어야 합니다!');
+        throw new Error('모달 에러')
     }
     return context;
 }
 
-interface ModalProviderProps {
-    children: ReactNode;
-  }
-
-    const ModalProvider = ({children}:ModalProviderProps) => {
-        const [isOpen, setIsOpen] = useState(false);
-        const openModal = () => setIsOpen(true);
-        const closeModal = () => setIsOpen(false);
-
-        return (
-            <ModalContext.Provider value={{isOpen, openModal, closeModal}}>
-                {children}
-            </ModalContext.Provider>
-        )
-    }
-
-
-export {ModalProvider, useModalContext};
+export default ModalProvider

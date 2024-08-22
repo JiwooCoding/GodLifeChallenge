@@ -7,7 +7,7 @@ import RegisterPage from './page/RegisterPage';
 import ProductUpload from './page/UploadPage';
 import LoginPage from './page/LoginPage';
 import MyPage from './page/MyPage';
-import MyInfoModify from './page/MyPage/modify-myInfo/MyInfoModify';
+import MyInfoModify from './page/ModifyPage/MyInfoModify';
 import Apitest from './components/weather/WeatherApi';
 import Attendance from './page/EventPage/attendance';
 import Roulette from './page/EventPage/roulette';

@@ -1,10 +1,10 @@
 import React from 'react'
-import { useAppdispatch, useAppSelector } from '../../../hooks/redux'
+import { useAppSelector } from '../../../hooks/redux'
 import { useUser } from '../../../contexts/UserProvider';
 import loginalert from '../../../image/products/free-icon-warning-752755.png'
 import alert from '../../../image/alert.png'
-import { closeModal } from '../../../store/modal/modal.slice';
 import styles from './CheckoutModal.module.scss'
+import { useModal } from '../../../contexts/ModalProvider';
 
 interface CheckoutModalProps {
     sendOrder: () => void;
@@ -12,15 +12,9 @@ interface CheckoutModalProps {
 
 const CheckoutModal = ({sendOrder}:CheckoutModalProps) => {
     
-    const dispatch = useAppdispatch();
     const cart = useAppSelector((state) => state.cartSlice); 
     const {user} = useUser();
-
-    const onClose = () => {
-        dispatch(closeModal());
-    }
-
-    
+    const {closeModal} = useModal();
 
     return (
         <div>
@@ -30,17 +24,16 @@ const CheckoutModal = ({sendOrder}:CheckoutModalProps) => {
                     <img src={loginalert} alt='alert' style={{width:'30px'}}/>
                     <h1>포인트가 부족합니다!</h1>
                     <div className={styles.modal_buttons}>
-                        <button className={`${styles.modal_button} ${styles.cancle}`} onClick={onClose}>확인</button>
+                        <button className={`${styles.modal_button} ${styles.cancle}`} onClick={closeModal}>확인</button>
                     </div>
                 </div>
             ) : (
                 <div className={styles.modal_purchase}>
-                    <img src={alert} alt='alert' style={{ width: '40px' }} />
-                    <h1>상품을 구매하시겠습니까?</h1>
+                    {/* <img src={alert} alt='alert' style={{ width: '40px' }} /> */}
                     <p><b>{cart.totalPrice}</b> 포인트가 차감됩니다.</p>
                     <p>구매하시겠습니까?</p>
                     <div className={styles.modal_buttons}>
-                        <button className={`${styles.modal_button} ${styles.cancle}`} onClick={onClose}>취소</button>
+                        <button className={`${styles.modal_button} ${styles.cancle}`} onClick={closeModal}>취소</button>
                         <button className={`${styles.modal_button} ${styles.confirm}`} onClick={sendOrder}>확인</button>
                     </div>
                 </div>

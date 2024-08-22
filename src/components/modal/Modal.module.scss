@@ -1,53 +1,75 @@
-.modal_overlay {
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 8px;
+    z-index: 1001;
+    width: 500px;
+    max-width: 90%;
+    padding: 20px;
+}
+
+.modal__header, .modal__content, .modal__footer {
+    padding: 16px;
+}
+
+.modal__header {
+    border-bottom: 1px solid #c8c8c8;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: center;
+    gap: 21px;
+}
+
+.modal__title {
+    margin: 0;
+    
+}
+
+.modal__subtitle {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.modal__content{
+    //margin: 10px 0px 43px 0px;
+    text-align: center;
+}
+
+.modal__button {
+    padding: 6px 13px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+
+    &.button--primary {
+        background-color: #007bff; /* 주요 버튼 색상 */
+    }
+    
+    &.button--secondary {
+        background-color: #6c757d; /* 보조 버튼 색상 */
+    }
+}
+
+
+
+
+.modal__dimmed {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-
-    .modal_content {
-        background: white;
-        padding: 30px 100px;
-        border-radius: 8px;
-        text-align: center;
-        position: relative;
-        text-align: center;
-    
-        .modal_login_prompt {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    
-        h1{
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    
-        p{
-            font-size: 14px;
-            color: gray;
-        }
-    
-        .modal_button {
-            margin: 0 10px;
-            padding: 6px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            margin-top: 20px;
-    
-            &.confirm {
-            background-color: #4CAF50;
-            color: white;
-            }
-        }
-    } font-size: 16px;    
+    z-index: 1000;
 }
-}
-    

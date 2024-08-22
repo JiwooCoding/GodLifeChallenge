@@ -4,6 +4,7 @@ import { decrementProduct, deleteFromCart, incrementProduct } from '../../../../
 import { AiOutlineDelete } from 'react-icons/ai';
 import styles from './CartItem.module.scss'
 import { LuMinus, LuPlus } from "react-icons/lu";
+import { formatNumberWithCommas } from '../../../../utils/fomatNumberWithCommas';
 
 interface CartItemProps {
   product:IProduct;
@@ -37,7 +38,7 @@ const CartItem = ({product}:CartItemProps) => {
         <h3>{product.category}</h3>
         <h2>{product.productName}</h2>
         <div className={styles.point_cal}>
-          <span>{product.price}포인트</span>  <span>x {product.quantity}</span>  <span> = {product.total.toFixed(0)}포인트</span>
+          <span>{formatNumberWithCommas(product.total)}</span>  <span>X {product.quantity}</span>  <span> = {formatNumberWithCommas(product.total)}포인트</span>
         </div>
       </div>
         <div className={styles.cart_count}>
