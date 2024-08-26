@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import noProfile from '../../../../image/girl2.png';
 import { Controller, useFormContext } from 'react-hook-form';
-import './ProfileUpload.scss'
+import styles from './ProfileUpload.module.scss'
 import upload from '../../../../image/upload-photo.png'
 
 const ProfileUpload = () => {
@@ -13,7 +13,7 @@ const ProfileUpload = () => {
             const file = files[0];
             const reader = new FileReader();
             reader.onloadend = () => {
-                setProfileImage(reader.result as string);
+            setProfileImage(reader.result as string);
             };
             reader.readAsDataURL(file);
         } else {
@@ -22,26 +22,26 @@ const ProfileUpload = () => {
     };
 
     return (
-        <div className='profile-upload'>
+        <div className={styles.profile_upload}>
             <img
                 src={profileImage} 
                 alt='noProfileImage' 
-                className='profile-image'
+                className={styles.profile_image}
             />
             <label htmlFor='file'>
                 <img 
                 src={upload} 
                 alt='upload-button' 
-                className='upload-profile'/>
+                className={styles.upload_profile}/>
             </label>
-            <div className='filebox'>
+            <div className={styles.filebox}>
                 <Controller
                     name='profileImage'
                     control={control}
                     rules={{ required: false }}
                     render={({ field }) => (
                         <input
-                            className='upload-profile'
+                            className={styles.upload_profile}
                             type='file'
                             name='file'
                             id='file'

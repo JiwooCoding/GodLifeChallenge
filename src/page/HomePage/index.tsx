@@ -1,9 +1,9 @@
-import bg from '../../image/포인트 적립, 만들기 노하우 (4).png'
+import Swipter from '../../components/swiper/Swipter'
 
 const index = () => {
   return (
     <div>
-      {/* <img src={bg}/> */}
+      <Swipter/>
     </div>
   )
 }

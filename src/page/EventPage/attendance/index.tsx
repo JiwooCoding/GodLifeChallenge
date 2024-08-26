@@ -1,10 +1,98 @@
 import styles from './AttendanceContent.module.scss'
 import background from '../../../image/event/attendance-cover/출석체크 이벤트 (6).png'
-import RCalendar from '../../../components/calendar/RCalendar'
+import RCalendar from './calendar/RCalendar'
+import { useEffect, useState } from 'react';
+import api from '../../../api/api';
+import AttendanceButton from './attendance-button/AttendanceButton';
+import AttendanceInfo from './attendance-info/AttendanceInfo';
+import { useUser } from '../../../contexts/UserProvider';
+import { useAppdispatch } from '../../../hooks/redux';
+import { openModal } from '../../../store/modal/modal.slice';
+import NoUserModal from '../../../components/modal/no-user/NoUserModal';
 
 const Attendance = () => {
+
+    const [totalPoints, setTotalPoints] = useState<number>(0); //누적포인트 
+    const [hasAttendance, setHasAttendance] = useState(false); //출석 여부
+    const [checkIns, setCheckIns] = useState<string[]>([]); //출석체크 한 날짜들
+    const [attendanceCount, setAttendanceCount] = useState(0); //누적출석 횟수
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false); //버튼 비활
+
+    const { user, setUser } = useUser();
+    const dispatch = useAppdispatch();
+
     const date = new Date();
     const month = date.getMonth() + 1;
+
+    const eventId = "cea04e38-5393-4c3c-b78c-c660b1becb1f";
+
+    useEffect(() => {
+        const fetchAttendanceData = async () => {
+            try {
+                const response = await api.get(`/api/event/monthlyCount/${eventId}`);
+                setTotalPoints(response.data.totalPoints || 0); // 서버에서 가져온 출석 누적 포인트
+                setAttendanceCount(response.data.attendanceCount || 0); // 서버에서 가져온 출석 횟수
+                setHasAttendance(response.data.hasAttendance); // 서버에서 가져온 출첵 여부
+
+                if (response.data.hasAttendance === true) {
+                    setIsButtonDisabled(true);
+                }
+
+                const checkInsFromServer = response.data.attendanceList || [];
+                setCheckIns(checkInsFromServer.map((date: string) => new Date(date).toDateString()));
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchAttendanceData();
+    }, []);
+
+    const BtnClickHandler = async () => {
+        if(!user){
+            dispatch(openModal(<NoUserModal/>));
+            return;
+        };
+
+        if (hasAttendance) {
+            alert('이미 출석체크를 하셨습니다.');
+            setIsButtonDisabled(true);
+            return;
+        }
+
+        const newAttendance = attendanceCount + 1;
+        setAttendanceCount(newAttendance);
+        setHasAttendance(true);
+        setIsButtonDisabled(true);
+
+        const earnedPoints = newAttendance % 10 === 0 ? 200 : 100;
+        const updatePoints = totalPoints + earnedPoints;
+        setTotalPoints(updatePoints);
+
+        const todayDateString = new Date().toDateString();
+        const updatedCheckIns = [...checkIns, todayDateString];
+        setCheckIns(updatedCheckIns);
+
+        try {
+            await api.post(`/api/event/participate/${eventId}`,{
+                attendanceCount,
+                hasAttendance,
+                totalPoints
+            });
+
+            setUser((prevUser) => {
+                if (!prevUser) return prevUser;
+
+                return {
+                    ...prevUser,
+                    totalPoint: prevUser.totalPoint + earnedPoints,
+                };
+            });
+        } catch (error) {
+        console.log(error);
+        }
+    };
 
     return (
         <div>
@@ -20,7 +108,18 @@ const Attendance = () => {
                     <div className={styles.inner_text}>
                         <h1>{month}월</h1>
                     </div>
-                    <RCalendar/>
+                    <div className={styles.calendar_container}>
+                        <AttendanceInfo 
+                            totalPoints={totalPoints} 
+                            attendanceCount={attendanceCount}
+                        />
+                        <RCalendar checkIns={checkIns}/>
+                    </div>
+                    <AttendanceButton
+                        BtnClickHandler={BtnClickHandler}
+                        isButtonDisabled={isButtonDisabled}
+                        hasAttendance={hasAttendance}
+                    />
                 </div>  
             </div>
         </div>

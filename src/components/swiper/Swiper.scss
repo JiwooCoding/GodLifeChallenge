@@ -1,0 +1,66 @@
+.mySwiper {
+    position: relative;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+
+    img{
+      border-radius: 20px;
+      width: 95%;
+      display: block; /* 이미지를 블록 요소로 변경 */
+      margin: 0 auto;
+    }
+  }
+  
+  .swiper-button-next, .swiper-button-prev {
+    color: #000; /* 네비게이션 버튼의 색상 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+  }
+  
+  .swiper-button-next {
+    right: 14%; /* 오른쪽 버튼 위치 */
+  }
+  
+  .swiper-button-prev {
+    left: 14%; /* 왼쪽 버튼 위치 */
+  }
+  
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 20px; /* 화살표 크기 조정 */
+  }
+
+  /* 페이지 번호 중앙에 위치시키기 */
+.swiper-pagination {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+  
+  /* 페이지 번호 스타일링 */
+.swiper-pagination-fraction {
+  background-color: rgb(255 255 255 / 37%);
+    border-radius: 20px;
+    padding: 5px 20px;
+    font-size: 12px;
+    color: #fff;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-pagination-current, .swiper-pagination-total {
+  font-size: 12px; /* 글자 크기 */
+  margin:0px 5px;
+}
+
+.swiper-pagination-separator {
+  margin: 0 4px; /* 슬래시의 여백 */
+}

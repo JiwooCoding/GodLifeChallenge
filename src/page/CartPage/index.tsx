@@ -12,11 +12,10 @@ const CartPage = () => {
             {products.length === 0 ? (
                 <CartEmpty/>
             ) : (
-                <div>
-                    <h1 className='text-[20px]'>장바구니 ( <b className='text-red-500'>{products.length}</b> )</h1>
+                <>
                     <CartList/>
                     <CheckOut/>
-                </div>
+                </>
             )}
         </div>
     )

@@ -70,18 +70,37 @@
             
             padding: 20px;
 
-            .status {
+            .event_status{
+                margin-bottom: 20px;
+
+                .status {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-bottom: 6px;
+                }
+                
+                .status.past {
+                    color: gray;
+                }
+                
+                .status.ongoing {
+                    color: rgb(28, 171, 226);
+                }
+
+                .event_title{
+                    font-weight: bold;
+                    font-size: 17px;
+                    cursor: pointer;
+                }
+
+                .event_description{
+                    font-size: 14px;
+                    cursor: pointer;
+                }
+            }
+
+            .event_date{
                 font-size: 14px;
-                font-weight: bold;
-                margin-bottom: 6px;
-            }
-            
-            .status.past {
-                color: gray;
-            }
-            
-            .status.ongoing {
-                color: rgb(28, 171, 226);
             }
         }
     }

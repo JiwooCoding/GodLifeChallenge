@@ -1,6 +1,6 @@
 .grid {
         .product_items {
-        margin-bottom: 15px;
+        margin-bottom: 30px;
         display: flex;
         gap: 10px;
         align-items: center;
@@ -29,25 +29,38 @@
             }
         }
 
-        img{
-            margin-top: 10px;
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: cover;
-        }
+        .image_container{
+            display: flex;
+            gap: 16px;
 
-        input[type="file"]::file-selector-button{
-            width: 80px;
-            height: 30px;
-            background: #e5e7eb;
-            border: none;
-            font-size: 13px;
-            cursor: pointer;
-            transition: background-color 0.5s ease;
-            &:hover {
-                background-color: rgb(255, 130, 85);
-                color: #fff;
+            img{
+                margin-top: 10px;
+                max-width: 100px;
+                max-height: 100px;
+                object-fit: cover;
+            }
+    
+            input[type="file"]::file-selector-button{
+                width: 80px;
+                height: 30px;
+                background: #e5e7eb;
+                border: none;
+                font-size: 13px;
+                cursor: pointer;
+                transition: background-color 0.5s ease;
+                &:hover {
+                    background-color: rgb(255, 130, 85);
+                    color: #fff;
+                }
+            }
+
+            .image_size_info{
+                margin-top: 25px;
+                color: gray;
+                font-size: 13px;
             }
         }
+
+        
     }
 }

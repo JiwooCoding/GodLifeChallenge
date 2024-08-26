@@ -8,21 +8,26 @@ import CheckoutModal from '../../../components/modal/checkout/CheckoutModal';
 import { formatNumberWithCommas } from '../../../utils/fomatNumberWithCommas';
 import { useModal } from '../../../contexts/ModalProvider';
 import Modal from '../../../components/modal';
+import { toast } from 'react-toastify';
 
 const CheckOut = () => {
+
   const dispatch = useAppdispatch();
   const cart = useAppSelector((state) => state.cartSlice);
   const { user } = useUser();
   const { isOpen, openModal, closeModal } = useModal();
 
-  const sendOrder = () => {
-    dispatch(postOrder(cart));
-    closeModal(); // 주문 후 모달 닫기
-  };
-
   useEffect(() => {
     dispatch(getTotalPrice());
   }, [cart]);
+
+  const sendOrder = () => {
+    dispatch(postOrder(cart));
+    closeModal(); // 주문 후 모달 닫기
+    toast.success('구매가 완료되었습니다');
+  };
+
+
 
   return (
     <>

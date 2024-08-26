@@ -21,9 +21,9 @@ const Modal = ({children, isOpen}:ModalProps) => {
     if(!isOpen) return null;
 
     return ReactDOM.createPortal(
-    <div className={styles.modal}>
-        {children}
-    </div>,
+        <div className={styles.modal}>
+            {children}
+        </div>,
     document.body   
     )   
 }

@@ -3,10 +3,8 @@ import './App.css';
 import { Outlet, Routes, Route } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import EventPage from './page/EventPage/EventPage';
-import RegisterPage from './page/RegisterPage';
-import ProductUpload from './page/UploadPage';
+import RegisterPage from './page/RegisterPage/RegisterPage';
 import LoginPage from './page/LoginPage';
-import MyPage from './page/MyPage';
 import MyInfoModify from './page/ModifyPage/MyInfoModify';
 import Apitest from './components/weather/WeatherApi';
 import Attendance from './page/EventPage/attendance';
@@ -18,6 +16,10 @@ import Footer from './components/footer/Footer';
 import CartPage from './page/CartPage';
 import Redirect from './page/KakaoRedirectPage/Redirect';
 import ProductPage from './page/ProductPage';
+import MyPage from './page/MyPage/MyPage';
+import ProductUpload from './page/UploadPage/ProductUpload';
+import GiftPoint from './components/giftPoint/GiftPoint';
+
 
 
 const Layout = () => {
@@ -53,6 +55,7 @@ const App = () => {
         <Route path='donation-detail' element={<DonationDetail />} />
         <Route path='cart' element={<CartPage/>}/>
         <Route path='kakaoauth' element={<Redirect/>}/>
+        <Route path='giftPoint' element={<GiftPoint/>}/>
         {/* <Route path='*' element={<NotFoundPage />} /> */}
       </Route>
     </Routes>

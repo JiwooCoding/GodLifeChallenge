@@ -54,72 +54,14 @@
                 display: flex;
             }
         }
+
+        .calendar-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
     }
 }
 
 
-
-
-// .event-page{
-    
-//     .background-image {
-//         height: 120vh;
-//         width: 100%;
-//         background-image: url('../../../../image/event/atteadanceEvent.png');
-//         background-size: cover; 
-//         background-repeat: no-repeat;
-//         background-position: center;
-        
-//             .background {
-//                 height: 100%;
-//                 width: 100%; 
-//                 display: flex;
-//                 justify-content: center;
-//                 align-items: center;
-//                 flex-direction: column;
-//             }
-        
-//             .attendance-page {
-//                 background-color: rgba(255, 255, 255, 0.8);
-//                 padding: 20px; 
-//                 border-radius: 10px; 
-        
-//             .mb-6 {
-//                 margin-bottom: 1.5rem;
-//             }
-        
-        
-//             .text-gray-400 {
-//                 color: #ccc; 
-//             }
-        
-//             .font-light {
-//                 font-weight: 300; 
-//             }
-        
-//             .text-blue-700 {
-//                 color: #3182ce;
-//             }
-        
-//             .button {
-//                 padding: 0.75rem 1.5rem; 
-//                 font-size: 1rem; 
-//                 background-color: #3182ce; 
-//                 color: white; 
-//                 border: none; 
-//                 cursor: pointer; 
-//                 transition: background-color 0.3s ease; 
-        
-//                 &:hover {
-//                 background-color: #2c6ab4; 
-//                 }
-        
-//                 &.disabled {
-//                 background-color: #ccc; 
-//                 cursor: not-allowed; 
-//                 }
-//             }
-//         }
-//     }
-// }
 

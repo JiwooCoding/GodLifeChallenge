@@ -3,13 +3,12 @@ import styles from './GetPoint.module.scss'
 import api from '../../../api/api';
 import { fetchPointsStatus } from '../../../hooks/fetchPointsStatus';
 
-
 const GetPoint = () => {
   const [isMouseMoved, setIsMouseMoved] = useState(false); //마우스 움직임
   const [timeSpent, setTimeSpent] = useState(10); //카운팅 시간 설정
   const [pointsGranted, setPointsGranted] = useState(false); //참여여부(포인트 적립여부)
   const [isPageVisible, setIsPageVisible] = useState(true); //페이지 가시성
-  const eventId = "e18a7572-bac0-4cb7-af12-dd969f9050ab";
+  const eventId = '2d89d5c3-0328-46d0-83f9-7af1f8fbc0be';
 
   // 참여 여부 확인
   useEffect(() => {
@@ -79,7 +78,7 @@ const GetPoint = () => {
   };
 
   if (!isPageVisible) {
-    return <div className={styles.timer}>이미 참여한 이벤트입니다</div>
+    return null;
   }
 
   return (

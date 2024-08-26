@@ -1,31 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useUser } from '../contexts/UserProvider';
-import api from '../api/api';
 import pointSmile from '../image/pointsmile.png';
-import { useAppdispatch, useAppSelector } from '../hooks/redux';
-import { removeUserId } from '../store/cart/cartSlice';
+import { useAppSelector } from '../hooks/redux';
+import { useLogout } from '../hooks/useLogout';
 
 const Header = () => {
+
     const isLoggedIn = localStorage.getItem('accessToken') !== null;
-    const navigate = useNavigate();
-    const dispatch  = useAppdispatch();
-    const { user, setUser } = useUser();
+
+    const { user } = useUser();
     const { products } = useAppSelector((state) => state.cartSlice);
     const admin = 'admin@gmail.com'
 
-    const handleLogout = async () => {
-        try {
-            await api.post('/api/logout');
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('userId');
-            dispatch(removeUserId());
-            setUser(null);
-            navigate('/');
-        } catch (error) {
-            console.log('로그아웃 에러!!!', error);
-        }
-    };
+    const handleLogout = useLogout();
 
     return (
         <header className='navbar'>

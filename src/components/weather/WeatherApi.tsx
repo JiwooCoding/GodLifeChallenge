@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import cityName from '../../city.name.json';
-import './WeatherApi.scss';
+import styles from './WeatherApi.module.scss'
 import location from '../../image/location_map_icon.png';
 import { formatDate } from '../../date-fns';
 import cloudIcon from '../../image/cloud2.png';
@@ -133,36 +133,36 @@ const WeatherApi = () => {
 
   return (
     <div className='page'>
-      <div className={`weather-page ${backgroundClass}`}>
+      <div className={`${styles.weather_page} ${backgroundClass}`}>
         {error && <p>{error}</p>}
         {weather ? (
-          <div className='weather-container'>
-            <div className='weather-date-location'>
-              <p className='date'>{formatDate(new Date())}</p>
-              <div className='location-content'>
-                <img src={location} className='location' alt='location-image' />
+          <div className={styles.weather_container}>
+            <div className={styles.weather_date_location}>
+              <p className={styles.date}>{formatDate(new Date())}</p>
+              <div className={styles.location_content}>
+                <img src={location} className={styles.location} alt='location-image' />
                 <p>{getKoreanCityName(weather.name)}</p>
               </div>
             </div>
 
-            <div className='weather-condition'>
-              <div className='weather-detail'>
+            <div className={styles.weather_condition}>
+              <div className={styles.weather_detail}>
                 <img
                   src={getWeatherIcons(weather.weather[0].description)}
                   alt={weather.weather[0].description}
-                  className='weather-icon'
+                  className={styles.weather_icon}
                 />
                 {/* <p className='weather-des'>{weather.weather[0].description}</p> */}
               </div>
-              <p className='weather-temp'>{weather.main.temp.toFixed(0)}°</p>
+              <p className={styles.weather_temp}>{weather.main.temp.toFixed(0)}°</p>
               {weather.main.temp >= 27 && (
-                <div className='heat-warning'>
+                <div className={styles.heat_warning}>
                   <p>폭염주의보</p>
                 </div>
               )}
             </div>
             <button 
-              className={`button ${buttonColor}`} 
+              className={`${styles.button} ${buttonColor}`} 
               onClick={handleButtonClick}
               disabled={buttonDisabled}>
               {buttonText}

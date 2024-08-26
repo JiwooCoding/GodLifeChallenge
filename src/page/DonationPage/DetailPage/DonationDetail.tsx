@@ -188,7 +188,11 @@ const DonationDetail = () => {
       {user && (
         <GetPoint/>
       )}
-      <Modal isOpen={modalOpen} onClose={isModalClose}/>
+      <Modal
+        isOpen={modalOpen}
+        onClose={isModalClose}
+        selectedDonationId={selectedDonationId}
+        />
     </>
   )
 }

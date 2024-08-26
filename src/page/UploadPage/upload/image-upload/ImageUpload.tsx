@@ -14,7 +14,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ control, preview, handlePhoto
         <div className={styles.product_items}>
             <div>
                 <label htmlFor="productImage">상품 사진</label>
-                <div className='flex gap-8'>
+                <div className={styles.image_container}>
                     <img src={preview} alt="미리보기" style={{ marginTop: '0px', maxWidth: '100px' }} />
                     <div>
                         <Controller
@@ -35,7 +35,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ control, preview, handlePhoto
                                 />
                             )}
                         />
-                        <div className='mt-5 text-gray-500 text-[13px]'>
+                        <div className={styles.image_size_info}>
                             <p>JPG, GIF, PNG</p>
                             <p>권장 사이즈 128px, 최대 250KB</p>
                         </div>

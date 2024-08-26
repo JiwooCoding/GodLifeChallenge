@@ -2,7 +2,6 @@ import { useState } from 'react';
 import eventData from '../../data/eventData';
 import { Link } from 'react-router-dom';
 import styles from './EventPage.module.scss';
-import AutoComplete from '../../components/auto-complete/AutoComplete';
 import { IEventData } from '../../type/eventData';
 
 
@@ -52,9 +51,9 @@ const EventPage = () => {
                             <button onClick={() => setFilter('ongoing')} className={filter === 'ongoing' ? styles.active : ''}>진행중</button>
                             <button onClick={() => setFilter('past')} className={filter === 'past' ? styles.active : ''}>종료</button>
                         </div>
-                        <div>
+                        {/* <div>
                             <AutoComplete items={eventData} setFilteredItems={setFilteredEvents} displayProperty="title" />
-                        </div>
+                        </div> */}
                     </div>
 
                     <hr />
@@ -74,15 +73,15 @@ const EventPage = () => {
                                         </Link>
                                     </div>
                                     <div className={styles.event_text}>
-                                        <div className='mb-5'>
+                                        <div className={styles.event_status}>
                                             <h1 className={`${styles.status} ${styles[statusClass]}`}>
-                                                    {isPast ? '종료' : '진행중'}
+                                                {isPast ? '종료' : '진행중'}
                                             </h1>
-                                            <h2 className='font-bold text-[17px] cursor-pointer'>{event.title}</h2>
-                                            <h4 className='text-[14px] cursor-pointer'>{event.description}</h4>
+                                            <h2 className={styles.event_title}>{event.title}</h2>
+                                            <h4 className={styles.event_description}>{event.description}</h4>
                                         </div>
                                         <div>
-                                            <p className='text-sm'>{event.startDate.toLocaleDateString()} ~ {event.endDate.toLocaleDateString()}</p>
+                                            <p className={styles.event_date}>{event.startDate.toLocaleDateString()} ~ {event.endDate.toLocaleDateString()}</p>
                                         </div>
                                     </div>
                                 </li>

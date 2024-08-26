@@ -8,7 +8,7 @@ interface PaginationProps{
     handlePageClick: (data: { selected: number }) => void;
 }
 
-const Pagination = ({pageCount,handlePageClick}:PaginationProps) => {
+const Pagination = ({pageCount, handlePageClick}:PaginationProps) => {
     return (
             <ReactPaginate 
                 previousLabel={<SlArrowLeft/>}

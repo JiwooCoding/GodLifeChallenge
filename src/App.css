@@ -185,3 +185,9 @@ a:hover {
 .gTLZXx {
     display: none;
     }
+
+.mypage{
+    min-width: 1098px;
+    margin: 60px 0px;
+    padding: 0px 100px;
+}

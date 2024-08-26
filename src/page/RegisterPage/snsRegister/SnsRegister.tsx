@@ -15,11 +15,6 @@ const SnsRegister = () => {
                 <p>네이버로 시작하기</p>
             </div>
         </div>
-        <div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
     </div>
     )
 }

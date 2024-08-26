@@ -7,3 +7,10 @@ export interface IEventData {
     endDate:Date;
     path:string;
 }
+
+export interface IEventHistoryData {
+    type:string;
+    description:string;
+    points:number;
+    createdAt:string;
+}

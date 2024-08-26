@@ -1,4 +1,4 @@
-import styles from './Modal.module.scss'
+import styles from './Modal.module.scss';
 import React, { useState } from 'react';
 import { useUser } from '../../../../contexts/UserProvider';
 import api from '../../../../api/api';
@@ -8,36 +8,38 @@ import { formatNumberWithCommas } from '../../../../utils/fomatNumberWithCommas'
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
+    selectedDonationId: string | null;  // 선택된 기부 대상 ID
 }
 
-const Modal = ({isOpen, onClose}:ModalProps) => {
-
-    const {user} = useUser();
-    const [points, setPoints] = useState(0); //기부 포인트
+const Modal = ({ isOpen, onClose, selectedDonationId }: ModalProps) => {
+    const { user } = useUser();
+    const [points, setPoints] = useState(0);
     const navigate = useNavigate();
 
-    const handlePointChane = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handlePointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPoints(Number(e.target.value));
-    }
+    };
 
-    const fetchDonationPoint = async() => {
-        if(!user){
-            navigate('/login');
+    const fetchDonationPoint = async () => {
+        if (!user) {
+        navigate('/login');
         }
 
         if (points <= 0) {
-            alert('포인트를 선택해주세요!');
-            return;
+        alert('포인트를 선택해주세요!');
+        return;
         }
-        
-        if(points !== null){
-            try {
-                await api.post('/api/donation', {points});
-                alert('기부가 성공적으로 완료되었습니다!');
-                onClose();
-            } catch (error) {
-                console.log('기부가 실패했습니다!',error);
-            }
+
+        if (selectedDonationId && points !== null) {
+        try {
+            await api.post('/api/donation', { id: selectedDonationId, points });
+            alert('기부가 성공적으로 완료되었습니다!');
+            onClose();
+        } catch (error) {
+            console.log('기부가 실패했습니다!', error);
+        }
+        } else {
+        alert('기부 대상을 선택해주세요!');
         }
     };
 
@@ -61,7 +63,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             value={1000}
                             checked={points === 1000}
                             className={styles.input}
-                            onChange={handlePointChane}
+                            onChange={handlePointChange}
                         />
                         <div className={styles.inputRadio}>
                             <span>1,000</span>
@@ -74,7 +76,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             value={3000}
                             checked={points === 3000}
                             className={styles.input}
-                            onChange={handlePointChane}
+                            onChange={handlePointChange}
                         />
                         <div className={styles.inputRadio}>
                             <span>3,000</span>
@@ -87,7 +89,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             value={5000}
                             checked={points === 5000}
                             className={styles.input}
-                            onChange={handlePointChane}
+                            onChange={handlePointChange}
                         />
                         <div className={styles.inputRadio}>
                             <span>5,000</span>
@@ -100,7 +102,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             value={10000}
                             checked={points === 10000}
                             className={styles.input}
-                            onChange={handlePointChane}
+                            onChange={handlePointChange}
                         />
                         <div className={styles.inputRadio}>
                             <span>10,000</span>
@@ -113,7 +115,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             value={30000}
                             checked={points === 30000}
                             className={styles.input}
-                            onChange={handlePointChane}
+                            onChange={handlePointChange}
                         />
                         <div className={styles.inputRadio}>
                             <span>30,000</span>
@@ -126,7 +128,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             value={50000}
                             checked={points === 50000}
                             className={styles.input}
-                            onChange={handlePointChane}
+                            onChange={handlePointChange}
                         />
                         <div className={styles.inputRadio}>
                             <span>50,000</span>

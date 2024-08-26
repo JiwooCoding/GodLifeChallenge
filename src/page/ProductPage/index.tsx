@@ -2,22 +2,20 @@ import { useState } from 'react';
 import ProductCategory from './productCategory/ProductCategory';
 import GiftPoint from '../../components/giftPoint/GiftPoint';
 import ProductList from './productList/ProductList';
+import usePagination from '../../hooks/usePagination';
 
 const ProductPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('전체');
     const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0); 
-    const [currentPage, setCurrentPage] = useState<number>(0); // 현재 페이지
     const [productsPerPage] = useState<number>(20); // 한 페이지당 보여줄 상품 수
+
+    const {currentPage, setCurrentPage, handlePageClick} = usePagination();
 
     // 카테고리 선택 핸들러
     const handleCategoryChange = (category: string, index: number) => {
         setSelectedCategory(category);
         setActiveButtonIndex(index);
         setCurrentPage(0);
-    };
-
-    const handlePageClick = (data: { selected: number }) => {
-        setCurrentPage(data.selected);
     };
 
     return (

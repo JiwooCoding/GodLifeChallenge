@@ -1,0 +1,45 @@
+.order_result{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e9e9e9;
+    font-size: 14px;
+
+    .order_orderInfo{
+        display: flex;
+        flex: 3;
+        align-items: center;
+
+        .product_image{
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .order_orderInfo_detail{
+            display: flex;
+            flex-direction: column;
+
+            .productCompany{
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .productName{
+                font-size: 13px;
+            }
+        }
+    }
+
+    .order_date, .order_payment {
+        flex: 1; 
+        max-width: 150px; 
+        text-align: center;
+    }
+
+    .order_quantity {
+        flex: 0.5; 
+        max-width: 80px; 
+        text-align: center;
+    }
+}
+

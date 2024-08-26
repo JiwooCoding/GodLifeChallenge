@@ -29,7 +29,7 @@ const AutoComplete = <T extends {}>({ items, setFilteredItems, displayProperty }
     };
 
     return (
-        <div className='relative mb-[61px]'>
+        <div className={styles.autoComplete}>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <input
                     type='text'
@@ -43,14 +43,13 @@ const AutoComplete = <T extends {}>({ items, setFilteredItems, displayProperty }
                 </button>
             </form>
             {checkEqualName(searchTerm).length > 0 && (
-                <div className='w-full flex bottom-0 h-0 flex-col absolute justify-center items-center translate-y-2'>
-                    <div className='w-0 h-0 bottom-0 border-x-transparent border-x-8 border-b-[8px] border-gray-700 -translate-y-1/2'></div>
-                    <ul className='w-[25rem] max-h-[143px] py-1 bg-gray-700 rounded-lg absolute top-0 overflow-auto scrollbar-none'>
+                <div className={styles.researchContainer}>
+                    <ul className={styles.result}>
                         {checkEqualName(searchTerm).map((e, i) => (
                             <li key={`button-${i}`}>
                                 <button 
                                     onClick={() => setSearchTerm(String(e[displayProperty]))}
-                                    className='text-base w-full hover:bg-gray-600 p-[2px] text-gray-100'>
+                                    className={styles.resultItem}>
                                     {String(e[displayProperty])}
                                 </button>
                             </li>
