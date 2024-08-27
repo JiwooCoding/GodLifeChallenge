@@ -12,7 +12,7 @@ import NoUserModal from '../../../../components/modal/no-user/NoUserModal';
 const RouletteContent = () => {
 
   const [spin, setSpin] = useState(false); // 룰렛 회전 애니메이션
-  const [spinCount, setSpinCount] = useState(3); // 스핀 카운트 초기화
+  const [spinCount, setSpinCount] = useState(4); // 스핀 카운트 초기화
   const [prizeNumber, setPrizeNumber] = useState<number | null>(null); // 당첨 인덱스
   const [isButtonDisabled, setIsButtonDisabled] = useState(false); // 룰렛 버튼 활성화/비활성화
 

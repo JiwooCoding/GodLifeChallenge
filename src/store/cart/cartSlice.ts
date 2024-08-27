@@ -46,31 +46,47 @@ export const cartSlice = createSlice({
             localStorage.removeItem(`cart_${state.userId}`);
             state.userId = "";
             state.products = [];
-            // localStorage.setItem('userId', JSON.stringify(state.userId));
         },
-        addToCart:(state, action) => {
+        addToCart: (state, action) => {
+            // 이미 장바구니에 있는 상품 찾기
             const existingProduct = state.products.find(item => item.id === action.payload.id);
 
-            if(existingProduct){
-                if(existingProduct.quantity < 10){
-                    existingProduct.quantity += 1;
-                    existingProduct.total += action.payload.price;
-                }else{
-                    alert('해당 상품은 최대 10개까지만 구매할 수 있습니다!')
+            if (existingProduct) {
+                if (existingProduct.quantity < 10) {
+                    if (existingProduct.quantity + 1 <= action.payload.stock) {
+                        existingProduct.quantity += 1;
+                        existingProduct.total += action.payload.price;
+                    } else {
+                        alert(`해당 상품은 재고가 ${action.payload.stock}개 남아있어서 추가 구매할 수 없습니다!`);
+                    }
+                } else {
+                    alert('해당 상품은 최대 10개까지만 구매할 수 있습니다!');
                 }
-            }else{
-                state.products.push({
-                    ...action.payload,
-                    quantity:1,
-                    total:action.payload.price
-                })
+            } else {
+                // 장바구니에 없는 상품 추가 시
+                if (action.payload.stock > 0) {
+                    state.products.push({
+                        ...action.payload,
+                        quantity: 1,
+                        total: action.payload.price
+                    });
+                } else {
+                    alert('재고가 부족하여 상품을 추가할 수 없습니다.');
+                }
             }
+
+            // 로그인 시 localStorage 업데이트
             if (state.userId) {
                 updateLocalStorageCart(state.userId, state.products);
             }
         },
         deleteFromCart:(state, action) => {
-            state.products = state.products.filter((item) => item.id !== action.payload)
+            state.products = state.products.filter((item) => item.id !== action.payload);
+
+            //로그인 시
+            if(state.userId){
+                updateLocalStorageCart(state.userId, state.products);
+            }
 
             localStorage.setItem('cartProducts', JSON.stringify(state.products));
         },
@@ -84,6 +100,11 @@ export const cartSlice = createSlice({
             }
             : item
         )
+            //로그인 시
+            if(state.userId){
+                updateLocalStorageCart(state.userId, state.products);
+            }
+
             localStorage.setItem('cartProducts',JSON.stringify(state.products));
         },
         incrementProduct:(state, action) => {
@@ -96,6 +117,10 @@ export const cartSlice = createSlice({
                 }
                 : item
             )
+            //로그인 시
+            if(state.userId){
+                updateLocalStorageCart(state.userId, state.products);
+            }
             localStorage.setItem("cartProducts", JSON.stringify(state.products));
         },
         getTotalPrice:(state) => {

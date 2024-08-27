@@ -6,6 +6,8 @@ import noProfile from '../../../image/girl2.png';
 import api from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/button/Button';
+import Modal from '../../../components/modal';
+import { useModal } from '../../../contexts/ModalProvider';
 
 const Register = () => {
 
@@ -20,6 +22,8 @@ const Register = () => {
   const methods = useForm<RegisterFormData>();
   const {handleSubmit, register, watch, getValues, setError, clearErrors, formState:{errors}} = methods;
 
+  const {isOpen, closeModal, openModal } = useModal();
+
   const passwordRef = useRef<string | undefined>(undefined);
   passwordRef.current = watch('password');
 
@@ -31,6 +35,11 @@ const Register = () => {
   const handleBlur = () => {
     setActiveInput('');
   };
+
+  const registerComplete = () => {
+    navigate('/login');
+    closeModal();
+  }
 
   
   // 이메일 확인
@@ -102,7 +111,7 @@ const checkedNickname = useCallback(async () => {
       });
 
       console.log('회원가입 성공', response.data);
-      navigate('/');
+      openModal();
 
     } catch (error) {
       console.log('회원가입 실패', error);
@@ -111,6 +120,7 @@ const checkedNickname = useCallback(async () => {
 
 
   return (
+    <>
     <div className={styles.registerForm}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -234,6 +244,20 @@ const checkedNickname = useCallback(async () => {
         </form>
       </FormProvider>
     </div>
+    {isOpen && (
+      <Modal isOpen={isOpen} onClose={closeModal}>
+      <Modal.Header>
+        회원가입 완료
+      </Modal.Header>
+      <Modal.Title>
+        🎉회원가입을 축하드립니다!🥳
+      </Modal.Title>
+      <Modal.Footer>
+        <Modal.Button buttonStyle='button--primary' onClick={registerComplete}>확인</Modal.Button>
+      </Modal.Footer>
+    </Modal>
+    )}
+    </>
   );
 };
 

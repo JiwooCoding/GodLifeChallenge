@@ -3,12 +3,18 @@ import styles from './SignIn.module.scss'
 import api from '../../../api/api'
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/button/Button';
+import { useAppdispatch } from '../../../hooks/redux';
+import { useUser } from '../../../contexts/UserProvider';
+import { setUserId } from '../../../store/cart/cartSlice';
 
 const SignIn = () => {
 
   const {register, handleSubmit, formState:{errors}, setError} = useForm<LoginFormData>();
 
   const [activeInput, setActiveInput]= useState('');
+
+  const dispatch = useAppdispatch();
+  const {user} = useUser();
 
   const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
@@ -23,6 +29,7 @@ const SignIn = () => {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('userId', userId);
+      dispatch(setUserId(userId));
 
       window.location.replace("/");
     } catch (error) {
