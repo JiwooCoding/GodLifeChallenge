@@ -212,8 +212,8 @@ const GiftPoint = () => {
                         {recipientId}님께 포인트를 선물하시겠습니까?
                     </Modal.Content>
                     <Modal.Footer>
-                        <Modal.Button onClick={sendGiftPoint}>확인</Modal.Button>
-                        <Modal.Button onClick={closeModal}>취소</Modal.Button>
+                        <Modal.Button buttonStyle='button--primary' onClick={sendGiftPoint}>확인</Modal.Button>
+                        <Modal.Button buttonStyle='button--secondary' onClick={closeModal}>취소</Modal.Button>
                     </Modal.Footer>
                 </Modal>
             )}

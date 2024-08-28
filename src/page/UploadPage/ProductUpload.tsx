@@ -1,5 +1,5 @@
 import { useUser } from '../../contexts/UserProvider'
-import UploadNotFound from '../NotFoundPage/uploadNotFound/UploadNotFound';
+import UploadNotFound from '../NotFoundPage/NotFound';
 import ProductUploadForm from './upload/ProductUploadForm'
 import styels from './ProductUpload.module.scss'
 

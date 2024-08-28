@@ -1,20 +1,32 @@
 import styles from './Modal.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser } from '../../../../contexts/UserProvider';
 import api from '../../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { formatNumberWithCommas } from '../../../../utils/fomatNumberWithCommas';
+import useDonationData from '../../../../hooks/useDonationData';
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    selectedDonationId: string | null;  // 선택된 기부 대상 ID
+    selectedDonationId: string | null; 
 }
 
 const Modal = ({ isOpen, onClose, selectedDonationId }: ModalProps) => {
-    const { user } = useUser();
+
     const [points, setPoints] = useState(0);
+    const [localDonationId, setLocalDonationId] = useState<string | null>(null);
+
+    const { user } = useUser();
+    const {goal, donationAmounts} = useDonationData();
     const navigate = useNavigate();
+    
+
+    useEffect(() => {
+        const storedId = localStorage.getItem('selectedDonationId');
+        setLocalDonationId(storedId);
+    }, []);
+
 
     const handlePointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPoints(Number(e.target.value));
@@ -22,24 +34,34 @@ const Modal = ({ isOpen, onClose, selectedDonationId }: ModalProps) => {
 
     const fetchDonationPoint = async () => {
         if (!user) {
-        navigate('/login');
+            navigate('/login');
+            return;
         }
 
         if (points <= 0) {
-        alert('포인트를 선택해주세요!');
-        return;
+            alert('포인트를 선택해주세요!');
+            return;
         }
 
-        if (selectedDonationId && points !== null) {
-        try {
-            await api.post('/api/donation', { id: selectedDonationId, points });
-            alert('기부가 성공적으로 완료되었습니다!');
-            onClose();
-        } catch (error) {
-            console.log('기부가 실패했습니다!', error);
-        }
+        // 선택된 기부 대상 ID가 없거나 유효하지 않은 경우 처리
+        const donationId = selectedDonationId || localDonationId;
+        if (donationId && points !== null) {
+            const remainingAmount = goal - (donationAmounts[donationId] || 0);
+
+            if(points > remainingAmount){
+                alert(`목표금액까지 남은 금액 ${remainingAmount.toLocaleString()}원을 초과할 수 없습니다!`);
+                return;
+            }
+
+            try {
+                await api.post('/api/donation', { id: donationId, points });
+                alert('기부가 성공적으로 완료되었습니다!');
+                onClose();
+            } catch (error) {
+                console.log('기부가 실패했습니다!', error);
+            }
         } else {
-        alert('기부 대상을 선택해주세요!');
+            alert('기부 대상을 선택해주세요!');
         }
     };
 
@@ -53,7 +75,7 @@ const Modal = ({ isOpen, onClose, selectedDonationId }: ModalProps) => {
                     <p>※ 원하시는 금액을 선택해주세요</p>
                 </div>
                 {user && (
-                    <p className={styles.userpoint}>보유 포인트 {formatNumberWithCommas(user?.totalPoint)} P</p>
+                    <p className={styles.userpoint}>보유 포인트 {formatNumberWithCommas(user.totalPoint)} P</p>
                 )}
                 <div className={styles.select_button}>
                     <label>
@@ -136,7 +158,7 @@ const Modal = ({ isOpen, onClose, selectedDonationId }: ModalProps) => {
                     </label>
                 </div>
                 
-                <hr></hr>
+                <hr />
 
                 <div className={styles.donation_amount}>
                     <span>총 기부금액</span>
@@ -144,11 +166,13 @@ const Modal = ({ isOpen, onClose, selectedDonationId }: ModalProps) => {
                 </div>
                 <div className={styles.modal_button}>
                     <button className={styles.closebutton} onClick={onClose}>닫기</button>
-                    <button className={styles.confirmbutton} onClick={fetchDonationPoint}>{!user ? '로그인' : '확인'}</button>
+                    <button className={styles.confirmbutton} onClick={fetchDonationPoint}>
+                        {!user ? '로그인' : '확인'}
+                    </button>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Modal
+export default Modal;

@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
 import api from '../api/api';
+import { useLocation } from 'react-router-dom';
 
 
 interface UserContextType {
@@ -15,6 +16,7 @@ interface UserProviderProps {
 
 const UserProvider = ({ children }: UserProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
+    const location = useLocation();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -39,7 +41,9 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
         fetchUser();
 
-    }, []);
+    }, [location.pathname]);
+
+    
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

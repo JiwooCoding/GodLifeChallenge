@@ -6,9 +6,9 @@ import api from '../../../api/api';
 import AttendanceButton from './attendance-button/AttendanceButton';
 import AttendanceInfo from './attendance-info/AttendanceInfo';
 import { useUser } from '../../../contexts/UserProvider';
-import { useAppdispatch } from '../../../hooks/redux';
-import { openModal } from '../../../store/modal/modal.slice';
-import NoUserModal from '../../../components/modal/no-user/NoUserModal';
+import { useModal } from '../../../contexts/ModalProvider';
+import Modal from '../../../components/modal';
+import { useNavigate } from 'react-router-dom';
 
 const Attendance = () => {
 
@@ -19,7 +19,8 @@ const Attendance = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false); //버튼 비활
 
     const { user, setUser } = useUser();
-    const dispatch = useAppdispatch();
+    const {isOpen, openModal, closeModal} = useModal();
+    const navigate = useNavigate();
 
     const date = new Date();
     const month = date.getMonth() + 1;
@@ -50,10 +51,10 @@ const Attendance = () => {
     }, []);
 
     const BtnClickHandler = async () => {
+
         if(!user){
-            dispatch(openModal(<NoUserModal/>));
-            return;
-        };
+            openModal();
+        }
 
         if (hasAttendance) {
             alert('이미 출석체크를 하셨습니다.');
@@ -95,7 +96,7 @@ const Attendance = () => {
     };
 
     return (
-        <div>
+        <>
             <div className={styles.event_top}>
                 <h1>출석체크 이벤트🎉</h1>
                 <div className={styles.event_detail}>
@@ -122,7 +123,20 @@ const Attendance = () => {
                     />
                 </div>  
             </div>
-        </div>
+            {isOpen && (
+                <Modal isOpen={isOpen} onClose={closeModal}>
+                    <Modal.Header>
+                        로그인
+                    </Modal.Header>
+                    <Modal.Content>
+                        로그인이 필요한 이벤트입니다.
+                    </Modal.Content>
+                    <Modal.Footer>
+                        <Modal.Button buttonStyle='button--primary' onClick={() => {navigate('/login'); closeModal();}}>로그인</Modal.Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
+        </>
     )
 } 
 

@@ -1,15 +1,7 @@
 import styles from './DonationList.module.scss';
 import { donationData } from '../../../data/donationData';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import api from '../../../api/api';
-
-type DonationType = {
-  id:string;
-  name:string;
-  imageUrl:string;
-  link?:string;
-}
+import useDonationData from '../../../hooks/useDonationData';
 
 interface DonationListProps {
   onSelectDonation: (id:string) => void;
@@ -17,33 +9,12 @@ interface DonationListProps {
 
 const DonationList = ({onSelectDonation}:DonationListProps) => {
 
-  const [donationAmounts, setDonationAmounts] = useState<{ [key: string]: number }>({});
-  const [goal, setGoal] = useState(1000); // 목표금액
-  const [finished, setFinished] = useState<{ [key: string]: boolean }>({});
+  const {donationAmounts, finished, goal} = useDonationData();
 
-  useEffect(() => {
-    const fetchDataAndCheckGoal = async() => {
-      try {
-        const updatedDonationAmounts: { [key: string]: number } = {};
-        const updatedFinished: { [key: string]: boolean } = {};
-
-        for (const donation of donationData) {
-          const response = await api.get(`/api/donation/view/${donation.id}`);
-          const amount = response.data.amount;
-          updatedDonationAmounts[donation.id] = amount;
-          updatedFinished[donation.id] = amount >= goal;
-        }
-
-        setDonationAmounts(updatedDonationAmounts);
-        setFinished(updatedFinished);
-
-      } catch (error) {
-        console.log('서버에서 기부 총 금액 가져오기 실패', error);
-      }
-    }
-
-    fetchDataAndCheckGoal();
-  }, [goal]);
+  const handleSelectDonation = (id: string) => {
+    onSelectDonation(id);
+    localStorage.setItem('selectedDonationId', id);
+  };
   
 
   return (
@@ -51,7 +22,7 @@ const DonationList = ({onSelectDonation}:DonationListProps) => {
       {donationData.map((donation) => (
           <li 
             key={donation.id} 
-            onClick={() => onSelectDonation(donation.id)} // 기부 대상 클릭 시 ID 저장
+            onClick={() => handleSelectDonation(donation.id)}
             className={`${styles.donation_item} ${finished[donation.id] === true ? styles.finished : ''}`} 
             style={{ backgroundImage: `url(${donation.imageUrl})` }}
           >

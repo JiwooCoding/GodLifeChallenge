@@ -4,7 +4,6 @@ import api from '../../../api/api'
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/button/Button';
 import { useAppdispatch } from '../../../hooks/redux';
-import { useUser } from '../../../contexts/UserProvider';
 import { setUserId } from '../../../store/cart/cartSlice';
 
 const SignIn = () => {
@@ -14,7 +13,6 @@ const SignIn = () => {
   const [activeInput, setActiveInput]= useState('');
 
   const dispatch = useAppdispatch();
-  const {user} = useUser();
 
   const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 

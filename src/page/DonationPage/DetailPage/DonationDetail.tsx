@@ -20,6 +20,7 @@ const DonationDetail = () => {
 
   const [showNav, setShowNav] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedDonationId, setSelectedDonationId] = useState<string | null>(null);
 
   const {user} = useUser();
 

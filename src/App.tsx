@@ -1,6 +1,5 @@
-// App.tsx
 import './App.css';
-import { Outlet, Routes, Route } from 'react-router-dom';
+import { Outlet, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import EventPage from './page/EventPage/EventPage';
 import RegisterPage from './page/RegisterPage/RegisterPage';
@@ -19,11 +18,13 @@ import ProductPage from './page/ProductPage';
 import MyPage from './page/MyPage/MyPage';
 import ProductUpload from './page/UploadPage/ProductUpload';
 import GiftPoint from './components/giftPoint/GiftPoint';
+import ProtectedRoute from './routes/ProtectedRoute';
+import NotFound from './page/NotFoundPage/NotFound';
+import LoginRoute from './routes/LoginRoute';
 
 
 
 const Layout = () => {
-  // Layout 컴포넌트 내에서 useNavigate를 사용하기 위해 라우터의 컨텍스트가 필요합니다.
 
   return (
     <>
@@ -56,7 +57,8 @@ const App = () => {
         <Route path='cart' element={<CartPage/>}/>
         <Route path='kakaoauth' element={<Redirect/>}/>
         <Route path='giftPoint' element={<GiftPoint/>}/>
-        {/* <Route path='*' element={<NotFoundPage />} /> */}
+        <Route path='/404' element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
       </Route>
     </Routes>
   );

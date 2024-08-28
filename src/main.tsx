@@ -1,5 +1,3 @@
-// index.tsx
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
@@ -11,14 +9,14 @@ import ModalProvider from './contexts/ModalProvider';
 import ToastProvider from './components/ToastProvider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <Provider store={store}>
-        <UserProvider>
-            <ModalProvider>
-                <BrowserRouter> {/* 최상위에서 BrowserRouter를 감싸야 합니다. */}
+    <BrowserRouter> {/* 최상위에 BrowserRouter를 위치시킵니다. */}
+        <Provider store={store}>
+            <UserProvider>
+                <ModalProvider>
                     <ToastProvider/>
                     <App />
-                </BrowserRouter>
-            </ModalProvider>
-        </UserProvider>
-    </Provider>
+                </ModalProvider>
+            </UserProvider>
+        </Provider>
+    </BrowserRouter>
 );

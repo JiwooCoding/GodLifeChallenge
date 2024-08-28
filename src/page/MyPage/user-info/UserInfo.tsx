@@ -4,26 +4,12 @@ import calendar from '../../../image/mypage/12.png'
 import roulette from '../../../image/mypage/11.png'
 import { Link } from 'react-router-dom';
 import { SlArrowRight } from "react-icons/sl";
-import { useEffect, useState } from 'react';
-import api from '../../../api/api';
+import { useUser } from '../../../contexts/UserProvider';
 
 const UserInfo = () => {
 
-    const [user, setUser] = useState<User>();
-
-    useEffect(() => {
-        const fetchUserData = async() => {
-            try {
-                const response = await api.get('/api/user');
-                setUser(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchUserData();
-    }, [user]);
+    const {user} = useUser();
     
-
     return (
         <div>
             <h1 className={styles.user_hello}>{user?.name}님, 안녕하세요🖐️</h1>

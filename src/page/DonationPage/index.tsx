@@ -2,7 +2,6 @@ import { useState } from 'react';
 import donation from '../../image/donation/Make a Difference with Your Donation! (5).png'
 import DonationList from './donationList/DonationList'
 import styles from './donationList/DonationList.module.scss'
-import Modal from './DetailPage/modal/Modal';
 
 const Donation = () => {
 
@@ -14,9 +13,6 @@ const Donation = () => {
     setModalOpen(true);
   };
 
-  const isModalClose = () => {
-    setModalOpen(false);
-  };
 
   return (
     <div className='inner'>
@@ -30,11 +26,6 @@ const Donation = () => {
               <DonationList onSelectDonation={handleDonationSelect}/>
             </div>
         </div>
-        <Modal
-          isOpen={modalOpen}
-          onClose={isModalClose}
-          selectedDonationId={selectedDonationId}
-        />
     </div>
   )
 }
