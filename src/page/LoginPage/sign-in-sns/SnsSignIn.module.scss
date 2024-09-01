@@ -4,21 +4,22 @@
     gap: 10px;
 
     img {
-        width: 25px;
+        width: 20px;
     }
 
-    .kakao,
-    .naver {
+    .kakao {
         display: flex;
         align-items: center; 
         justify-content: center;
         gap:10px;
-        padding: 11px 23px;
-        border-radius: 5px;
+        padding: 10px;
+        border-radius: 7px;
         text-align: center;
         position: relative;
         cursor: pointer;
         transition: all 0.3s ease;
+        height: 40px;
+        font-size: 14px;
     }
 
     .kakao {
@@ -30,12 +31,22 @@
         }
     }
 
-    .naver {
-        background-color: #00d337;
-        color: #fff;
+    .or_menu{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
 
-        &:hover {
-            background-color: #00d3377d;
+        .horizontal_line{
+            border-top: 1px solid #c8c8c8;
+            margin: 20px 0; 
+            width: 100%;
+        }
+
+        .or_text{
+            white-space: nowrap;
+            font-size: 13px;
+            color: #333;
         }
     }
 }

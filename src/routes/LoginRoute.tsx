@@ -1,11 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { useUser } from "../contexts/UserProvider"
 
 const LoginRoute = ({children}:{children:React.ReactNode}) => {
 
-    const {user} = useUser();
+    const isLoggedIn = localStorage.getItem('accessToken') !== null;
 
-    if(user){
+    if(isLoggedIn){
         return <Navigate to={'*'} replace/>;
     }else{
         return  <div>{children}</div>

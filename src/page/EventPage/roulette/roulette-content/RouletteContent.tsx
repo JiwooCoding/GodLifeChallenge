@@ -6,8 +6,7 @@ import api from '../../../../api/api';
 import styles from './RouletteContent.module.scss'
 import { useUser } from '../../../../contexts/UserProvider';
 import { useAppdispatch } from '../../../../hooks/redux';
-import { openModal } from '../../../../store/modal/modal.slice';
-import NoUserModal from '../../../../components/modal/no-user/NoUserModal';
+
 
 const RouletteContent = () => {
 
@@ -41,11 +40,6 @@ const RouletteContent = () => {
   };
 
   const handleSpinClick = () => {
-
-    if(!user){
-      dispatch(openModal(<NoUserModal/>));
-      return;
-    };
     
     // spinStop false이고 남은 스핀 카운트가 있을 때만 실행
     if (!spin && spinCount > 0) { 

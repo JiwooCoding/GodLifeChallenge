@@ -16,6 +16,7 @@ interface UserProviderProps {
 
 const UserProvider = ({ children }: UserProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
+
     const location = useLocation();
 
     useEffect(() => {
@@ -31,8 +32,9 @@ const UserProvider = ({ children }: UserProviderProps) => {
                         Authorization: `Bearer ${accessToken}`
                     },
                 });
-
+                console.log('user ===> ',response.data);
                 setUser(response.data);
+                localStorage.setItem('user', JSON.stringify(response.data));
 
             } catch (error) {
                 console.log('유저 데이터 못가져옴', error);
@@ -43,7 +45,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
     }, [location.pathname]);
 
-    
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

@@ -5,14 +5,20 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import styles from './SelectCategory.module.scss';
 
+interface SelectOption {
+  value:string;
+  label:string;
+}
+
 interface SelectSmallProps {
   id: string;
   label: string;
   onBlur: () => void;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
+  options: SelectOption[];
 }
 
-export default function SelectSmall({ id, label, onBlur, setCategory }: SelectSmallProps) {
+export default function SelectSmall({ id, label, onBlur, setCategory, options }: SelectSmallProps) {
   const [category, setLocalCategory] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -56,8 +62,11 @@ export default function SelectSmall({ id, label, onBlur, setCategory }: SelectSm
             },
           }}
         >
-          <MenuItem value={'식음료'}>식음료</MenuItem>
-          <MenuItem value={'문화·생활'}>문화·생활</MenuItem>
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>

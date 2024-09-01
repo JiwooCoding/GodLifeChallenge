@@ -21,8 +21,8 @@ const eventData = [
         imageUrl: attendance8,
         title:`${month}월 출석체크 이벤트`,
         description: '출석체크하고 최대 5000포인트 받아세요❣️',
-        startDate: new Date('2024-08-01'),
-        endDate:new Date('2024-08-31'),
+        startDate: new Date('2024-09-01'),
+        endDate:new Date('2024-09-30'),
         path: 'attendance'
     },
     {

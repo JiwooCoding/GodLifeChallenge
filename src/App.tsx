@@ -1,5 +1,5 @@
 import './App.css';
-import { Outlet, Routes, Route, Navigate } from 'react-router-dom';
+import { Outlet, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import EventPage from './page/EventPage/EventPage';
 import RegisterPage from './page/RegisterPage/RegisterPage';
@@ -18,21 +18,21 @@ import ProductPage from './page/ProductPage';
 import MyPage from './page/MyPage/MyPage';
 import ProductUpload from './page/UploadPage/ProductUpload';
 import GiftPoint from './components/giftPoint/GiftPoint';
-import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './page/NotFoundPage/NotFound';
-import LoginRoute from './routes/LoginRoute';
-
-
+import ProtectedRoute from './routes/ProtectedRoute';
+import LoginRoute from './routes/LoginRoute'
 
 const Layout = () => {
+  const location = useLocation();
+  const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/register';
 
   return (
     <>
-      <Header />
+      {!hideHeaderFooter && <Header />}
       <main>
         <Outlet />
       </main>
-      <Footer />
+      {!hideHeaderFooter && <Footer />}
     </>
   );
 };
@@ -41,23 +41,26 @@ const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path='event' element={<EventPage />} />
-        <Route path='attendance' element={<Attendance />} />
-        <Route path='roulette' element={<Roulette />} />
-        <Route path='product' element={<ProductPage />} />
-        <Route path='login' element={<LoginPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route index element={<HomePage />} />
+          <Route path='event' element={<EventPage />} />
+          <Route path='attendance' element={<Attendance />} />
+          <Route path='roulette' element={<Roulette />} />
+          <Route path='product' element={<ProductPage />} />
+          <Route path='productUpload' element={<ProductUpload />} />
+          <Route path='mypage' element={<MyPage />} />
+          <Route path='modify' element={<MyInfoModify />} />
+          <Route path='cart' element={<CartPage />} />
+          <Route path='giftPoint' element={<GiftPoint />} />
+          <Route path='test' element={<Apitest />} />
+          <Route path='donation' element={<Donation />} />
+          <Route path='donation-detail' element={<DonationDetail />} />
+        </Route>
+
+        <Route path='login' element={<LoginRoute><LoginPage /></LoginRoute>} />
         <Route path='register' element={<RegisterPage />} />
-        <Route path='productUpload' element={<ProductUpload />} />
-        <Route path='mypage' element={<MyPage />} />
-        <Route path='modify' element={<MyInfoModify />} />
-        <Route path='test' element={<Apitest />} />
-        <Route path='donation' element={<Donation />} />
-        <Route path='donation-detail' element={<DonationDetail />} />
-        <Route path='cart' element={<CartPage/>}/>
-        <Route path='kakaoauth' element={<Redirect/>}/>
-        <Route path='giftPoint' element={<GiftPoint/>}/>
-        <Route path='/404' element={<NotFound />} />
+        <Route path='kakaoauth' element={<Redirect />} />
+        <Route path='404' element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Route>
     </Routes>

@@ -7,42 +7,38 @@ body{
     position: relative;
 }
 
-.button {
+/* .button {
     border-radius: 4px;
     padding: 12px 94px;
     background-color:rgb(255, 130, 85);
     color: #fff;
     transition: background-color 1s, color 1s;
-    /* border: 1px solid rgb(255, 130, 85); */
-    box-sizing: border-box; /* 패딩과 경계선을 포함한 크기를 지정 */
+    box-sizing: border-box; 
     white-space: nowrap;
 }
 
 .button:hover {
     color: rgb(255, 130, 85);
     background-color: #fff;
-    /* border: 1px solid rgb(255, 130, 85); 호버 시에도 동일한 border 유지 */
     box-sizing: border-box;
     white-space: nowrap;
 }
 
 .button.disabled {
-    opacity: 0.5; /* 비활성화 시 투명도 조정 */
-    cursor: not-allowed; /* 비활성화 시 커서 변경 */
-    /* border: 1px solid rgb(255, 130, 85); 비활성화 시에도 동일한 border 유지 */
+    opacity: 0.5;
+    cursor: not-allowed; 
 }
 
 .button.disabled:hover {
-    opacity: 0.5; /* 비활성화 시 투명도 조정 */
-    cursor: not-allowed; /* 비활성화 시 커서 변경 */
+    opacity: 0.5;
+    cursor: not-allowed; 
     border-radius: 4px;
     padding: 12px 94px;
     background-color: rgb(255, 130, 85);
     color: white;
-    /* border: 1px solid rgb(255, 130, 85); 비활성화 호버 시에도 동일한 border 유지 */
     box-sizing: border-box;
     
-}
+} */
 
 /* a:hover {
     color: rgb(255, 130, 85);
@@ -88,9 +84,9 @@ body{
 
 
 
-.product-item:hover {
+/* .product-item:hover {
     transform: translateY(-5px);
-}
+} */
 
 .product-list {
     display: grid;
@@ -98,7 +94,7 @@ body{
     gap: 25px;
     row-gap: 55px;
     margin-top: 15px;
-}
+} 
 
 .navbar_left{
     cursor: pointer;
@@ -131,8 +127,11 @@ body{
 }
 
 .navbar{
-    border-bottom: 1px solid #e9e9e9e9;
     padding: 19px 40px;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    background: #fff;
 }
 
 .nav_inner{
@@ -148,26 +147,6 @@ body{
     padding: 0 16px;
 }
 
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .modal-content {
-        background: white;
-        padding: 30px 100px;
-        border-radius: 8px;
-        text-align: center;
-        position: relative;
-    }
-}
 
 .footer{
     
@@ -191,3 +170,29 @@ body{
     margin: 37px 0px;
     padding: 0px 150px;
 }
+
+.login-container, .register-container{
+    padding: 60px 0px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: #f2f4f7;
+}
+
+.login, .register{
+    margin: 0 auto;
+    padding: 20px 0;
+    position: relative;
+    width: 980px;
+    display: flex;
+}
+
+.login-form, .register-form{
+    flex: 1;
+}
+
+.login-text, .register-text{
+    flex: 1.5;
+}
+

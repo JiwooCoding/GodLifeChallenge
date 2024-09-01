@@ -17,7 +17,7 @@ export const useLogout = () => {
             localStorage.removeItem('userId');
             dispatch(removeUserId());
             setUser(null);
-            navigate('/');
+            navigate('/login');
         } catch (error) {
             console.log('로그아웃 에러!!!', error);
         }

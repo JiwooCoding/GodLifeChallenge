@@ -18,9 +18,12 @@
 
 .already_have_account{
     display: flex;
-    font-size: 13px;
+    font-size: 14px;
+    justify-content: center;
+    gap: 10px;
 
     p{
-        margin-right: 10px;
+        text-decoration: underline;
+        color: rgb(255, 130, 85);
     }
 }

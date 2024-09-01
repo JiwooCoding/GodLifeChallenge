@@ -1,5 +1,5 @@
 import styles from './Register.module.scss';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ProfileUpload from '../../RegisterPage/register/profile-upload/ProfileUpload';
 import { useForm, FormProvider } from 'react-hook-form';
 import noProfile from '../../../image/girl2.png';
@@ -41,14 +41,12 @@ const Register = () => {
     closeModal();
   }
 
-  
-  // 이메일 확인
-  const checkedEmail = useCallback(async () => {
-    const email = getValues('email');
+  const checkedEmail = async() => {
+    const email= getValues('email');
     try {
-      const response = await api.post<{ email: boolean }>('/api/check-email', { email });
-      if(response.data.email){  
-        setError('email', {type:'manual', message:'이미 존재하는 이메일입니다'});
+      const response = await api.post<{email:boolean}>('/api/check-email', {email});
+      if(response.data.email){
+        setError('email', {type:'manual',message:'이미 존재하는 이메일입니다'});
         setEmailChecked(false);
         setEmailMessage(null);
       }else{
@@ -59,28 +57,26 @@ const Register = () => {
     } catch (error) {
       console.log('이메일 중복 확인 오류!!!!!', error);
     }
-  }, [getValues, setError, clearErrors]);
-  
-
-// 닉네임 중복 체크
-const checkedNickname = useCallback(async () => {
-  const nickname = getValues('nickname');
-  try {
-    const response = await api.post<{ nickname: boolean }>('/api/check-nickname', { nickname });
-    if (response.data.nickname) { 
-      setError('nickname', {type: 'manual', message: '이미 존재하는 닉네임입니다.'});
-      setNickNameChecked(false);
-      setNicknameMessage(null);
-    } else {
-      clearErrors('nickname');
-      setNickNameChecked(true);
-      setNicknameMessage('사용 가능한 닉네임입니다')
-    }
-  } catch (error) {
-    console.log('닉네임 중복 확인 오류!!!!!', error);
   }
-}, [getValues, setError, clearErrors]);
 
+  const checkedNickname = async() => {
+    const nickname= getValues('nickname');
+    try {
+      const response = await api.post<{nickname:boolean}>('/api/check-nickname', {nickname});
+      if(response.data.nickname){
+        setError('nickname', {type:'manual',message:'이미 존재하는 닉네임입니다'});
+        setNickNameChecked(false);
+        setNicknameMessage(null);
+      }else{
+        clearErrors('email');
+        setNickNameChecked(true);
+        setNicknameMessage('사용 가능한 이메일입니다');
+      }
+    } catch (error) {
+      console.log('이메일 중복 확인 오류!!!!!', error);
+    }
+  }
+  
   
   //제출
   const onSubmit = async (data: RegisterFormData) => {

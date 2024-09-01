@@ -1,23 +1,21 @@
-// InputField.tsx
 import React from 'react';
-import { UseFormRegister } from 'react-hook-form';
-import { FormValues } from '../ProductUploadForm';
-import styles from '../ProductUploadForm.module.scss'
+import { UseFormRegister, FieldValues, Path } from 'react-hook-form';
+import styles from '../ProductUploadForm.module.scss';
 
-interface InputFieldProps {
-    id: string;
+interface InputFieldProps<T extends FieldValues> { // T가 FieldValues를 상속
+    id: Path<T>;  
     label: string;
     type: string;
     placeholder: string;
     activeInput: string;
-    register: UseFormRegister<FormValues>;
-    onFocus: (inputId: string) => void;
+    register: UseFormRegister<T>;
+    onFocus: (inputId: Path<T>) => void;
     onBlur: () => void;
     step?: number;
     min?: number;
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+const InputField = <T extends FieldValues>({
     id,
     label,
     type,
@@ -28,16 +26,16 @@ const InputField: React.FC<InputFieldProps> = ({
     onBlur,
     step,
     min,
-}) => {
+}: InputFieldProps<T>) => {
     return (
         <div className={styles.product_items}>
-            <label htmlFor={id}>{label}</label>
+            <label htmlFor={id as string}>{label}</label>
             <input
-                id={id}
+                id={id as string}
                 className={` ${activeInput === id ? 'active' : ''}`}
                 type={type}
                 placeholder={placeholder}
-                {...register(id as keyof FormValues, { required: true})}
+                {...register(id, { required: true })}
                 onFocus={() => onFocus(id)}
                 onBlur={onBlur}
                 min={min}

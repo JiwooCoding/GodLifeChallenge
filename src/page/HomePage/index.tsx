@@ -1,6 +1,6 @@
 import Swipter from '../../components/swiper/Swipter'
 
-const index = () => {
+const Homepage = () => {
   return (
     <div>
       <Swipter/>
@@ -8,4 +8,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Homepage

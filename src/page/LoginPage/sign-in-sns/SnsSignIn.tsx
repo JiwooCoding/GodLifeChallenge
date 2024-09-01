@@ -1,6 +1,5 @@
 import styles from './SnsSignIn.module.scss';
 import kakao from '../../../image/kakao.png';
-import naver from '../../../image/naver.png';
 import SocialKakao from './SocialKakao';
 
 const SnsSignIn = () => {
@@ -8,12 +7,13 @@ const SnsSignIn = () => {
     <div>
         <div className={styles.snsLogin}>
             <div className={styles.kakao}>
-                <img src={kakao} alt='kakao'/>
-                <SocialKakao/>
+              <img src={kakao} alt='kakao'/>
+              <SocialKakao/>
             </div>
-            <div className={styles.naver}>
-                <img src={naver} alt='naver'/>
-                <p>네이버로 시작하기</p>
+            <div className={styles.or_menu}>
+              <div className={styles.horizontal_line}></div>
+              <div className={styles.or_text}><span>또는</span></div>
+              <div className={styles.horizontal_line}></div>
             </div>
         </div>
     </div>

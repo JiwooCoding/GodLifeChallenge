@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FieldValues, Path } from 'react-hook-form';
 import styles from './ProductUploadForm.module.scss';
 import { useNavigate } from 'react-router-dom';
 import noImage from '../../../image/noimage.jpeg';
@@ -8,6 +8,7 @@ import ImageUpload from './image-upload/ImageUpload';
 import api from '../../../api/api';
 import SelectSmall from './select-category/SelectCategory';
 import Button from '../../../components/button/Button';
+import { handlePhotoChange } from '../../../utils/handlePhotoChange';
 
 export type FormValues = {
     productCompany: string;
@@ -47,19 +48,6 @@ const ProductUploadForm: React.FC = () => {
             console.log('response => ', response.data);
         } catch (error) {
             console.log('error => ', error);
-        }
-    };
-
-    const handlePhotoChange = (files: FileList | null) => {
-        if (files && files.length > 0) {
-            const file = files[0];
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result as string);
-            };
-            reader.readAsDataURL(file);
-        } else {
-            setPreview(noImage);
         }
     };
 
@@ -114,7 +102,11 @@ const ProductUploadForm: React.FC = () => {
                     id="category"
                     label="상품 카테고리"
                     onBlur={handleBlur}
-                    setCategory={setCategory} // 카테고리 상태를 설정하는 함수 전달
+                    setCategory={setCategory} 
+                    options={[
+                        {value:'식음료', label:'식음료'},
+                        {value:'문화·생활', label:'문화·생활'}
+                    ]}
                 />
                 <InputField
                     id="stock"
@@ -129,9 +121,12 @@ const ProductUploadForm: React.FC = () => {
                     onBlur={handleBlur}
                 />
                 <ImageUpload
+                    name="productImage"
+                    label="상품 사진"
+                    multiple={false}
                     control={control}
                     preview={preview}
-                    handlePhotoChange={handlePhotoChange}
+                    handlePhotoChange={(files) => handlePhotoChange(files, setPreview, noImage)}
                 />
             </div>
             <div>
