@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useForm, FieldValues, Path } from 'react-hook-form';
-import styles from './ProductUploadForm.module.scss';
 import { useNavigate } from 'react-router-dom';
 import noImage from '../../../image/noimage.jpeg';
-import InputField from './input-upload/InputField';
-import ImageUpload from './image-upload/ImageUpload';
+import InputField from '../../../components/inputField/InputField';
+import ImageUpload from '../../../components/imageField/ImageField';
 import api from '../../../api/api';
-import SelectSmall from './select-category/SelectCategory';
+import SelectSmall from '../../../components/select-category/SelectCategory';
 import Button from '../../../components/button/Button';
 import { handlePhotoChange } from '../../../utils/handlePhotoChange';
 
@@ -65,7 +64,7 @@ const ProductUploadForm: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.grid}>
+            <div>
                 <InputField
                         id="productCompany"
                         label="브랜드명"

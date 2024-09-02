@@ -1,5 +1,5 @@
 import './App.css';
-import { Outlet, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Outlet, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import EventPage from './page/EventPage/EventPage';
 import RegisterPage from './page/RegisterPage/RegisterPage';
@@ -21,10 +21,14 @@ import GiftPoint from './components/giftPoint/GiftPoint';
 import NotFound from './page/NotFoundPage/NotFound';
 import ProtectedRoute from './routes/ProtectedRoute';
 import LoginRoute from './routes/LoginRoute'
+import ChallengePage from './page/ChallengePage';
+import { Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 const Layout = () => {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/register';
+  const navigate = useNavigate();
 
   return (
     <>
@@ -33,6 +37,14 @@ const Layout = () => {
         <Outlet />
       </main>
       {!hideHeaderFooter && <Footer />}
+      {/* Floating Icon */}
+      <Fab 
+        color="primary" 
+        aria-label="add" 
+        className="floating-icon" 
+        onClick={()=>navigate('/challenge-upload')}>
+        <AddIcon />
+      </Fab>
     </>
   );
 };
@@ -55,6 +67,7 @@ const App = () => {
           <Route path='test' element={<Apitest />} />
           <Route path='donation' element={<Donation />} />
           <Route path='donation-detail' element={<DonationDetail />} />
+          <Route path='challenge-upload' element={<ChallengePage/>}/>
         </Route>
 
         <Route path='login' element={<LoginRoute><LoginPage /></LoginRoute>} />

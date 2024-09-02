@@ -1,0 +1,48 @@
+.photo_container{
+
+    margin-bottom: 150px;
+
+    label {
+        white-space: nowrap;
+        font-weight: 600;   
+        margin-bottom: 6px;
+    }
+
+        .photobox{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        img{
+            width: 265px;
+            height: 265px;
+            cursor: pointer;
+            border-radius: 7px 7px 0px 0px;
+            border:1px solid #e5e7eb;
+        }
+
+        .success_bottom, .fail_bottom{
+            border-radius: 0px 0px 7px 7px;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+
+            &.unselected{
+                background-color: #b7b7b7;
+            }
+        }
+
+        .selected {
+            &.success_bottom {
+                background-color: #2ac432;
+            }
+        
+            &.fail_bottom {
+                background-color: #c42a2a;
+            }
+        }
+    }
+}
+

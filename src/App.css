@@ -7,6 +7,13 @@ body{
     position: relative;
 }
 
+.floating-icon{
+    position: fixed !important;
+    top: 88%;
+    left: 93%;
+    z-index: 1000 !important;
+}
+
 /* .button {
     border-radius: 4px;
     padding: 12px 94px;

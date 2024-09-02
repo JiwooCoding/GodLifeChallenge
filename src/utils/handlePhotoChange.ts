@@ -1,7 +1,8 @@
 export const handlePhotoChange = (
     files: FileList | null,
     setPreview: (preview: string) => void,
-    noImage: string
+    noImage: string,
+    setSelected: (selected: boolean) => void
 ) => {
     if (files && files.length > 0) {
         const file = files[0];
@@ -10,7 +11,9 @@ export const handlePhotoChange = (
             setPreview(reader.result as string);
         };
         reader.readAsDataURL(file);
+        setSelected(true);
     } else {
         setPreview(noImage);
+        setSelected(false);
     }
 };

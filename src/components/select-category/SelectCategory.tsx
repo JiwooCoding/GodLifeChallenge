@@ -29,8 +29,10 @@ export default function SelectSmall({ id, label, onBlur, setCategory, options }:
 
   return (
     <div className={styles.selectCategory}>
-      <label htmlFor={id} className={styles.label}>{label}</label>
-      <FormControl sx={{ flex: 1, height: '46px' }} size="small">
+      <label htmlFor={id} className={styles.label}>
+        {label}<span style={{color:'red'}}>*</span>
+      </label>
+      <FormControl sx={{ flex: 1, height: '43px' }} size="small">
         <InputLabel 
         id="demo-select-small-label">카테고리</InputLabel>
         <Select
@@ -42,10 +44,11 @@ export default function SelectSmall({ id, label, onBlur, setCategory, options }:
           onBlur={onBlur}
           sx={{
             width: '100%',
-            height: '46px',
-            lineHeight: '46px', 
+            height: '43px',
+            lineHeight: '43px', 
+            fontSize:'14px',
             '& .MuiOutlinedInput-input': {
-              height: '46px',
+              height: '43px',
               padding: '0 14px',
               display: 'flex',
               alignItems: 'center',
