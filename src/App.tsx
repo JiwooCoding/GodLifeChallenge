@@ -21,14 +21,18 @@ import GiftPoint from './components/giftPoint/GiftPoint';
 import NotFound from './page/NotFoundPage/NotFound';
 import ProtectedRoute from './routes/ProtectedRoute';
 import LoginRoute from './routes/LoginRoute'
-import ChallengePage from './page/ChallengePage';
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ChallengeUploadPage from './page/ChallengeUploadPage';
+import ChallengePage from './page/ChallengePage';
 
 const Layout = () => {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/register';
   const navigate = useNavigate();
+
+  const hideFabPath = ['/login', '/register', '/kakaoauth', '/404','/challenge-upload'];
+  const shouldHideFab = hideFabPath.includes(location.pathname);
 
   return (
     <>
@@ -38,13 +42,15 @@ const Layout = () => {
       </main>
       {!hideHeaderFooter && <Footer />}
       {/* Floating Icon */}
-      <Fab 
-        color="primary" 
-        aria-label="add" 
-        className="floating-icon" 
-        onClick={()=>navigate('/challenge-upload')}>
-        <AddIcon />
-      </Fab>
+      {!shouldHideFab && (
+        <Fab 
+          color="primary" 
+          aria-label="add" 
+          className="floating-icon" 
+          onClick={()=>navigate('/challenge-upload')}>
+          <AddIcon />
+        </Fab>
+      )}
     </>
   );
 };
@@ -67,7 +73,8 @@ const App = () => {
           <Route path='test' element={<Apitest />} />
           <Route path='donation' element={<Donation />} />
           <Route path='donation-detail' element={<DonationDetail />} />
-          <Route path='challenge-upload' element={<ChallengePage/>}/>
+          <Route path='challenge-upload' element={<ChallengeUploadPage/>}/>
+          <Route path='challenge' element={<ChallengePage/>}/>
         </Route>
 
         <Route path='login' element={<LoginRoute><LoginPage /></LoginRoute>} />

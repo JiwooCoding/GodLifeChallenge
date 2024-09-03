@@ -3,8 +3,6 @@ import InputField from '../../../components/inputField/InputField'
 import { useForm } from 'react-hook-form';
 import SelectSmall from '../../../components/select-category/SelectCategory';
 import ImageUpload from '../../../components/imageField/ImageField';
-
-import { handlePhotoChange } from '../../../utils/handlePhotoChange';
 import ChallengeStartEndDate from './challenge-start-endDate/ChallengeStartEndDate';
 import TextareaField from '../../../components/textareaField/TextareaField';
 import ChallengeExamplePhoto from './challenge-example-photo/ChallengeExamplePhoto';
@@ -19,17 +17,17 @@ export type FormValues = {
     category: string; // 챌린지 카테고리
     startDate: string; // 챌린지 시작일 (당일x, 다음날부터 가능)
     endDate:string;// 챌린지 종료일
-    authMethod:string;
-    //frequency: string; //챌린지 빈도 (매일, 평일, 주말)
-    participantsLimit:number; //챌린지 리밋 인원
-    description: string;
-    mainImage: FileList;
-    exampleImages:File[]; // 인증 사진 예시
+    authMethod:string; //인증방법
+    participantsLimit:number; //참여인원
+    description: string; //챌린지 설명
+    mainImage: FileList; //메인이미지
+    successImage:FileList; //예시 성공 인증샷
+    failImage:FileList; //예시 실패 인증샷
 }
 
 const ChallengeUpload = () => {
 
-    const {handleSubmit, register, control, formState: { errors }} = useForm<FormValues>();
+    const {handleSubmit, register, control, formState: { errors }, setValue} = useForm<FormValues>();
     const navigate = useNavigate();
 
     const [activeInput, setActiveInput] = useState('');
@@ -48,10 +46,9 @@ const ChallengeUpload = () => {
         navigate(-1);
     }
 
+    
+
     const onSubmit = async(data:FormValues) => {
-        const successFile = (data.exampleImages.filter(file => file.name.endsWith('-success')) || []);
-        const failFile = (data.exampleImages.filter(file => file.name.endsWith('-fail')) || []);
-        const exampleImages = [...successFile, ...failFile];
 
         const formData = new FormData();
         formData.append('title', data.title);
@@ -59,11 +56,16 @@ const ChallengeUpload = () => {
         formData.append('startDate', data.startDate);
         formData.append('endDate', data.endDate);
         formData.append('participantsLimit', data.participantsLimit.toString());
-        formData.append('description', data.description);
-        formData.append('mainImage', data.mainImage[0]);
-        exampleImages.forEach((file, index) => {
-            formData.append(`exampleImages[${index}]`, file);
-        });
+        formData.append('description', data.description); 
+        formData.append('mainImage', data.mainImage[0]); 
+        formData.append('authMethod', data.authMethod); 
+        formData.append('successImage', data.successImage[0]); 
+        formData.append('failImage', data.failImage[0]); 
+
+         // FormData 내용을 확인하는 코드
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
 
         try {
             const response = await api.post('/api/challenge', formData,{
@@ -115,6 +117,7 @@ const ChallengeUpload = () => {
                     label='카테고리'
                     onBlur={handleBlur}
                     setCategory={setCategory}
+                    register={register}
                     options={[
                         {value:'규칙적인생활',label:'규칙적인생활'},
                         {value:'운동', label:'운동'},
@@ -144,6 +147,7 @@ const ChallengeUpload = () => {
                     activeInput={activeInput}
                     onBlur={handleBlur}
                     onFocus={handleFocus}
+                    setValue={setValue}
                 />
                 {/* 챌린지 인증 방법 */}
                 <ChallengeAuthMethod
@@ -156,7 +160,6 @@ const ChallengeUpload = () => {
                 <ChallengeExamplePhoto
                     control={control}
                     label="인증샷 예시"
-                    name="exampleImages"
                 />
                 <div className={styles.upload_button}>
                     <Button type='button' variant='close' onclick={backToPage}>

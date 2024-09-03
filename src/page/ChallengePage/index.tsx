@@ -1,12 +1,39 @@
-import ChallengeUpload from './challenge-upload/ChallengeUpload'
+import { useState } from 'react'
+import ChallengeCategory from './challenge-category/ChallengeCategory'
+import ChallengeState from './challenge-state/ChallengeState';
 import styles from './ChallengePage.module.scss'
+import ChallengeList from './challenge-list/ChallengeList';
 
 const ChallengePage = () => {
+
+    const [selectedCategory, setSelectedCategory] = useState('전체');
+    const [selectedState, setSelectedState] = useState('전체');
+
+    const handleCategoryChange = (category:string) => {
+        setSelectedCategory(category);
+    }
+
+    const handleStateChange = (state:string) => {
+        setSelectedState(state);
+    }
+
     return (
-        <div className='page'>
-            <h1 className={styles.title}>챌린지를 자유롭게 만들어주세요!😆</h1>
-            <h2 className={styles.subTitle}><span>*</span> 별 표시 항목은 필수 입력값입니다.</h2>
-            <ChallengeUpload/>
+        <div className='inner'>
+            <h1>챌린지</h1>
+            <div className={styles.challenge_filter}>
+                <ChallengeCategory
+                    selectedCategory={selectedCategory}
+                    onCategoryChange={handleCategoryChange}
+                />
+                <ChallengeState
+                    selectedState={selectedState}
+                    onStateChange={handleStateChange}
+                />
+            </div>
+            <ChallengeList
+                category={selectedCategory}
+                state={selectedState}
+            />
         </div>
     )
 }

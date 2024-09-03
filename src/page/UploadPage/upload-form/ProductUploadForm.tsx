@@ -65,6 +65,14 @@ const ProductUploadForm: React.FC = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
+                <ImageUpload
+                    name="productImage"
+                    label="상품 사진"
+                    multiple={false}
+                    control={control}
+                    preview={preview}
+                    //handlePhotoChange={(files) => handlePhotoChange(files, setPreview, noImage)}
+                />
                 <InputField
                         id="productCompany"
                         label="브랜드명"
@@ -97,11 +105,12 @@ const ProductUploadForm: React.FC = () => {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                 />
-                <SelectSmall
+                <SelectSmall<FormValues>
                     id="category"
                     label="상품 카테고리"
                     onBlur={handleBlur}
                     setCategory={setCategory} 
+                    register={register}
                     options={[
                         {value:'식음료', label:'식음료'},
                         {value:'문화·생활', label:'문화·생활'}
@@ -119,14 +128,7 @@ const ProductUploadForm: React.FC = () => {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                 />
-                <ImageUpload
-                    name="productImage"
-                    label="상품 사진"
-                    multiple={false}
-                    control={control}
-                    preview={preview}
-                    handlePhotoChange={(files) => handlePhotoChange(files, setPreview, noImage)}
-                />
+                
             </div>
             <div>
                 <Button type="button" variant="close" onclick={backToPage}>
