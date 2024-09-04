@@ -3,7 +3,7 @@ import InputField from '../../../components/inputField/InputField'
 import { useForm } from 'react-hook-form';
 import SelectSmall from '../../../components/select-category/SelectCategory';
 import ImageUpload from '../../../components/imageField/ImageField';
-import ChallengeStartEndDate from './challenge-start-endDate/ChallengeStartEndDate';
+import ChallengeDate from './challenge-date/ChallengeDate';
 import TextareaField from '../../../components/textareaField/TextareaField';
 import ChallengeExamplePhoto from './challenge-example-photo/ChallengeExamplePhoto';
 import api from '../../../api/api';
@@ -11,12 +11,15 @@ import Button from '../../../components/button/Button';
 import styles from './ChallengeUploda.module.scss'
 import { useNavigate } from 'react-router-dom';
 import ChallengeAuthMethod from './challenge-authMethod/ChallengeAuthMethod';
+import ChallengeTime from './challenge-time/ChallengeTime';
 
 export type FormValues = {
     title: string; //챌린지 제목
     category: string; // 챌린지 카테고리
     startDate: string; // 챌린지 시작일 (당일x, 다음날부터 가능)
     endDate:string;// 챌린지 종료일
+    startTime:string;
+    endTime:string;
     authMethod:string; //인증방법
     participantsLimit:number; //참여인원
     description: string; //챌린지 설명
@@ -55,12 +58,15 @@ const ChallengeUpload = () => {
         formData.append('category', data.category);
         formData.append('startDate', data.startDate);
         formData.append('endDate', data.endDate);
+        formData.append('startTime', data.startTime); 
+        formData.append('endTime', data.endTime); 
         formData.append('participantsLimit', data.participantsLimit.toString());
         formData.append('description', data.description); 
         formData.append('mainImage', data.mainImage[0]); 
         formData.append('authMethod', data.authMethod); 
         formData.append('successImage', data.successImage[0]); 
         formData.append('failImage', data.failImage[0]); 
+        
 
          // FormData 내용을 확인하는 코드
         for (let [key, value] of formData.entries()) {
@@ -125,7 +131,6 @@ const ChallengeUpload = () => {
                         {value:'식습관',label:'식습관'}
                     ]}
                 />
-                {/* 인증 빈도 */}
                 {/* 챌린지 참여 인원 리밋 */}
                 <InputField
                     id='participantsLimit'
@@ -142,12 +147,19 @@ const ChallengeUpload = () => {
                 {/* 에러 메시지 표시 */}
                 {errors.participantsLimit && <p style={{ color: 'red' }}>{errors.participantsLimit.message}</p>}
                 
-                {/* 챌린지 시작과 끝 일자 및 시간 */}
-                <ChallengeStartEndDate
+                {/* 챌린지 시작 및 종료일 */}
+                <ChallengeDate
                     activeInput={activeInput}
                     onBlur={handleBlur}
                     onFocus={handleFocus}
                     setValue={setValue}
+                />
+                {/* 챌린지 시작 및 종료시간 */}
+                <ChallengeTime
+                    register={register}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    activeInput={activeInput}
                 />
                 {/* 챌린지 인증 방법 */}
                 <ChallengeAuthMethod

@@ -25,13 +25,15 @@ import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ChallengeUploadPage from './page/ChallengeUploadPage';
 import ChallengePage from './page/ChallengePage';
+import ChallengeDetailPage from './page/ChallengeDetailPage';
+
 
 const Layout = () => {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/register';
   const navigate = useNavigate();
 
-  const hideFabPath = ['/login', '/register', '/kakaoauth', '/404','/challenge-upload'];
+  const hideFabPath = ['/login', '/register', '/kakaoauth', '/404','/challenge-upload', '/challengeId'];
   const shouldHideFab = hideFabPath.includes(location.pathname);
 
   return (
@@ -61,26 +63,28 @@ const App = () => {
       <Route path='/' element={<Layout />}>
         <Route element={<ProtectedRoute />}>
           <Route index element={<HomePage />} />
-          <Route path='event' element={<EventPage />} />
-          <Route path='attendance' element={<Attendance />} />
-          <Route path='roulette' element={<Roulette />} />
-          <Route path='product' element={<ProductPage />} />
-          <Route path='productUpload' element={<ProductUpload />} />
-          <Route path='mypage' element={<MyPage />} />
-          <Route path='modify' element={<MyInfoModify />} />
-          <Route path='cart' element={<CartPage />} />
-          <Route path='giftPoint' element={<GiftPoint />} />
-          <Route path='test' element={<Apitest />} />
-          <Route path='donation' element={<Donation />} />
-          <Route path='donation-detail' element={<DonationDetail />} />
-          <Route path='challenge-upload' element={<ChallengeUploadPage/>}/>
-          <Route path='challenge' element={<ChallengePage/>}/>
+          <Route path='/event' element={<EventPage />} />
+          <Route path='/attendance' element={<Attendance />} />
+          <Route path='/roulette' element={<Roulette />} />
+          <Route path='/product' element={<ProductPage />} />
+          <Route path='/productUpload' element={<ProductUpload />} />
+          <Route path='/mypage' element={<MyPage />} />
+          <Route path='/modify' element={<MyInfoModify />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/giftPoint' element={<GiftPoint />} />
+          <Route path='/test' element={<Apitest />} />
+          <Route path='/donation' element={<Donation />} />
+          <Route path='/donation-detail' element={<DonationDetail />} />
+          <Route path='/challenge-upload' element={<ChallengeUploadPage/>}/>
+          <Route path='/challenge' element={<ChallengePage/>}/>
+          {/* <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/> */}
+          <Route path='/challengeId' element={<ChallengeDetailPage/>}/>
         </Route>
 
-        <Route path='login' element={<LoginRoute><LoginPage /></LoginRoute>} />
-        <Route path='register' element={<RegisterPage />} />
-        <Route path='kakaoauth' element={<Redirect />} />
-        <Route path='404' element={<NotFound />} />
+        <Route path='/login' element={<LoginRoute><LoginPage /></LoginRoute>} />
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/kakaoauth' element={<Redirect />} />
+        <Route path='/404' element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Route>
     </Routes>

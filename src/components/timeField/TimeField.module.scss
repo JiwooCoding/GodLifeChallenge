@@ -1,0 +1,29 @@
+.timeField{
+    border: 1px solid #e5e7eb;
+    font-size: 13px;
+    width: 100%;
+    padding: 9px 25px;
+    border-radius: 7px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input{
+        outline: none;
+        display: flex;
+        /* text-align: center; */
+        gap: 15px;
+        align-items: center;
+        color: #333;
+    }
+
+    input[type='time']{
+        &::before{
+            content:attr(time-placeholder);
+            width: 100%;
+            color: #333;
+        }
+    }
+}
+

@@ -1,0 +1,14 @@
+.challenge_list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    row-gap: 55px;
+    margin-top: 50px;
+}
+
+.noChallenge{
+    width: 350px;
+    display: flex;
+    margin: 100px 30px 30px 30px; 
+    justify-content: center;
+}

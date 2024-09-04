@@ -19,7 +19,7 @@ const ChallengePage = () => {
 
     return (
         <div className='inner'>
-            <h1>챌린지</h1>
+            <h1 className={styles.challenge_text}>지금 바로 챌린지를 시작해보세요 🏃</h1>
             <div className={styles.challenge_filter}>
                 <ChallengeCategory
                     selectedCategory={selectedCategory}

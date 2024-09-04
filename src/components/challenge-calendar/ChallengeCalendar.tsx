@@ -2,13 +2,11 @@ import { useState, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './ChallengeCalendar.module.scss';
-import { formatDateAndTime } from '../../utils/formatDataAndTime';
 import { CiCalendar } from "react-icons/ci";
 import { IoIosCloseCircle } from "react-icons/io";
-import './ChallengeCalendar.css';
 import { UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../page/ChallengePage/challenge-upload/ChallengeUpload';
 import { formatLocalDate } from '../../utils/formatLocalDate';
+import { FormValues } from '../../page/ChallengeUploadPage/challenge-upload/ChallengeUpload';
 
 interface ChallengeCalendarProps {
     id: keyof FormValues;
@@ -20,8 +18,7 @@ interface ChallengeCalendarProps {
     placeholderText?: string;
     setValue: UseFormSetValue<FormValues>;
     minDate?: Date; 
-    minTime?: Date; 
-    disabled?:boolean;
+    disabled?: boolean;
 }
 
 const ChallengeCalendar = ({
@@ -31,7 +28,6 @@ const ChallengeCalendar = ({
     setValue,
     placeholderText,
     minDate, 
-    minTime,
     disabled
 }: ChallengeCalendarProps) => {
     const today = new Date();
@@ -83,20 +79,11 @@ const ChallengeCalendar = ({
                     // 오늘 날짜 이전은 비활성화
                     return date.getTime() > today.getTime();
                 }}
-                filterTime={(time) => {
-                    // minTime 이전의 시간 비활성화
-                    if (!minTime) return true; // minTime이 없으면 모든 시간 선택 가능
-                    return time.getTime() > minTime.getTime();
-                }}
                 shouldCloseOnSelect
                 closeOnScroll={true}
-                showTimeSelect
                 disabled={disabled}
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                timeCaption="time"
-                dateFormat={formatDateAndTime(selectedDate)}
-                customInput={<CustomInput value={selectedDate ? formatDateAndTime(selectedDate) : ''} onClick={() => {}} />}
+                dateFormat="yyyy-MM-dd" // 날짜만 포맷
+                customInput={<CustomInput value={selectedDate ? formatLocalDate(selectedDate) : ''} onClick={() => {}} />}
             />
         </div>
     );

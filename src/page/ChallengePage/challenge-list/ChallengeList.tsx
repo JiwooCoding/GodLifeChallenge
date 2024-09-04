@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../../../api/api'
 import { IChallenge } from '../../../type/IChallenge';
 import ChallengeItem from './challenge-item/ChallengeItem';
+import styles from './ChallengeList.module.scss'
+import noChallenge from '../../../image/challenge/noChallenge.png'
 
 interface ChallengeListProps{
     category:string;
@@ -29,23 +31,24 @@ const ChallengeList = ({category, state}:ChallengeListProps) => {
 
         fetchChallenges();
     }, [category, state]);
-    
 
     return (
-        <div>
+        <>
             {challengeData.length === 0 ? (
-                <p>등록된 챌린지가 없습니다!</p>
+                <div className={styles.noChallenge}>
+                    <img src={noChallenge} alt='nochallenge'/>
+                </div>
             ) : (
-                <ul>
+                <ul className={styles.challenge_list}>
                     {challengeData.map(challenge => (
                         <ChallengeItem
-                            key={challenge.id}
+                            key={challenge.challengeId}
                             item={challenge}
                         />
                     ))}
                 </ul>
             )}
-        </div>
+        </>
     )
 }
 

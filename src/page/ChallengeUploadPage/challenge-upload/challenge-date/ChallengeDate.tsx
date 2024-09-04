@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ChallengeCalendar from '../../../../components/challenge-calendar/ChallengeCalendar';
-import styles from './ChallengeStartEndDate.module.scss';
+import styles from './ChallengeDate.module.scss';
 import { UseFormSetValue } from 'react-hook-form';
 import { FormValues } from '../ChallengeUpload';
 
@@ -11,7 +11,7 @@ interface ChallengeStartEndDateProps {
     setValue: UseFormSetValue<FormValues>;
 }
 
-const ChallengeStartEndDate = ({ activeInput, onBlur, onFocus, setValue }: ChallengeStartEndDateProps) => {
+const ChallengeDate = ({ activeInput, onBlur, onFocus, setValue }: ChallengeStartEndDateProps) => {
     
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
@@ -56,7 +56,7 @@ const ChallengeStartEndDate = ({ activeInput, onBlur, onFocus, setValue }: Chall
                     placeholderText='종료일'
                     setValue={setValue}
                     minDate={startDate || undefined}
-                    minTime={startDate ? new Date(startDate.getTime()) : undefined}
+                    //minTime={startDate ? new Date(startDate.getTime()) : undefined}
                     disabled={disabled}
                 />
             </div>
@@ -64,4 +64,4 @@ const ChallengeStartEndDate = ({ activeInput, onBlur, onFocus, setValue }: Chall
     );
 };
 
-export default ChallengeStartEndDate;
+export default ChallengeDate;

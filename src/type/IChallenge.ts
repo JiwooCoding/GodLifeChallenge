@@ -1,5 +1,5 @@
 export type IChallenge = {
-    id:string;
+    challengeId:string;
     title:string;
     category:string;
     startDate:string;

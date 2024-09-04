@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import styles from './ExampleImageField.module.scss'
-import { LuCircle } from 'react-icons/lu';
-import { IoMdClose } from "react-icons/io";
+import { CgRadioCheck } from "react-icons/cg";
+import { CgClose } from "react-icons/cg";
 
 interface ExampleImageFieldProps<T extends FieldValues> {
     control: Control<T>;
@@ -47,8 +47,7 @@ const ExampleImageField = <T extends FieldValues>({
                 onClick={() => document.getElementById(`${name}`)?.click()}
             />
             <div className={`${styles.bottom} ${selected ? (name === 'successImage' ? styles.success : styles.fail) : styles.unselected}`}>
-                {name === "successImage" ? (<LuCircle size={17}/>) : (<IoMdClose size={20}/>)}
-                
+                {name === "successImage" ? (<CgRadioCheck size={17}/>) : (<CgClose size={17}/>)}
             </div>
             <div style={{ display: 'none' }}>
                 <Controller
