@@ -12,6 +12,8 @@ import styles from './ChallengeUploda.module.scss'
 import { useNavigate } from 'react-router-dom';
 import ChallengeAuthMethod from './challenge-authMethod/ChallengeAuthMethod';
 import ChallengeTime from './challenge-time/ChallengeTime';
+import { useModal } from '../../../contexts/ModalProvider';
+import Modal from '../../../components/modal';
 
 export type FormValues = {
     title: string; //챌린지 제목
@@ -31,6 +33,8 @@ export type FormValues = {
 const ChallengeUpload = () => {
 
     const {handleSubmit, register, control, formState: { errors }, setValue} = useForm<FormValues>();
+    const {isOpen, openModal, closeModal} = useModal();
+
     const navigate = useNavigate();
 
     const [activeInput, setActiveInput] = useState('');
@@ -80,12 +84,14 @@ const ChallengeUpload = () => {
                 },
             });
             console.log('response => ', response.data);
+            openModal();
         } catch (error) {
             console.log('챌린지 업로드 실패', error);
         }
     }
 
     return (
+        <>
         <div className={styles.challenge_upload}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* 챌린지 메인 이미지 */}
@@ -183,6 +189,20 @@ const ChallengeUpload = () => {
                 </div>
             </form>
         </div>
+        {isOpen && (
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <Modal.Header>
+                    업로드 완료
+                </Modal.Header>
+                <Modal.Content>
+                    챌린지가 등록되었습니다
+                </Modal.Content>
+                <Modal.Footer>
+                    <Modal.Button buttonStyle='button--primary' onClick={() => navigate('/challenge')}>확인</Modal.Button>
+                </Modal.Footer>
+            </Modal>
+        )}
+        </>
     )
 }
 

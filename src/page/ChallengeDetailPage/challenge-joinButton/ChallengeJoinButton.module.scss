@@ -1,4 +1,4 @@
-.joinbar{
+.joinbar {
     position: fixed;
     bottom: 0; 
     left: 0;
@@ -9,4 +9,34 @@
     text-align: center; 
     box-sizing: border-box; 
     z-index: 2;
+    box-shadow: 0 -4px 6px rgba(82, 82, 82, 0.1); /* 위쪽에만 쉐도우 추가 */
+    display: flex;
+    justify-content: space-around;
+
+    button{
+        background: blue;
+        color: #fff;
+        outline: none;
+        padding: 5px 65px;
+        font-size: 15px;
+
+        &:disabled{
+            background-color: #c7c7c7;
+            cursor: not-allowed;
+        }
+    }
+    
+    .challenge_schedule{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 13px;
+    
+        .challenge_schedule_date{
+            display: flex;
+            align-items: center;
+        }
+    }
 }
+
+
