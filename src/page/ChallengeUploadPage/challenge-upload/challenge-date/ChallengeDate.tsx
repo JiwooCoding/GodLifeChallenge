@@ -2,7 +2,8 @@ import { useState } from 'react';
 import ChallengeCalendar from '../../../../components/challenge-calendar/ChallengeCalendar';
 import styles from './ChallengeDate.module.scss';
 import { UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../ChallengeUpload';
+import { FormValues } from '../../../../type/challengeData';
+
 
 interface ChallengeStartEndDateProps {
     activeInput: string;

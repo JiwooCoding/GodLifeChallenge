@@ -1,6 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import styles from './TextareaField.module.scss'
-import { FormValues } from '../../page/ChallengeUploadPage/challenge-upload/ChallengeUpload';
+import { FormValues } from '../../type/challengeData';
+
 
 
 interface TextareaFieldProps {

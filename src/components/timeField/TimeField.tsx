@@ -1,6 +1,7 @@
 import { UseFormRegister, Path } from 'react-hook-form';
 import styles from './TimeField.module.scss';
-import { FormValues } from '../../page/ChallengeUploadPage/challenge-upload/ChallengeUpload';
+import { FormValues } from '../../type/challengeData';
+
 
 interface TimeFieldProps {
     id: Path<FormValues>;

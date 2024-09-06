@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import TimeField from '../../../../components/timeField/TimeField';
 import styles from './ChallengeTime.module.scss';
-import { FormValues } from '../ChallengeUpload';
+import { FormValues } from '../../../../type/challengeData';
 
 interface ChallengeTimeProps {
     register: UseFormRegister<FormValues>;
@@ -22,7 +22,7 @@ const ChallengeTime = ({
             <span className={styles.notice}>시계 아이콘을 클릭해서 시간을 설정해주세요</span>
             <div className={styles.callengeTimebox}>
                 <TimeField
-                    id='startTime'
+                    id='uploadStartTime'
                     label='시작 시간'
                     activeInput={activeInput}
                     register={register}
@@ -30,7 +30,7 @@ const ChallengeTime = ({
                     onBlur={onBlur}
                 />
                 <TimeField
-                    id='endTime'
+                    id='uploadEndTime'
                     label='종료 시간'
                     activeInput={activeInput}
                     register={register}

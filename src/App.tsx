@@ -26,6 +26,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ChallengeUploadPage from './page/ChallengeUploadPage';
 import ChallengePage from './page/ChallengePage';
 import ChallengeDetailPage from './page/ChallengeDetailPage';
+import ChallengeHistoryPage from './page/ChallengeHistoryPage';
 
 
 const Layout = () => {
@@ -33,7 +34,7 @@ const Layout = () => {
   const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/register';
   const navigate = useNavigate();
 
-  const hideFabPath = ['/login', '/register', '/kakaoauth', '/404','/challenge-upload', '/challengeId'];
+  const hideFabPath = ['/login', '/register', '/kakaoauth', '/404','/challenge-upload', '/challenge/:challengeId'];
   const shouldHideFab = hideFabPath.includes(location.pathname);
 
   return (
@@ -77,8 +78,8 @@ const App = () => {
           <Route path='/donation-detail' element={<DonationDetail />} />
           <Route path='/challenge-upload' element={<ChallengeUploadPage/>}/>
           <Route path='/challenge' element={<ChallengePage/>}/>
-          {/* <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/> */}
-          <Route path='/challengeId' element={<ChallengeDetailPage/>}/>
+          <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
+          <Route path='/challenge1' element={<ChallengeHistoryPage/>}/>
         </Route>
 
         <Route path='/login' element={<LoginRoute><LoginPage /></LoginRoute>} />

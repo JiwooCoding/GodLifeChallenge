@@ -14,27 +14,16 @@ import ChallengeAuthMethod from './challenge-authMethod/ChallengeAuthMethod';
 import ChallengeTime from './challenge-time/ChallengeTime';
 import { useModal } from '../../../contexts/ModalProvider';
 import Modal from '../../../components/modal';
+import { FormValues } from '../../../type/challengeData';
 
-export type FormValues = {
-    title: string; //챌린지 제목
-    category: string; // 챌린지 카테고리
-    startDate: string; // 챌린지 시작일 (당일x, 다음날부터 가능)
-    endDate:string;// 챌린지 종료일
-    startTime:string;
-    endTime:string;
-    authMethod:string; //인증방법
-    participantsLimit:number; //참여인원
-    description: string; //챌린지 설명
-    mainImage: FileList; //메인이미지
-    successImage:FileList; //예시 성공 인증샷
-    failImage:FileList; //예시 실패 인증샷
+interface ChallengeUploadProps{
+    existingChallenge?:FormValues;
 }
 
-const ChallengeUpload = () => {
+const ChallengeUpload = ({existingChallenge}:ChallengeUploadProps) => {
 
     const {handleSubmit, register, control, formState: { errors }, setValue} = useForm<FormValues>();
     const {isOpen, openModal, closeModal} = useModal();
-
     const navigate = useNavigate();
 
     const [activeInput, setActiveInput] = useState('');
@@ -62,8 +51,8 @@ const ChallengeUpload = () => {
         formData.append('category', data.category);
         formData.append('startDate', data.startDate);
         formData.append('endDate', data.endDate);
-        formData.append('startTime', data.startTime); 
-        formData.append('endTime', data.endTime); 
+        formData.append('uploadStartTime', data.uploadStartTime); 
+        formData.append('uploadEndTime', data.uploadEndTime); 
         formData.append('participantsLimit', data.participantsLimit.toString());
         formData.append('description', data.description); 
         formData.append('mainImage', data.mainImage[0]); 

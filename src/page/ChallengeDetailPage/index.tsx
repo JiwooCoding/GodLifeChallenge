@@ -19,7 +19,6 @@ type RouteParams = {
 
 const ChallengeDetailPage = () => {
 
-
     //URL에서 challengeId 읽어오기
     const {challengeId} = useParams<RouteParams>();
     const [challengeData, setChallengeData] = useState<IChallenge | null>(null);
@@ -60,7 +59,7 @@ const ChallengeDetailPage = () => {
                         <span className={styles.title}>{challengeData?.title}</span>
                         <div className={styles.participants}>
                             <IoMdPerson size={15} style={{color:'rgb(127 127 127)'}}/>
-                            <span>{challengeData?.participants} / <b>{challengeData?.participantsLimit}</b></span>
+                            <span>{challengeData?.participants ?? 0} / <b>{challengeData?.participantsLimit}</b></span>
                         </div>
                     </div>
                     {/* challenge startDay & endDay */}
@@ -75,16 +74,17 @@ const ChallengeDetailPage = () => {
                             <span>{calculatorDday(challengeData?.startDate ?? '', challengeData?.endDate ?? '')}일 동안</span>
                         </div>
                     </div>
+                    {/* challenge  */}
                     {/* challenge startTime & endTime */}
                     <h1>챌린지 업로드 시간</h1>
                     <div className={styles.challenge_schedule_time}>
                         <div className={styles.challenge_startTime}>
                             <span>시작시간</span>
-                            <span className={styles.time}>{challengeData?.startTime}</span>
+                            <span className={styles.time}>{challengeData?.uploadStartTime.slice(0,5)}</span>
                         </div>
                         <div className={styles.challenge_endTime}>
                             <span>종료시간</span>
-                            <span className={styles.time}>{challengeData?.endDate}</span>
+                            <span className={styles.time}>{challengeData?.uploadEndTime.slice(0,5)}</span>
                         </div>
                     </div>
                     {/* 챌린지 환급금 설명 */}
@@ -116,7 +116,7 @@ const ChallengeDetailPage = () => {
                     <div>
                         <div className={styles.challenge_warning}>
                             <IoCheckmark size={20}/>
-                            <span>{formattedTime(challengeData?.startTime ?? '00:00')} ~ {formattedTime(challengeData?.endTime ?? '00:00')} 사이에 인증하셔야 합니다.</span>
+                            <span>{formattedTime(challengeData?.uploadStartTime ?? '00:00')} ~ {formattedTime(challengeData?.uploadEndTime ?? '00:00')} 사이에 인증하셔야 합니다.</span>
                         </div>
                         <div className={styles.challenge_warning}>
                             <IoCheckmark size={20}/>
@@ -132,7 +132,7 @@ const ChallengeDetailPage = () => {
             endDate={challengeData?.endDate}
             period={period}
             challengeId={challengeId}
-            join={challengeData?.isJoined}
+            //join={challengeData?.isJoined}
         />
         </>
     )

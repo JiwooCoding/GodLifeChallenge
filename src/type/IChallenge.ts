@@ -1,11 +1,11 @@
 export type IChallenge = {
-    challengeId:string;
+    id:string;
     title:string;
     category:string;
     startDate:string;
     endDate:string;
-    startTime:string;
-    endTime:string;
+    uploadStartTime:string;
+    uploadEndTime:string;
     state:string;
     mainImage:string;
     successImage:string;

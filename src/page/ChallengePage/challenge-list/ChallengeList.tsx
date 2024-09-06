@@ -23,7 +23,8 @@ const ChallengeList = ({category, state}:ChallengeListProps) => {
                         state:state
                     }
                 })
-                setChallengeData(response.data);
+                console.log('dd===>',response.data); 
+                setChallengeData(response.data.content);
             } catch (error) {
                 console.log('챌린지 데이터 받아오기 실패',error);
             }
@@ -42,7 +43,7 @@ const ChallengeList = ({category, state}:ChallengeListProps) => {
                 <ul className={styles.challenge_list}>
                     {challengeData.map(challenge => (
                         <ChallengeItem
-                            key={challenge.challengeId}
+                            key={challenge.id}
                             item={challenge}
                         />
                     ))}

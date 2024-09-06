@@ -5,26 +5,31 @@ import { useEffect, useState } from 'react';
 import { useModal } from '../../../contexts/ModalProvider';
 import Modal from '../../../components/modal';
 import { calculatorDday } from '../../../utils/calculatorDday';
+import { useOnlyDate } from '../../../utils/useOnlyDate';
+import { useNavigate } from 'react-router-dom';
 
 interface ChallengeJoinButtonProps {
     challengeId:string | undefined;
     startDate?:string;
     endDate?:string;
     period?:number;
-    join?:boolean;
+    //join?:boolean;
 }
 
-const ChallengeJoinButton = ({challengeId, startDate, endDate, period, join}:ChallengeJoinButtonProps) => {
+const ChallengeJoinButton = ({challengeId, startDate, endDate, period}:ChallengeJoinButtonProps) => {
 
     const [disabled, setDisabled] = useState(false);
     const {isOpen, openModal, closeModal} = useModal();
-    const [buttonText, setButtonText] = useState('참여하기');
+    const [buttonText, setButtonText] = useState('');
+
+    const navigate = useNavigate();
 
     const fetchJoin = async() => {
         try {
             if(challengeId){
                 await api.post('/api/challenge/join', {
                     challengeId,
+                    isJoined:true,
                 });
                 console.log('챌린지 참여 성공했습니다!');
                 setDisabled(true);
@@ -43,10 +48,19 @@ const ChallengeJoinButton = ({challengeId, startDate, endDate, period, join}:Cha
     const countStartDate = calculatorDday(date, startDate ?? '');
     const challengeStart = new Date(startDate ?? "2024-09-06").toISOString().split('T')[0];
     
+    const handleClick = () => {
+        closeModal();
+        navigate('/challenge');
+    }
+    
+
     useEffect(() => {
         if (date === challengeStart || date > challengeStart) {
             setButtonText('진행중인 챌린지');
             setDisabled(true);
+        }else{
+            setButtonText('참여하기');
+            setDisabled(false);
         }
     }, [date, challengeStart]);
     
@@ -56,7 +70,7 @@ const ChallengeJoinButton = ({challengeId, startDate, endDate, period, join}:Cha
         <div className={styles.joinbar}>
             <div className={styles.challenge_schedule}>
                 <div className={styles.challenge_schedule_date}>
-                    <span>{startDate}-{endDate}</span>
+                    <span>{useOnlyDate(startDate)} - {useOnlyDate(endDate)}</span>
                     <CiCalendar size={20}/>
                 </div>
                 <span>매일, {period}일동안</span>
@@ -77,7 +91,7 @@ const ChallengeJoinButton = ({challengeId, startDate, endDate, period, join}:Cha
                     {countStartDate}일 뒤부터 인증을 시작해주세요!
                 </Modal.Subtitle>
                 <Modal.Footer>
-                    <Modal.Button buttonStyle='button--primary' onClick={closeModal}>확인</Modal.Button>
+                    <Modal.Button buttonStyle='button--primary' onClick={handleClick}>확인</Modal.Button>
                 </Modal.Footer>
             </Modal>
         )}

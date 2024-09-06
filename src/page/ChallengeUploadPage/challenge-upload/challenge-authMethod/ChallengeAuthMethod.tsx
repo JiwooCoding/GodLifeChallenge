@@ -1,7 +1,8 @@
 import styles from './ChallengeAuthMethod.module.scss'
 import TextareaField from '../../../../components/textareaField/TextareaField'
 import { UseFormRegister } from 'react-hook-form';
-import { FormValues } from '../ChallengeUpload';
+import { FormValues } from '../../../../type/challengeData';
+
 
 interface ChallengeAuthMethodProps{
     activeInput: string;

@@ -15,7 +15,7 @@ const ChallengeItem = ({item}:ChallengeItemProps) => {
   const diffDays = calculatorDday(item.startDate, item.endDate);
 
   const handleClick = () => {
-    navigate(`/challenge/${item.challengeId}`);
+    navigate(`/challenge/${item.id}`);
   }
 
 
