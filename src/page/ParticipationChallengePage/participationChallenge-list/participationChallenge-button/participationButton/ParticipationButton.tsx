@@ -1,76 +1,74 @@
 import { useState } from 'react'
 import api from '../../../../../api/api';
 import { calculatorDday } from '../../../../../utils/calculatorDday';
-import { isWithinTimeRange } from '../../../../../utils/isWithinTimeRange';
-import { useModal } from '../../../../../contexts/ModalProvider';
-import Modal from '../../../../../components/modal';
-import ImageField from '../../../../../components/imageField/ImageField';
+import { useUser } from '../../../../../contexts/UserProvider';
+import { SubmitHandler } from 'react-hook-form';
+import styles from './ParticipationButton.module.scss'
+import AuthChallenge from '../../../../../components/modal/authImage/AuthChallenge';
+
+export interface FormData {
+    description: string;
+    images: FileList;
+}
 
 interface ParticipationButtonProps {
-    challengeId:string;
-    startDate:string;
-    endDate:string;
-    startTime:string;
-    endTime:string;
+    challengeId: string;
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+    title: string;
 }
 
-const ParticipationButton = ({challengeId, startDate, endDate, startTime, endTime}:ParticipationButtonProps) => {
-    
+const ParticipationButton = ({ challengeId, startDate, endDate, startTime, endTime, title }: ParticipationButtonProps) => {
     const [disabled, setDisabled] = useState(false);
-    const [participationStatus, setPaticipationStatus] = useState(false); //챌린지 참여여부 => 재참여 막기위함
+    const [participationStatus, setParticipationStatus] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const {isOpen, openModal, closeModal} = useModal();
+    const modalOpen = () => setIsOpen(true);
+    const modalClose = () => setIsOpen(false);
 
-    // POST /api/challenge/{challengeId}/posts  => 인증
-    //const {challengeId} = useParams<RouteParams>();
+    const { user } = useUser();
 
-    const uploadAuthPhoto = async() => {
+    const uploadAuth: SubmitHandler<FormData> = async (data) => {
+
+        const formData = new FormData();
+        formData.append('title', data.description);
+        formData.append('image', data.images[0]);
+
+
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
+
         try {
-            await api.post(`/api/challenge/${challengeId}/posts`,{
-                
+            await api.post(`/api/challenge/${challengeId}/posts`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
             setDisabled(true);
-            setPaticipationStatus(true);
-            closeModal();
+            setParticipationStatus(true);
+            modalClose();
         } catch (error) {
-            console.log('챌린지 인증 실패',error);
+            console.log('챌린지 인증 실패', error);
         }
-    }
+    };
 
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
-    const Dday = calculatorDday(todayStr,startDate);
-    
     return (
         <>
-            <div>
-                {todayStr > endDate ? (
-                    <button disabled={true}>종료된 챌린지</button>
-                ) : todayStr === startDate ? (
-                    isWithinTimeRange(startTime, endTime) ? (
-                        <button onClick={openModal} disabled={disabled}>인증하기</button>
-                    ) : (
-                        <button disabled={true}>인증불가시간</button>
-                    )
-                ) : todayStr < startDate ? (
-                    <button>D-{Dday}</button>
-                ) : null}
+            <div className={styles.button}>
+                <button onClick={modalOpen} disabled={disabled}>인증하기</button>
             </div>
             {isOpen && (
-                <Modal isOpen={isOpen} onClose={closeModal}>
-                    <Modal.Header>
-                        인증하기
-                    </Modal.Header>
-                    <Modal.Content>
-                        사진 업로드
-                    </Modal.Content>
-                    <Modal.Footer>
-                        <Modal.Button onClick={uploadAuthPhoto}>업로드</Modal.Button>
-                    </Modal.Footer>
-                </Modal>
+                <AuthChallenge
+                    uploadAuth={uploadAuth}
+                    modalClose={modalClose}
+                    title={title}
+                />
             )}
         </>
-    )
+    );
 }
 
-export default ParticipationButton
+export default ParticipationButton;

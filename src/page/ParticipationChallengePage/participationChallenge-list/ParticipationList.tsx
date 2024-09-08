@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { IChallengeHistory } from "../../../type/challengeData";
 import api from "../../../api/api";
 import ParticipationItem from "./participationChallenge-item/ParticipationItem";
+import { challenges } from "../../../data/challengeData";
 
 type RouteParams = {
     userId:string;
@@ -11,24 +12,24 @@ type RouteParams = {
 const ParticipationList = () => {
 
     const {userId} = useParams<RouteParams>();
-    const [challenges, setChallenges] = useState<IChallengeHistory[]>([]);
+    //const [challenges, setChallenges] = useState<IChallengeHistory[]>([]);
 
-    useEffect(() => {
-        const fetchParticipationChallenges = async() => {
-            try {
-                if(userId){
-                    const response = await api.get(`/api/user/${userId}/challenges/applied`);
-                    setChallenges(response.data);
-                }else{
-                    console.log('userId를 찾을 수 없습니다!');
-                }
-            } catch (error) {
-                console.log('챌린지 참여 내역 데이터 가져오기 실패!!',error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchParticipationChallenges = async() => {
+    //         try {
+    //             if(userId){
+    //                 const response = await api.get(`/api/user/${userId}/challenges/applied`);
+    //                 setChallenges(response.data);
+    //             }else{
+    //                 console.log('userId를 찾을 수 없습니다!');
+    //             }
+    //         } catch (error) {
+    //             console.log('챌린지 참여 내역 데이터 가져오기 실패!!',error);
+    //         }
+    //     };
 
-        fetchParticipationChallenges();
-    }, [userId]);
+    //     fetchParticipationChallenges();
+    // }, [userId]);
     
 
     return (
@@ -43,7 +44,9 @@ const ParticipationList = () => {
                     ))}
                 </ul>
             ) : (  
-                <p>챌린지 참여 내역이 없습니다</p>
+                <div>
+                    <p>챌린지 참여 내역이 없습니다</p>
+                </div>
             )}
         </div>
     )

@@ -1,6 +1,6 @@
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import styles from './ImageField.module.scss'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import noImage from '../../image/noImage.jpeg'
 import { handlePhotoChange } from '../../utils/handlePhotoChange';
 
@@ -9,14 +9,13 @@ type ImageUploadProps<T extends FieldValues> = {
     preview?: string;
     handlePhotoChange?: (files: FileList | null) => void;
     label: string;
-    name: Path<T>;  // `keyof T` 대신 `Path<T>` 사용
+    name: Path<T>;  
     accept?: string;
     multiple?: boolean;
 };
 
 const ImageField = <T extends FieldValues>({
     control,
-    //handlePhotoChange,
     label,
     name,  
     accept = "image/*",
@@ -39,7 +38,7 @@ const ImageField = <T extends FieldValues>({
                 <img src={preview} alt="미리보기" onClick={handleImageClick}/>
                 <div style={{display:'none'}}>
                     <Controller
-                        name={name}  // `keyof T` 대신 `Path<T>` 사용
+                        name={name}
                         control={control}
                         rules={{ required: true }}
                         render={({ field }) => (
@@ -60,5 +59,6 @@ const ImageField = <T extends FieldValues>({
         </div>
     );
 };
+
 
 export default ImageField;

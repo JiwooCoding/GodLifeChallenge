@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import ModalHeader from './ModalHeader';
 import ModalContent from './ModalContent';
 import ModalFooter from './ModalFooter';
@@ -21,7 +21,7 @@ const Modal = ({children, isOpen}:ModalProps) => {
     if(!isOpen) return null;
 
     return ReactDOM.createPortal(
-        <div className={styles.modal}>
+        <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             {children}
         </div>,
     document.body   

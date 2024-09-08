@@ -6,7 +6,7 @@ interface InputFieldProps<T extends FieldValues> { // T가 FieldValues를 상속
     label: string;
     type: string;
     placeholder?: string;
-    activeInput: string;
+    activeInput?: string;
     register: UseFormRegister<T>;
     onFocus: (inputId: Path<T>) => void;
     onBlur: () => void;
