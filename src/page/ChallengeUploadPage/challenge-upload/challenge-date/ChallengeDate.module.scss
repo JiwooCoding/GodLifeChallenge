@@ -1,0 +1,26 @@
+.date_container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+
+    h1{
+        font-weight: bold;
+    }
+
+    span{
+        color: red;
+        font-weight: bold;
+    }
+
+    p{
+        font-size: 13px;
+        color: #333;
+    }
+
+    .datebox{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,60 @@
+.itembox{
+    border-top: 1px solid #eee;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    transition: background-color 0.2s ease-in;
+
+    &:hover{
+        background-color: #eee;
+        box-sizing: border-box;
+    }
+
+    &:last-child {
+        border-bottom: 1px solid #eee;
+    }
+
+    .item_info_mainImage{
+        width: 90px;
+        height: 90px;
+        position: relative;
+
+        .imageDday_msg{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 13px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 배경색 추가, 필요에 따라 조정 */
+            color: #fff; /* 텍스트 색상 */
+            text-align: center;
+            padding: 5px 0; /* 필요에 따라 조정 */
+        }
+    }
+
+    .item_info{
+        display: flex;
+        gap: 20px;
+    }
+    
+    .item_info_text{
+        display: grid;
+
+        h2{
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .item_info_text_date{
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    
+    .item_button{
+        display: flex;
+        align-items: flex-end;
+    }
+}
+

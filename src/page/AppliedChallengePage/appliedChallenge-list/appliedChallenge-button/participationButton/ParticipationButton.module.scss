@@ -1,0 +1,18 @@
+.button_box{
+    .button{
+        background: #007bff;
+        padding: 5px 10px;
+        color: #fff;
+        font-size: 13px;
+        border-radius: 4px;
+
+        &:disabled{
+            background-color: #919191d2;
+        }
+    }
+
+    .buttons{
+        display: flex;
+        gap: 20px;
+    }
+}

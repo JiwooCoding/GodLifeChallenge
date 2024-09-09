@@ -1,0 +1,20 @@
+.challengeTime{
+    margin-bottom: 30px;
+    h1{
+        font-weight: bold;
+        span{
+            color: red;
+        }
+    }
+
+    .notice{
+        font-size: 13px;
+        color: #333;
+    }
+
+    .callengeTimebox{
+        display: flex;
+        gap: 47px;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,52 @@
+.snsLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    img {
+        width: 20px;
+    }
+
+    .kakao {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        gap:10px;
+        padding: 10px;
+        border-radius: 7px;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .kakao {
+        background-color: #fee500;
+        color: #000;
+
+        &:hover {
+            background-color: #fee5005c;
+        }
+    }
+
+    .or_menu{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        .horizontal_line{
+            border-top: 1px solid #c8c8c8;
+            margin: 20px 0; 
+            width: 100%;
+        }
+
+        .or_text{
+            white-space: nowrap;
+            font-size: 13px;
+            color: #333;
+        }
+    }
+}

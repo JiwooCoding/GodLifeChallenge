@@ -1,0 +1,29 @@
+.profile_upload{
+    position: relative;
+    width: 150px; 
+    height: 150px; 
+    margin: 0 auto;
+
+    .profile_image{
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .upload_profile{
+        width: 48px;
+        position: absolute;
+        top: 108px;
+        left: 107px;
+        cursor: pointer;
+    }
+
+    .filebox{
+    
+        .upload_profile{
+            display: none;
+        }
+    }
+}
+

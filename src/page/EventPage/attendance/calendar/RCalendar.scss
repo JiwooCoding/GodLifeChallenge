@@ -1,0 +1,98 @@
+/* 전체 캘린더 크기 조정 */
+.react-calendar {
+  width: 534px; /* 캘린더의 너비 조정 */
+  margin: auto;
+  border-radius: 10px;
+  // box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  padding: 20px; /* 전체 캘린더의 패딩 추가 */
+}
+
+/* 년도와 월 헤더 숨기기 */
+.react-calendar__navigation {
+  display: none;
+}
+
+/* 요일 이름과 날짜 셀 사이의 간격 조정 */
+.react-calendar__month-view__weekdays {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* 요일 이름과 날짜 셀 사이의 간격 */
+  padding: 0; /* 기본 패딩 제거 */
+  border-bottom: none; /* 밑줄 제거 */
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  border-bottom: none !important; /* 요일 이름의 밑줄 제거 */
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none !important; /* 밑줄 제거 */
+  color: black; /* 색상 지정 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0 10px; /* 요일 이름의 좌우 패딩 조정 */
+}
+
+/* 날짜 셀의 간격과 크기 조정 */
+.react-calendar__month-view__days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.react-calendar__month-view__days__day {
+  width: calc(100% / 7); /* 7일을 100%로 나누어 각 셀의 너비를 설정 */
+  box-sizing: border-box;
+  padding: 15px; /* 날짜 셀의 여백 조정 */
+  text-align: center; /* 날짜 셀의 텍스트 정렬 */
+  font-size: 1.2em; /* 날짜 텍스트 크기 조정 */
+  line-height: 1.5; /* 날짜 텍스트의 줄 높이 조정 */
+}
+
+/* 현재 날짜 스타일 */
+.react-calendar__tile--now {
+  
+}
+
+/* 출석 체크된 날짜 스타일 */
+// .checked-in {
+//   background-color: #ffeb3b !important;
+//   border-radius: 10px;
+//   color: black;
+//   border: none;
+// }
+
+/* 오늘 날짜 강조 */
+
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+  color: #ababab;
+}
+
+
+.react-calendar__tile--active abbr {
+  background: #f87171 !important;
+  color: white !important;
+  padding: 17%;
+  font-size: 14px;
+  border-radius: 50% !important;
+  }
+
+  .react-calendar__month-view abbr{
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .check-in{
+    background-color: #f87171;
+    box-sizing: border-box;
+  }
+  
+  .button-container {
+    position: absolute;
+    bottom: -25%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 100%; 
+    display: flex;
+    justify-content: center; 
+    padding: 10px;
+  }

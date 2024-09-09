@@ -1,0 +1,67 @@
+// Attendance.scss
+.event_top{
+    max-width: 960px;
+    box-sizing: content-box;
+    margin: 24px auto 0;
+    padding: 0 16px;
+
+    align-items: center;
+
+    h1{
+        font-size: 23px;
+        font-weight: bold;
+    }
+
+    p{
+        font-size: 17px;
+        color:gray;
+    }
+
+    .event_detail{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.background{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 55px;
+
+    .inner_calendar{
+        position: absolute;
+        top: 63%; // 캘린더를 중앙에 배치
+        left: 50%;
+        transform: translate(-50%, -50%); // 중앙 정렬
+        width: 100%; // 캘린더가 컨테이너의 전체 너비를 차지하도록 설정
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        h1{
+            font-size: 30px;
+        }
+    
+        .inner_text{
+            margin: 0px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+    
+            .inner_text_check{
+                display: flex;
+            }
+        }
+
+        .calendar-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+}
+
+
+

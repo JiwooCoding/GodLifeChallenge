@@ -1,0 +1,52 @@
+.datePicker_container{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+
+    label {
+        white-space: nowrap;
+        font-weight: 600;            
+    }
+
+    input{
+        font-size: 13px;
+        width: 100%;
+        padding: 10px 42px;
+        box-sizing: border-box;
+        outline: none;
+        border: 1px solid #e5e7eb;
+        transition: border-color 0.3s ease;
+        border-radius: 7px;
+
+        &:hover{
+            border-color: rgb(75, 75, 75);
+        }
+
+        &.active{
+            border-color: rgb(255, 130, 85);
+        }
+    }
+}
+
+.customInputWrapper{
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .calendarIcon{
+        position: absolute;
+        left: 0.5rem;
+        font-size: 25px;
+        color: #a2a2a2;
+        top: 7px;
+    }
+
+    .cancleIcon{
+        font-size: 21px;
+        position: absolute;
+        right: 0.5rem;
+        color: #c7c7c7;
+        cursor: pointer;
+    }
+}

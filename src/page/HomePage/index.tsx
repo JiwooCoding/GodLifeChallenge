@@ -1,9 +1,11 @@
-import React from 'react'
+import Swipter from '../../components/swiper/Swipter'
 
-const HomePage = () => {
+const Homepage = () => {
   return (
-    <div>HomePage</div>
+    <div>
+      <Swipter/>
+    </div>
   )
 }
 
-export default HomePage
+export default Homepage

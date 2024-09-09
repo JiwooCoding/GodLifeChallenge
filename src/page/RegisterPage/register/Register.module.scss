@@ -1,0 +1,109 @@
+.registerForm{
+
+  .inpute_email{
+    margin-top: 40px;
+  }
+
+  .input_email,
+  .input_nickname{
+    margin-bottom: 20px;
+
+    div{
+      display: flex;
+    }
+
+    .inputbox {
+      border: 1px solid #dde2e6;
+      outline: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      flex: 1;
+    
+      &:hover {
+        border: 1px solid rgb(75, 75, 75);
+      }
+    
+      &.active {
+        border-color: rgb(255, 130, 85); /* 인풋 박스가 활성화되었을 때 테두리 색상을 빨간색으로 변경 */
+      }
+    }
+
+    .confirm_button {
+      background-color: rgb(255, 130, 85);
+      color: #fff;
+      padding: 0 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      margin-left: 15px;
+      transition: all 0.3s ease;
+
+      &:hover{
+        background-color: rgb(255 130 85 / 56%);
+      }
+    }
+  }
+
+
+  .input{
+    display: grid;
+    margin-bottom: 20px;
+
+    .inputbox {
+      border: 1px solid #dde2e6;
+      outline: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      flex: 1;
+    
+      &:hover {
+        border: 1px solid rgb(75, 75, 75);
+      }
+    
+      &.active {
+        border-color: rgb(255, 130, 85); /* 인풋 박스가 활성화되었을 때 테두리 색상을 빨간색으로 변경 */
+      }
+    }
+
+    #passwordConfirm {
+      margin-top: 10px;
+    }
+  }
+
+  .register_button {
+    background-color: rgb(255, 130, 85);
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    margin: 10px auto;
+    font-size: 14px;
+    transition: all 0.3s ease;
+
+    &:hover{
+      background-color: rgb(255 130 85 / 56%);
+    }
+  }
+
+  .error_msg {
+    color: red;
+    font-size: 13px;
+    margin: 5px 0 0 10px;
+  }
+
+  .success_msg{
+    color: rgb(42, 171, 42);
+    font-size: 13px;
+    margin: 5px 0 0 10px;
+  }
+}
+  
+
+  
+
+  
+  
+  
+  
+
+
+  
