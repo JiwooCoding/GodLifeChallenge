@@ -31,7 +31,6 @@ const ChallengeCalendar = ({
     minDate, 
     disabled
 }: ChallengeCalendarProps) => {
-
     const today = new Date();
     today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간은 00:00:00로 설정
 
