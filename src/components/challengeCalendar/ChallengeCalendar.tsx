@@ -40,9 +40,7 @@ const ChallengeCalendar = ({
     nextMonth.setMonth(nextMonth.getMonth() + 1);
     const lastDayOfMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0);
 
-    const handleDateChange = (date: Date | null) => {
-        console.log('Selected date:=============>', date); 
-    
+    const handleDateChange = (date: Date | null) => {    
         if (date) {
             // 날짜를 UTC 기준으로 변환
             const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));

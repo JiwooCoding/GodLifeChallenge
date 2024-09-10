@@ -1,8 +1,8 @@
 import { Control, FieldValues } from 'react-hook-form';
 import styles from './ChallengeExamplePhoto.module.scss'
-import ExampleImageField from '../../../../components/imageField-ver2/ExampleImageField';
 import success from '../../../../image/challenge/successImage.png'
 import fail from '../../../../image/challenge/failImage.png'
+import ExampleImageField from '../../../../components/ExampleImageField/ExampleImageField';
 
 interface ChallengeExamplePhotoProps<T extends FieldValues> {
     control: Control<T>;

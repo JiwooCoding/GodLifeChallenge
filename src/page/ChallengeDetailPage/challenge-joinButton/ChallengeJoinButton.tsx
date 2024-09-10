@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface ChallengeJoinButtonProps {
     challengeId: string | undefined;
-    startDate?: string; // 챌린지 시작 날짜
-    startTime?: string; // 챌린지 시작 시간 (HH:mm 형식)
-    endDate?: string;   // 챌린지 종료 날짜
-    endTime?: string;   // 챌린지 종료 시간 (HH:mm 형식)
+    startDate?: string; 
+    startTime?: string;
+    endDate?: string;
+    endTime?: string;   
     period: number;
     isJoined: boolean;
 }
@@ -91,8 +91,10 @@ const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTi
                 </div>
                 <button
                     onClick={fetchJoin}
-                    disabled={disabled}>{buttonText}</button>
+                    disabled={disabled}>{buttonText}
+                </button>
             </div>
+            
             {isOpen && (
                 <Modal isOpen={isOpen} onClose={closeModal}>
                     <Modal.Header>

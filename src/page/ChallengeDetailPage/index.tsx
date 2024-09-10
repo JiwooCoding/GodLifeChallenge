@@ -12,6 +12,8 @@ import ChallengeJoinButton from './challenge-joinButton/ChallengeJoinButton'
 import ChallengeDescription from './challenge-description/ChallengeDescription'
 import { formattedTime } from '../../utils/formattedTime'
 import { calculatorDday } from '../../utils/calculatorDday'
+import ChallengeDate from '../../components/challengeDateTime/ChallengeDate'
+import ChallengeTime from '../../components/challengeDateTime/ChallengeTime'
 
 type RouteParams = {
     challengeId?:string;
@@ -21,7 +23,7 @@ const ChallengeDetailPage = () => {
 
     //URL에서 challengeId 읽어오기
     const {challengeId} = useParams<RouteParams>();
-    const [challengeData, setChallengeData] = useState<IChallenge | null>(null);
+    const [challengeData, setChallengeData] = useState<IChallenge>();
     const [isJoined, setIsJoined] = useState(false);
 
     useEffect(() => {
@@ -66,30 +68,13 @@ const ChallengeDetailPage = () => {
                         </div>
                     </div>
                     {/* challenge startDay & endDay */}
-                    <h1>챌린지 업로드 기간</h1>
-                    <div className={styles.challenge_schedule_date}>
-                        <div className={styles.challenge_date}>
-                            <CiCalendar size={22} style={{fontWeight:'bold'}}/>
-                            <span>{challengeData?.startDate} ~ {challengeData?.endDate}</span>
-                        </div>
-                        <div className={styles.challenge_duration}>
-                            <span>매일</span>
-                            <span>{diffDays+1}일 동안</span>
-                        </div>
-                    </div>
-                    {/* challenge  */}
+                    {challengeData && (
+                        <ChallengeDate challenge={challengeData} />
+                    )}
                     {/* challenge startTime & endTime */}
-                    <h1>챌린지 업로드 시간</h1>
-                    <div className={styles.challenge_schedule_time}>
-                        <div className={styles.challenge_startTime}>
-                            <span>시작시간</span>
-                            <span className={styles.time}>{challengeData?.uploadStartTime.slice(0,5)}</span>
-                        </div>
-                        <div className={styles.challenge_endTime}>
-                            <span>종료시간</span>
-                            <span className={styles.time}>{challengeData?.uploadEndTime.slice(0,5)}</span>
-                        </div>
-                    </div>
+                    {challengeData && (
+                        <ChallengeTime challenge={challengeData}/>
+                    )}
                     {/* 챌린지 환급금 설명 */}
                     <ChallengeDescription/>
                     {/* AuthMethod */}
