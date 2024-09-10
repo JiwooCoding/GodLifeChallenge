@@ -4,7 +4,7 @@ import Product from './point-history/product';
 import Event from './point-history/event';
 import UserInfo from './user-info/UserInfo';
 import Donation from './point-history/donation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SideBar from './sidebar/SideBar';
 import ReigsterChallengesPage from '../RegisteredChallengesPage/ReigsterChallengesPage';
 import AppliedChallengePage from '../AppliedChallengePage';

@@ -1,0 +1,38 @@
+.detail_container {
+    position: relative; /* 자식 요소의 절대 위치를 지정할 수 있게 함 */
+    
+    .mainImage {
+        width: 560px;
+        height: 300px;
+        overflow: hidden; /* 이미지의 넘치는 부분 숨기기 */
+        position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지 비율 유지하면서 크기 맞추기 */
+        }   
+
+
+        .title {
+            position: absolute;
+            bottom: 17px;
+            left: 22px;
+            color: white;
+            z-index: 2;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
+        }
+    }
+}

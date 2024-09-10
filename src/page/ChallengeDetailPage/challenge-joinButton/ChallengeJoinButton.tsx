@@ -14,7 +14,7 @@ interface ChallengeJoinButtonProps {
     startTime?: string; // 챌린지 시작 시간 (HH:mm 형식)
     endDate?: string;   // 챌린지 종료 날짜
     endTime?: string;   // 챌린지 종료 시간 (HH:mm 형식)
-    period?: number;
+    period: number;
     isJoined: boolean;
 }
 
@@ -87,7 +87,7 @@ const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTi
                         <span>{useOnlyDate(startDate)} - {useOnlyDate(endDate)}</span>
                         <CiCalendar size={20} />
                     </div>
-                    <span>매일, {period}일 동안</span>
+                    <span>매일, {period+1}일 동안</span>
                 </div>
                 <button
                     onClick={fetchJoin}

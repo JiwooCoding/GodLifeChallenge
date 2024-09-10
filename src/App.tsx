@@ -30,6 +30,7 @@ import ChallengeHistoryPage from './page/ChallengeHistoryPage';
 import ParticipationList from './page/AppliedChallengePage/appliedChallenge-list/AppliedList';
 import AppliedList from './page/AppliedChallengePage/appliedChallenge-list/AppliedList';
 import AppliedChallengePage from './page/AppliedChallengePage';
+import AppliedDetailPage from './page/AppliedChallengeDetailPage';
 
 
 const Layout = () => {
@@ -82,8 +83,9 @@ const App = () => {
           <Route path='/challenge-upload' element={<ChallengeUploadPage/>}/>
           <Route path='/challenge' element={<ChallengePage/>}/>
           <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
-          <Route path='/challenge1' element={<ChallengeHistoryPage/>}/>
-          <Route path='/user/:userId/challenges' element={<AppliedChallengePage/>}/>
+          {/* <Route path='/challenge1' element={<ChallengeHistoryPage/>}/> */}
+          {/* <Route path='/challenge/:challengeId/detail' element={<AppliedDetailPage/>}/> */}
+          <Route path='/challenge1' element={<AppliedDetailPage/>}/>
         </Route>
 
         <Route path='/login' element={<LoginRoute><LoginPage /></LoginRoute>} />

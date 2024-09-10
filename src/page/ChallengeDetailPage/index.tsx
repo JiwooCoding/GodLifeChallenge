@@ -44,7 +44,7 @@ const ChallengeDetailPage = () => {
     }, [challengeId]);
     
     //챌린지 기간 구하기
-    const period = calculatorDday(challengeData?.startDate ?? '', challengeData?.endDate ?? '');
+    const diffDays = calculatorDday(challengeData?.startDate ?? '', challengeData?.endDate ?? '');
 
     return (
         <>
@@ -74,7 +74,7 @@ const ChallengeDetailPage = () => {
                         </div>
                         <div className={styles.challenge_duration}>
                             <span>매일</span>
-                            <span>{calculatorDday(challengeData?.startDate ?? '', challengeData?.endDate ?? '')}일 동안</span>
+                            <span>{diffDays+1}일 동안</span>
                         </div>
                     </div>
                     {/* challenge  */}
@@ -123,7 +123,7 @@ const ChallengeDetailPage = () => {
                         </div>
                         <div className={styles.challenge_warning}>
                             <IoCheckmark size={20}/>
-                            <span>{period}일 동안 매일, 하루에 1번 인증샷을 촬영하셔야 합니다.</span>
+                            <span>{diffDays+1}일 동안 매일, 하루에 1번 인증샷을 촬영하셔야 합니다.</span>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@ const ChallengeDetailPage = () => {
         <ChallengeJoinButton
             startDate={challengeData?.startDate}
             endDate={challengeData?.endDate}
-            period={period}
+            period={diffDays}
             challengeId={challengeId}
             isJoined={isJoined}
             startTime={challengeData?.uploadStartTime}

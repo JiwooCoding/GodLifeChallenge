@@ -32,7 +32,8 @@ const ChallengeItem = ({item}:ChallengeItemProps) => {
       <span className={styles.state}>{item.state}</span>
       <div className={styles.challenge_period}>
         <span>매일</span>
-        <span>{diffDays}일 동안</span>
+        
+        <span>{diffDays+1}일 동안</span>
       </div>
     </li>
   )
