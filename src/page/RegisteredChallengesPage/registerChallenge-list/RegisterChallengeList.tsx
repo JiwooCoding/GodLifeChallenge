@@ -3,6 +3,8 @@ import api from '../../../api/api';
 import RegisterChallengeItem from './registerChallenge-item/RegisterChallengeItem';
 import { IChallengeHistory } from '../../../type/challengeData';
 import Loading from '../../../components/loading/Loading';
+import noChallenge from '../../../image/challenge/noChallengeHistory (1).png'
+import styles from './RegisterChallengeList.module.scss'
 
 const RegisterChallengeList = () => {
     const [challenges, setChallenges] = useState<IChallengeHistory[]>([]);
@@ -37,7 +39,9 @@ const RegisterChallengeList = () => {
                 ))}
             </ul>
             ) : (
-                <p>등록된 챌린지가 없습니다</p>
+                <div className={styles.noChallenge}>
+                    <img src={noChallenge} alt="no register challenge"/>
+                </div>
             )}
         </>
     );

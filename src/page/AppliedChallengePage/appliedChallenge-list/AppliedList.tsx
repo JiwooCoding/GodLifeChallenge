@@ -3,6 +3,8 @@ import { IChallengeHistory } from "../../../type/challengeData";
 import api from "../../../api/api";
 import AppliedItem from "./appliedChallenge-item/AppliedItem";
 import Loading from "../../../components/loading/Loading";
+import noChallenge from '../../../image/challenge/noChallengeHistory (2).png'
+import styles from './AppliedList.module.scss'
 
 const AppliedList = () => {
 
@@ -39,7 +41,9 @@ const AppliedList = () => {
                     ))}
                 </ul>
             ): (
-                <p>참여한 챌린지가 없습니다</p>
+                <div className={styles.noChallenge}>
+                    <img src={noChallenge} alt="no apply challenge"/>
+                </div>
             )}
         </>
     )

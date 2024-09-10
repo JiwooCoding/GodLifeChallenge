@@ -23,7 +23,7 @@ const SideBarChallenge = ({handleClick, activeItem}:SideBarChallengeProps) => {
                 className={activeItem === 'register' ? styles.active : ''}
                 onClick={() => handleClick('register')}
             >
-                등록 챌린지
+                개설 챌린지
             </li>
         </ul>
 

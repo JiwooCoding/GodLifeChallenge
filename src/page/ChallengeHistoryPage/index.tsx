@@ -4,7 +4,7 @@ import ReigsterChallengesPage from '../RegisteredChallengesPage/ReigsterChalleng
 const ChallengeHistoryPage = () => {
     return (
         <div className='page'>
-            <h1>등록한 챌린지</h1>
+            <h1>개설한 챌린지</h1>
             <ReigsterChallengesPage/>
             <br/>
             <h1>참여한 챌린지</h1>
