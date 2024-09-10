@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import api from '../../../../../api/api';
-import { calculatorDday } from '../../../../../utils/calculatorDday';
 import { useUser } from '../../../../../contexts/UserProvider';
 import { SubmitHandler } from 'react-hook-form';
-import styles from './ParticipationButton.module.scss'
+import styles from './AuthButton.module.scss'
 import AuthChallenge from '../../../../../components/modal/authImage/AuthChallenge';
+import { isWithinTimeRange } from '../../../../../utils/isWithinTimeRange';
+import dayjs from 'dayjs';
+import CancleButton from '../cancleButton/CancleButton';
 
 export interface FormData {
     description: string;
@@ -20,7 +22,7 @@ interface ParticipationButtonProps {
     title: string;
 }
 
-const ParticipationButton = ({ challengeId, startDate, endDate, startTime, endTime, title }: ParticipationButtonProps) => {
+const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title }: ParticipationButtonProps) => {
     const [disabled, setDisabled] = useState(false);
     const [participationStatus, setParticipationStatus] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -55,10 +57,29 @@ const ParticipationButton = ({ challengeId, startDate, endDate, startTime, endTi
         }
     };
 
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const current = dayjs(); //오늘 날짜&시간
+    const endDateTime = dayjs(`${endDate} ${endTime}`, 'YYYY-MM-DD HH:mm');
+
     return (
         <>
-            <div className={styles.button}>
-                <button onClick={modalOpen} disabled={disabled}>인증하기</button>
+            <div className={styles.button_box}>
+                {current > endDateTime ? (
+                        <p>종료된 챌린지</p>
+                    ) : todayStr === startDate || todayStr === endDate ? (
+                        isWithinTimeRange(startTime, endTime) ? (
+                            <button onClick={modalOpen} disabled={disabled}>인증하기</button>
+                        ) : (
+                            <button className={styles.button} disabled={true}>인증불가시간</button>
+                        )
+                    ) : todayStr < startDate ? (
+                        <div className={styles.buttons}>
+                            <CancleButton
+                                challengeId={challengeId}
+                            />
+                        </div>
+                    ) : null}
             </div>
             {isOpen && (
                 <AuthChallenge
@@ -71,4 +92,4 @@ const ParticipationButton = ({ challengeId, startDate, endDate, startTime, endTi
     );
 }
 
-export default ParticipationButton;
+export default AuthButton;

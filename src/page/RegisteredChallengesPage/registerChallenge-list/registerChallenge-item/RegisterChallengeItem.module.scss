@@ -42,9 +42,12 @@
     }
 
     .item_info_mainImage{
-        width: 90px;
-        height: 90px;
         position: relative;
+
+        img{
+            width: 90px;
+            height: 90px;
+        }
 
         .imageDday_msg{
             position: absolute;

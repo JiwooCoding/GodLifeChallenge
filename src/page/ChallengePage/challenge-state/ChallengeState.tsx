@@ -23,6 +23,7 @@ const ChallengeState = ({selectedState, onStateChange}:ChallengeStateProps) => {
                 <option value='진행중'>진행중</option>
                 <option value='모집전'>모집전</option>
                 <option value='모집마감'>모집마감</option>
+                <option value='종료'>종료</option>
             </select>
         </div>
     )

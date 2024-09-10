@@ -1,9 +1,11 @@
 import { IChallengeHistory } from '../../../../type/challengeData'
 import { calculatorDday } from '../../../../utils/calculatorDday';
-import ParticipationButton from '../appliedChallenge-button/participationButton/ParticipationButton'
+import { formattedDate } from '../../../../utils/formattedDate';
+import { formattedTime } from '../../../../utils/formattedTime';
+import AuthButton from '../appliedChallenge-button/authButton/AuthButton';
 import styles from './AppliedItem.module.scss'
 
-const ParticipationItem = ({item}:{item:IChallengeHistory}) => {
+const AppliedItem = ({item}:{item:IChallengeHistory}) => {
     
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
@@ -19,13 +21,13 @@ const ParticipationItem = ({item}:{item:IChallengeHistory}) => {
                 <div className={styles.item_info_text}>
                     <h2>{item.title}</h2>
                     <div className={styles.item_info_text_date}>
-                        <span>{item.startDate} - {item.endDate}</span>
-                        <span>{item.uploadStartTime} - {item.uploadEndTime}</span>
+                        <span>{formattedDate(item.startDate)} - {formattedDate(item.endDate)}</span>
+                        <span>{formattedTime(item.uploadStartTime)} - {formattedTime(item.uploadEndTime)}</span>
                     </div>
                 </div>
             </div>
             <div className={styles.item_button}>
-                <ParticipationButton 
+                <AuthButton 
                     challengeId={item.id}
                     startDate={item.startDate}
                     endDate={item.endDate}
@@ -38,4 +40,4 @@ const ParticipationItem = ({item}:{item:IChallengeHistory}) => {
     )
 }
 
-export default ParticipationItem
+export default AppliedItem

@@ -6,42 +6,54 @@ import styles from './ChallengeList.module.scss'
 import noChallenge from '../../../image/challenge/noChallenge.png'
 
 interface ChallengeListProps{
-    category:string;
-    state:string;
+    category: string;
+    state: string;
 }
 
-const ChallengeList = ({category, state}:ChallengeListProps) => {
-
+const ChallengeList = ({ category, state }: ChallengeListProps) => {
     const [challengeData, setChallengeData] = useState<IChallenge[]>([]);
+    const [filteredChallenges, setFilteredChallenges] = useState<IChallenge[]>([]);
 
     useEffect(() => {
         const fetchChallenges = async() => {
             try {
-                const response = await api.get('/api/challenge',{
-                    params:{
-                        category:category,
-                        state:state
+                const response = await api.get('/api/challenge', {
+                    params: {
+                        category: category === '전체' ? null : category, 
+                        state: state === '전체' ? null : state 
                     }
-                })
-                console.log('dd===>',response.data); 
+                });
                 setChallengeData(response.data.content);
             } catch (error) {
-                console.log('챌린지 데이터 받아오기 실패',error);
+                console.log('챌린지 데이터 받아오기 실패', error);
             }
-        }
+        };
 
         fetchChallenges();
     }, [category, state]);
 
+    useEffect(() => {
+        const filterChallenges = () => {
+            const filtered = challengeData.filter(challenge => {
+                const categoryMatch = category === '전체' || challenge.category === category;
+                const stateMatch = state === '전체' || challenge.state === state;
+                return categoryMatch && stateMatch;
+            });
+            setFilteredChallenges(filtered);
+        };
+
+        filterChallenges();
+    }, [challengeData, category, state]);
+
     return (
         <>
-            {challengeData.length === 0 ? (
+            {filteredChallenges.length === 0 ? (
                 <div className={styles.noChallenge}>
                     <img src={noChallenge} alt='nochallenge'/>
                 </div>
             ) : (
                 <ul className={styles.challenge_list}>
-                    {challengeData.map(challenge => (
+                    {filteredChallenges.map(challenge => (
                         <ChallengeItem
                             key={challenge.id}
                             item={challenge}
@@ -50,7 +62,7 @@ const ChallengeList = ({category, state}:ChallengeListProps) => {
                 </ul>
             )}
         </>
-    )
-}
+    );
+};
 
-export default ChallengeList
+export default ChallengeList;

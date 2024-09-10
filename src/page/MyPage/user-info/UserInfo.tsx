@@ -1,7 +1,6 @@
 import { formatNumberWithCommas } from '../../../utils/fomatNumberWithCommas';
 import styles from './UserInfo.module.scss'
 import { useUser } from '../../../contexts/UserProvider';
-import ParticipationChallengePage from '../../ParticipationChallengePage';
 
 interface UserInfoProps {
     selectedComponent:string | null;

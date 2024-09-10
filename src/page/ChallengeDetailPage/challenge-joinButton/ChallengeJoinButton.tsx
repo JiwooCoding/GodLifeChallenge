@@ -13,7 +13,6 @@ interface ChallengeJoinButtonProps {
     startDate?:string;
     endDate?:string;
     period?:number;
-    //join?:boolean;
 }
 
 const ChallengeJoinButton = ({challengeId, startDate, endDate, period}:ChallengeJoinButtonProps) => {
@@ -29,7 +28,6 @@ const ChallengeJoinButton = ({challengeId, startDate, endDate, period}:Challenge
             if(challengeId){
                 await api.post('/api/challenge/join', {
                     challengeId,
-                    isJoined:true,
                 });
                 console.log('챌린지 참여 성공했습니다!');
                 setDisabled(true);

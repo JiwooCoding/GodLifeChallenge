@@ -3,7 +3,7 @@ import styles from './AuthChallenge.module.scss';
 import ImageField from '../../imageField/ImageField';
 import { useForm } from 'react-hook-form';
 import InputField from '../../inputField/InputField';
-import { FormData } from '../../../page/ParticipationChallengePage/participationChallenge-list/participationChallenge-button/participationButton/ParticipationButton';
+import { FormData } from '../../../page/AppliedChallengePage/appliedChallenge-list/appliedChallenge-button/authButton/AuthButton';
 
 interface AuthChallengeProps {
     uploadAuth: (data: FormData) => void;

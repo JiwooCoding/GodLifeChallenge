@@ -5,7 +5,9 @@ interface SideBarChallengeProps {
     activeItem:string | null;
 }
 
+
 const SideBarChallenge = ({handleClick, activeItem}:SideBarChallengeProps) => {
+
 
     return (
 

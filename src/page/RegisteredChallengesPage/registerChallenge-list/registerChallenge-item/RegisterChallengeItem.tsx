@@ -3,6 +3,8 @@ import { IChallengeHistory } from '../../../../type/challengeData'
 import RegisterChallengeButton from '../registerChallenge-button/RegisterChallengeButton'
 import styles from './RegisterChallengeItem.module.scss'
 import { calculatorDday } from '../../../../utils/calculatorDday'
+import { formattedDate } from '../../../../utils/formattedDate'
+import { formattedTime } from '../../../../utils/formattedTime'
 
 const RegisterChallengeItem = ({item}:{item:IChallengeHistory}) => {
     
@@ -20,13 +22,12 @@ const RegisterChallengeItem = ({item}:{item:IChallengeHistory}) => {
                 <div className={styles.item_info_text}>
                     <h2>{item.title}</h2>
                     <div className={styles.item_info_text_date}>
-                        <span>{item.startDate} - {item.endDate}</span>
-                        <span>{item.uploadStartTime} - {item.uploadEndTime}</span>
+                    <span>{formattedDate(item.startDate)} - {formattedDate(item.endDate)}</span>
+                    <span>{formattedTime(item.uploadStartTime)} - {formattedTime(item.uploadEndTime)}</span>
                     </div>
                 </div>
             </div>
             <div className={styles.item_button}>
-                {/* 버튼 들어갈 자리 */}
                 <RegisterChallengeButton
                     challengeId={item.id}
                     startDate={item.startDate}
