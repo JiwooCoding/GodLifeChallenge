@@ -20,7 +20,9 @@ const AppliedChallengePage = () => {
                     onStatusChange={handleStatusChange}
                 />
             </div>
-            <AppliedList/>
+            <AppliedList
+                state={selectedStatus}
+            />
         </div>
     )
 }

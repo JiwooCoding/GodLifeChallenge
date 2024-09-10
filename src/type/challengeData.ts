@@ -6,6 +6,7 @@ export type IChallengeHistory = {
     endDate:string;
     uploadStartTime:string;
     uploadEndTime:string;
+    authCount?:number;
 }
 
 export type FormValues = {

@@ -20,7 +20,9 @@ const ReigsterChallengesPage = () => {
                     onStatusChange={handleStatusChange}
                 />
             </div>
-            <RegisterChallengeList/>
+            <RegisterChallengeList
+                state={selectedStatus}
+            />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import { formatNumberWithCommas } from '../../../utils/fomatNumberWithCommas';
 import styles from './UserInfo.module.scss'
 import { useUser } from '../../../contexts/UserProvider';
+import InProgressChallengePage from '../../InProgressChallengePage';
 
 interface UserInfoProps {
     selectedComponent:string | null;
@@ -43,8 +44,7 @@ const UserInfo = ({selectedComponent}:UserInfoProps) => {
                         </div>
                     </div>
                 </div>
-                {/* 이 부분에 진행중인 챌린지 내역 들어가야 함 */}
-                {/* {selectedComponent === null &&  <ParticipationChallengePage/>} */}
+                {selectedComponent === null &&  <InProgressChallengePage/>}
             </div>
         </div>
     );

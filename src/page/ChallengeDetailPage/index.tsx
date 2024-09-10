@@ -22,13 +22,16 @@ const ChallengeDetailPage = () => {
     //URL에서 challengeId 읽어오기
     const {challengeId} = useParams<RouteParams>();
     const [challengeData, setChallengeData] = useState<IChallenge | null>(null);
+    const [isJoined, setIsJoined] = useState(false);
 
     useEffect(() => {
         const fetchChallengeDetail = async() => {
             try {
                 if(challengeId){
                     const response = await api.get<IChallenge>(`/api/challenge/${challengeId}`);
+                    console.log(response.data)
                     setChallengeData(response.data);
+                    setIsJoined(response.data.isJoined);
                 }else{
                     console.log('챌린지 ID가 없습니다');
                 }
@@ -132,7 +135,9 @@ const ChallengeDetailPage = () => {
             endDate={challengeData?.endDate}
             period={period}
             challengeId={challengeId}
-            //join={challengeData?.isJoined}
+            isJoined={isJoined}
+            startTime={challengeData?.uploadStartTime}
+            endTime={challengeData?.uploadEndTime}
         />
         </>
     )
