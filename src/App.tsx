@@ -26,11 +26,8 @@ import AddIcon from '@mui/icons-material/Add';
 import ChallengeUploadPage from './page/ChallengeUploadPage';
 import ChallengePage from './page/ChallengePage';
 import ChallengeDetailPage from './page/ChallengeDetailPage';
-import ChallengeHistoryPage from './page/ChallengeHistoryPage';
-import ParticipationList from './page/AppliedChallengePage/appliedChallenge-list/AppliedList';
-import AppliedList from './page/AppliedChallengePage/appliedChallenge-list/AppliedList';
-import AppliedChallengePage from './page/AppliedChallengePage';
 import AppliedDetailPage from './page/AppliedChallengeDetailPage';
+import ManageChallengePage from './page/ManageChallengePage/ManageAuthImage';
 
 
 const Layout = () => {
@@ -83,9 +80,10 @@ const App = () => {
           <Route path='/challenge-upload' element={<ChallengeUploadPage/>}/>
           <Route path='/challenge' element={<ChallengePage/>}/>
           <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
-          {/* <Route path='/challenge1' element={<ChallengeHistoryPage/>}/> */}
           {/* <Route path='/challenge/:challengeId/detail' element={<AppliedDetailPage/>}/> */}
           <Route path='/challenge1' element={<AppliedDetailPage/>}/>
+          {/* path변경해야함! */}
+          <Route path='/managePage' element={<ManageChallengePage/>}/>
         </Route>
 
         <Route path='/login' element={<LoginRoute><LoginPage /></LoginRoute>} />

@@ -19,7 +19,7 @@ const RegisterChallengeList = ({state}:RegisterChallengeListProps) => {
     useEffect(() => {
         const fetchRegisterChallenges = async () => {
             try {
-                const response = await api.get(`/api/challenge/register`,{
+                const response = await api.get(`/api/challenge/applied`,{
                     params:{
                         state:state === '전체' ? null : state
                     }

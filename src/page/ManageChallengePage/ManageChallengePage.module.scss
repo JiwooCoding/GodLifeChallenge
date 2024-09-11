@@ -1,0 +1,113 @@
+.managePage{
+
+    h1{
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    p{
+        font-size: 14px;
+        color: #333;
+        padding-top: 5px;
+    }
+
+    .mainImage {
+        width: 560px;
+        height: 300px;
+        overflow: hidden; /* 이미지의 넘치는 부분 숨기기 */
+        position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
+        margin: 20px 0px;
+        border-radius: 10px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지 비율 유지하면서 크기 맞추기 */
+        }   
+
+
+        .title {
+            position: absolute;
+            bottom: 17px;
+            left: 22px;
+            color: white;
+            z-index: 2;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
+        }
+    }
+
+    .authImage{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); // 한 줄에 2개의 열
+        gap: 20px;
+        
+        .imageContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center; // 버튼을 이미지 하단 중앙에 정렬
+            position: relative;
+
+            img{
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                border-radius: 4px 4px 0px 0px;
+            }
+
+            button{
+                background-color: #dc3545;
+                width: 100%;
+                color: #fff;
+                font-size: 14px;
+                padding: 5px;
+                transition: box-shadow 0.3s ease;
+                border-radius: 0px 0px 4px 4px;
+                
+                &:hover{
+                    box-shadow: 0px 4px 6px rgba(220, 53, 69, 0.5);
+                }
+                
+
+                &:disabled{
+                    background-color: #dc35457a;
+                    cursor: not-allowed;
+
+                    &:hover {
+                        box-shadow: none;
+                    }
+
+                    &::before {
+                        content: "인증실패 완료";
+                        opacity: 0.8;
+                        z-index: 3;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #fff;
+                        font-size: 20px;
+                        font-weight: bold;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        background-color: rgba(0, 0, 0, 0.6);
+                    }
+                }
+            }
+        }
+    }
+}
