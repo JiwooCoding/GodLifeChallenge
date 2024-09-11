@@ -69,9 +69,9 @@ const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title
                         <p>종료된 챌린지</p>
                     ) : todayStr === startDate || todayStr === endDate ? (
                         isWithinTimeRange(startTime, endTime) ? (
-                            <button onClick={modalOpen} disabled={disabled}>인증하기</button>
+                            <button className={styles.button} onClick={modalOpen} disabled={disabled}>인증하기</button>
                         ) : (
-                            <button className={styles.button} disabled={true}>인증불가시간</button>
+                            <button className={styles.button} disabled={true}>인증불가</button>
                         )
                     ) : todayStr < startDate ? (
                         <div className={styles.buttons}>

@@ -27,12 +27,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     throw new Error('access토큰이 없습니다!!');
                 }
 
-                const response = await api.get<User>('/api/user', {
-                    headers:{
-                        Authorization: `Bearer ${accessToken}`
-                    },
-                });
-                console.log('user ===> ',response.data);
+                const response = await api.get<User>('/api/user');
                 setUser(response.data);
                 localStorage.setItem('user', JSON.stringify(response.data));
 

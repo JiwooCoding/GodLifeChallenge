@@ -12,6 +12,8 @@ interface InputFieldProps<T extends FieldValues> { // T가 FieldValues를 상속
     onBlur: () => void;
     step?: number;
     min?: number;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField = <T extends FieldValues>({
@@ -25,6 +27,8 @@ const InputField = <T extends FieldValues>({
     onBlur,
     step,
     min,
+    value,
+    onChange
 }: InputFieldProps<T>) => {
 
     const validationRules: RegisterOptions<T> = {
@@ -45,8 +49,10 @@ const InputField = <T extends FieldValues>({
                 {...register(id, validationRules)}
                 onFocus={() => onFocus(id)}
                 onBlur={onBlur}
+                value={value}
                 min={min}
                 step={step}
+                onChange={onChange}
             />
         </div>
     );

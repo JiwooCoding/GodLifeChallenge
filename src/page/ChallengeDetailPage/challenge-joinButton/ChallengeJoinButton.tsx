@@ -7,6 +7,12 @@ import Modal from '../../../components/modal';
 import { calculatorDday } from '../../../utils/calculatorDday';
 import { useOnlyDate } from '../../../utils/useOnlyDate';
 import { useNavigate } from 'react-router-dom';
+import InputField from '../../../components/inputField/InputField';
+import { useUser } from '../../../contexts/UserProvider';
+import { formatNumberWithCommas } from '../../../utils/fomatNumberWithCommas';
+import usePointInput from '../../../hooks/usePointInput';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 interface ChallengeJoinButtonProps {
     challengeId: string | undefined;
@@ -19,21 +25,56 @@ interface ChallengeJoinButtonProps {
 }
 
 const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTime, period, isJoined }: ChallengeJoinButtonProps) => {
+    
     const [disabled, setDisabled] = useState(false);
-    const { isOpen, openModal, closeModal } = useModal();
     const [buttonText, setButtonText] = useState('');
+    const [activeInput, setActiveInput] = useState('');
 
-    const navigate = useNavigate();
+    const { isOpen, openModal, closeModal } = useModal();
+    const { register } = useForm();
+    const { user } = useUser();
+    const { customPoint, handleCustomPointChange } = usePointInput(); 
+
+    const [isJoinedState, setIsJoinedState] = useState(isJoined);  
+
+    const now = new Date();
+    const challengeStart = new Date(`${startDate}T${startTime}`);
+    const challengeEnd = new Date(`${endDate}T${endTime}`);
+    const todayStr = now.toISOString().split('T')[0];
+    const diffDays = calculatorDday(now.toISOString(), startDate!);
+
+    useEffect(() => {
+        setIsJoinedState(isJoined);
+    }, [isJoined]);
+
+    useEffect(() => {
+        if (now >= challengeEnd) {
+            setButtonText('챌린지 종료');
+            setDisabled(true);
+        } else if (now >= challengeStart && now <= challengeEnd) {
+            setButtonText('챌린지 진행중');
+            setDisabled(true);
+        } else if (!isJoinedState) {  
+            setButtonText('참여하기');
+            setDisabled(false);
+        } else {
+            setButtonText('참여완료');
+            setDisabled(true);
+        }
+    }, [now, challengeStart, challengeEnd, isJoinedState]);  
 
     const fetchJoin = async () => {
         try {
             if (challengeId) {
                 await api.post('/api/challenge/join', {
                     challengeId,
+                    deposit: customPoint
                 });
+                setIsJoinedState(true);  
+                setButtonText('참여완료'); 
                 setDisabled(true);
-                setButtonText('참여완료');
-                openModal();
+                closeModal();
+                toast.success(`${todayStr === startDate ? '오늘' : `${diffDays}일 후 `}부터 인증해주세요`);
             } else {
                 console.log('challengeId가 없습니다!');
             }
@@ -42,42 +83,17 @@ const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTi
         }
     };
 
-    // 현재 시간
-    const now = new Date();
-
-    // startDate와 startTime을 결합
-    const challengeStart = new Date(`${startDate}T${startTime}`);
-
-    // endDate와 endTime을 결합
-    const challengeEnd = new Date(`${endDate}T${endTime}`);
-    
     const handleClick = () => {
-        closeModal();
-        navigate('/challenge');
+        openModal();
     };
 
-    useEffect(() => {
-        // 챌린지가 종료된 경우
-        if (now >= challengeEnd) {
-            setButtonText('챌린지 종료');
-            setDisabled(true);
-        }
-        // 현재 시간이 시작일과 종료일 사이일 경우 "챌린지 진행중"
-        else if (now >= challengeStart && now <= challengeEnd) {
-            setButtonText('챌린지 진행중');
-            setDisabled(true);
-        }
-        // 챌린지 시작 전이면서 참여하지 않은 경우
-        else if (!isJoined) {
-            setButtonText('참여하기');
-            setDisabled(false);
-        }
-        // 이미 참여한 경우
-        else if (isJoined) {
-            setButtonText('참여완료');
-            setDisabled(true);
-        }
-    }, [now, challengeStart, challengeEnd, isJoined]);
+    const handleFocus = (inputId: string) => {
+        setActiveInput(inputId);
+    };
+
+    const handleBlur = () => {
+        setActiveInput('');
+    };
 
     return (
         <>
@@ -90,7 +106,7 @@ const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTi
                     <span>매일, {period+1}일 동안</span>
                 </div>
                 <button
-                    onClick={fetchJoin}
+                    onClick={handleClick}
                     disabled={disabled}>{buttonText}
                 </button>
             </div>
@@ -98,17 +114,24 @@ const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTi
             {isOpen && (
                 <Modal isOpen={isOpen} onClose={closeModal}>
                     <Modal.Header>
-                        챌린지 참여
+                        예치금 입력
                     </Modal.Header>
-                    <Modal.Title>
-                        참여가 완료되었습니다.
-                    </Modal.Title>
-                    <Modal.Subtitle>
-                        {calculatorDday(now.toISOString(), startDate ?? '')}일 뒤부터 인증을 시작해주세요!
-                    </Modal.Subtitle>
-                    <Modal.Footer>
-                        <Modal.Button buttonStyle='button--primary' onClick={handleClick}>확인</Modal.Button>
-                    </Modal.Footer>
+                    <Modal.Content>
+                        <p className={styles.userpoint}>보유포인트 {formatNumberWithCommas(user?.totalPoint!)}P</p>
+                        <InputField
+                            id='deposit'
+                            label='예치금'
+                            type='text'  
+                            placeholder='예치금 입력'
+                            value={customPoint} 
+                            onChange={handleCustomPointChange} 
+                            onFocus={() => handleFocus('deposit')}
+                            onBlur={handleBlur}
+                            register={register}
+                        />
+                        <Modal.Button buttonStyle='button--secondary' onClick={closeModal}>닫기</Modal.Button>
+                        <Modal.Button buttonStyle='button--primary' onClick={fetchJoin}>확인</Modal.Button>
+                    </Modal.Content>
                 </Modal>
             )}
         </>
