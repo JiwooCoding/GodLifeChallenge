@@ -105,7 +105,7 @@ body{
 
 .navbar_left{
     cursor: pointer;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     transition: color 0.3s;
 }

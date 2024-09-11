@@ -53,12 +53,12 @@ const Header = () => {
                                 </>
                             )}
                         </div>
-                        <div className='flex gap-[100px]'>
+                        <div className='flex gap-[85px]'>
+                            <Link to={'/challenge'} className='navbar_left'>챌린지</Link>
                             <Link to={'/product'} className='navbar_left'>포인트 쇼핑</Link>
                             <Link to={'/donation'}><h2 className='navbar_left'>후원과 참여</h2></Link>
                             <Link to={'/event'} className='navbar_left'>이벤트</Link>
                             {user?.email === admin &&  <Link to={'/productupload'}><h2 className='navbar_left'>업로드</h2></Link>}
-                            
                         </div>
                     </div>
                 </div>

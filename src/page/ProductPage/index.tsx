@@ -20,8 +20,8 @@ const ProductPage = () => {
 
     return (
         <div className="inner">
-            <div className="mt-10 text-center">
-                <h2 className="text-[30px] font-bold mb-4">포인트 쇼핑</h2>
+            <div className="mt-10">
+                <h2 className="text-[25px] font-bold">포인트 쇼핑</h2>
             </div>
             <ProductCategory 
                 onCategoryChange={handleCategoryChange} 

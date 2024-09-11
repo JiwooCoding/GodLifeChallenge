@@ -5,6 +5,7 @@ import ProductItem from "../productItem/ProductItem";
 import Pagination from "../../../components/pagination/Pagination";
 import api from "../../../api/api";
 import PriceSort from "../../../components/priceSort/PriceSort";
+import styles from './ProductList.module.scss'
 
 interface ProductListProps {
     selectedCategory:string;
@@ -53,12 +54,14 @@ const ProductList = ({ selectedCategory, currentPage, productsPerPage, handlePag
 
     return (
         <>
-            <AutoComplete
-                items={products}
-                setFilteredItems={setFilteredProducts}
-                displayProperty="productName"
-            />
-            <PriceSort sortOrder={sortOrder} setSortOrder={setSortOrder}/>
+            <div className={styles.autoAndSort}>
+                <PriceSort sortOrder={sortOrder} setSortOrder={setSortOrder}/>
+                <AutoComplete
+                    items={products}
+                    setFilteredItems={setFilteredProducts}
+                    displayProperty="productName"
+                />
+            </div>
             <ul className='product-list'>
                 {currentProducts.map(product => (
                     <ProductItem
