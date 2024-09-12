@@ -11,6 +11,7 @@ import { isTodayWithinRange } from '../../../../../utils/isTodayWithinRange';
 
 export interface FormData {
     images: FileList;
+    description:string;
 }
 
 interface ParticipationButtonProps {

@@ -2,6 +2,8 @@ import styles from './AuthChallenge.module.scss';
 import ImageField from '../../imageField/ImageField';
 import { useForm } from 'react-hook-form';
 import { FormData } from '../../../page/AppliedChallengePage/appliedChallenge-list/appliedChallenge-button/authButton/AuthButton';
+import InputField from '../../inputField/InputField';
+import useActiveInput from '../../../hooks/useActiveInput';
 
 interface AuthChallengeProps {
     uploadAuth: (data: FormData) => void;
@@ -11,7 +13,8 @@ interface AuthChallengeProps {
 
 const AuthChallenge = ({ uploadAuth, modalClose, title }: AuthChallengeProps) => {
     
-    const { control, handleSubmit } = useForm<FormData>();
+    const { control, handleSubmit, register } = useForm<FormData>();
+    const { activeInput, handleFocus, handleBlur } = useActiveInput();
 
     return (
         <div className={styles.modal_overlay}>
@@ -23,6 +26,16 @@ const AuthChallenge = ({ uploadAuth, modalClose, title }: AuthChallengeProps) =>
                             multiple={false}
                             label="인증 이미지"
                             name="images"
+                        />
+                        <InputField
+                            id='description'
+                            label='인증 설명'
+                            type='text'
+                            placeholder='예) 매일 1만보 걷기'
+                            activeInput={activeInput}
+                            register={register}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
                         />
                         <div className={styles.button_container}>
                             <button className={styles.cancle_button} type='button' onClick={modalClose}>취소</button>
