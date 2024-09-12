@@ -1,0 +1,35 @@
+.challenge_schedule_date{
+    display: flex;
+    /* flex-direction: column; */
+    margin-bottom: 30px;
+    background: #f1f1f1;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-top: 5px;
+    /* gap: 8px; */
+    color: #333;
+    justify-content: space-between;
+
+    .challenge_date{
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        span{
+            font-weight: bold;
+        }
+    }
+
+    .challenge_duration{
+        display: flex;
+        gap: 8px;
+        span{
+            background: #007bff;
+            padding: 3px 8px;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+    }
+}

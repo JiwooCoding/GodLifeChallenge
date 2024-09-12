@@ -1,7 +1,7 @@
-import styles from '../../page/ChallengeDetailPage/ChallengeDetailPage.module.scss'
-import { IChallenge } from '../../type/IChallenge'
-
-const ChallengeTime = ({challenge}:{challenge:IChallenge}) => {
+import { IChallenge } from '../../../type/IChallenge'
+import { IUserAuth } from '../../../type/IUserAuth'
+import styles from './ChallengeTime.module.scss'
+const ChallengeTime = ({challenge}:{challenge:IChallenge | IUserAuth}) => {
     return (
         <div>
             <h1>챌린지 업로드 시간</h1>

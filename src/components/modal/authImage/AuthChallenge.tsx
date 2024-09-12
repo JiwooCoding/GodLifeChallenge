@@ -31,7 +31,7 @@ const AuthChallenge = ({ uploadAuth, modalClose, title }: AuthChallengeProps) =>
                             id='description'
                             label='인증 설명'
                             type='text'
-                            placeholder='예) 매일 1만보 걷기'
+                            placeholder='예) 오운완!'
                             activeInput={activeInput}
                             register={register}
                             onFocus={handleFocus}

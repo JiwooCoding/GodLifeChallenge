@@ -96,44 +96,21 @@
         }
     }
 
-    .myAuth {
-        margin-top: 20px;
-
-        .myAuth_state{
-            display: flex;
-            justify-content: space-between;
-
-            .progress, .deposit{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                span {
-                    &:first-child {
-                        font-size: 14px;
-                    }
+    .imageContainer {
+        display: grid;                   /* Grid 레이아웃을 사용 */
+        grid-template-columns: repeat(3, 1fr);  /* 3개의 열을 생성 */
+        gap: 16px;                        /* 이미지 사이에 간격 추가 (필요에 따라 조정) */
+    
+        .imageItem {
+            display: flex;                /* Flexbox를 사용하여 이미지 중앙 정렬 */
+            justify-content: center;      /* 이미지 중앙 정렬 */
+            align-items: center;          /* 이미지 중앙 정렬 */
+            overflow: hidden;             /* 이미지가 컨테이너를 넘지 않도록 설정 */
             
-                    &:last-child {
-                        font-weight: bold;
-                    }
+            img {
+                width: 100%;              /* 이미지가 컨테이너의 너비에 맞게 조정 */
+                height: auto;             /* 이미지 비율을 유지하며 높이 자동 조정 */
             }
-        }
-    }
-
-        .progressBar {
-            width: 100%; 
-            height: 12px; 
-            background-color: #e0e0e0; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            margin-top: 10px;
-        }
-
-        .progressFill {
-            height: 100%; 
-            background-color: #ff6767; 
-            border-radius: 10px 0 0 10px; 
-            transition: width 0.4s ease; 
         }
     }
 

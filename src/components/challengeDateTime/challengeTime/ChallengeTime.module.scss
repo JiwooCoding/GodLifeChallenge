@@ -1,0 +1,23 @@
+.challenge_schedule_time{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 135px;
+    margin-top: 5px;
+    color: #333;
+    margin-bottom: 30px;
+    background: #f1f1f1;
+    padding: 20px;
+    border-radius: 6px;
+    font-size: 14px;
+
+    .challenge_startTime, .challenge_endTime{
+        display: grid;
+        justify-items: center;
+
+        .time{
+            font-size: 17px;
+            font-weight: bold;
+        }
+    }
+}

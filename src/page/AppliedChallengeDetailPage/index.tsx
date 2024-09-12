@@ -4,8 +4,11 @@ import { IChallengeHistory } from '../../type/challengeData';
 import { useParams } from 'react-router-dom';
 import { challenges } from '../../data/challengeData';
 import styles from './AppliedDetailPage.module.scss'
-import { calculatorDday } from '../../utils/calculatorDday';
 import { CiCalendar } from 'react-icons/ci';
+import ChallengeDate from '../../components/challengeDateTime/challengeDate/ChallengeDate';
+import ChallengeTime from '../../components/challengeDateTime/challengeTime/ChallengeTime';
+import CurrentProgress from './challenge-currentProgress/CurrentProgress';
+import {Link} from 'react-router-dom'
 
 type RouteParams = {
     challengeId:string;
@@ -33,7 +36,6 @@ const AppliedDetailPage = () => {
     //     fetchData();
     // }, []);
 
-
     return (
         <div className='page'>
             {challenges.map(challenge => (
@@ -54,37 +56,17 @@ const AppliedDetailPage = () => {
                             <span>1일 동안</span>
                         </div>
                     </div>
+                    <ChallengeDate
+                        challenge={challenge}
+                    />
                     {/* 챌린지 업로드 시간 */}
-                    <h1>챌린지 업로드 시간</h1>
-                    <div className={styles.challenge_schedule_time}>
-                        <div className={styles.challenge_startTime}>
-                            <span>시작시간</span>
-                            <span className={styles.time}>{challenge.uploadStartTime.slice(0,5)}</span>
-                        </div>
-                        <div className={styles.challenge_endTime}>
-                            <span>종료시간</span>
-                            <span className={styles.time}>{challenge.uploadEndTime.slice(0,5)}</span>
-                        </div>
-                    </div>
+                    <ChallengeTime
+                        challenge={challenge}
+                    />
                     {/* 인증현황 차트 */}
-                    <div className={styles.myAuth}>
-                        <h1>나의 인증 현황</h1>
-                        <div className={styles.myAuth_state}>
-                            <div className={styles.progress}>
-                                <span>달성률</span>
-                                <span>{challenge.progress}%</span>
-                            </div>
-                            <div className={styles.deposit}>
-                                <span>예치금</span>
-                                <span>10,000</span>
-                            </div>
-                        </div>
-                        <div className={styles.progressBar}>
-                            <div
-                                className={styles.progressFill}
-                                style={{ width: `${challenge.progress}%` }} ></div>
-                        </div>
-                    </div>
+                    <CurrentProgress
+                        challenge={challenge}
+                    />
                     {/* 인증 실패 성공 횟수 */}
                     <div className={styles.authResult}>
                         <div>
@@ -103,15 +85,17 @@ const AppliedDetailPage = () => {
                     {/* 유저 인증 사진 */}
                     <h1>나의 인증샷</h1>
                     <div className={styles.imageContainer}>
-                        {challenge.checkRecords.map((image, index) => (
+                        {challenges[0].checkRecords.map((record, index) => (
                             <div className={styles.imageItem} key={index}>
-                                <img src={image} alt={`인증샷 ${index}`} />
+                                <Link to='/challengeAuthDetail' state={{ record }}>
+                                    <img src={record.image} alt={`인증샷 ${index}`} />
+                                </Link>
                             </div>
                         ))}
                     </div>
 
                     {/* 더보기 버튼 */}
-                    {challenge.checkRecords.length > 4 && (
+                    {challenges[0].checkRecords.length > 6 && (
                         <button 
                             className={styles.showMoreButton} 
                             onClick={() => setShowMore(!showMore)}
@@ -119,8 +103,8 @@ const AppliedDetailPage = () => {
                             {showMore ? '간단히 보기' : '더보기'}
                         </button>
                     )}
-                        </div>
-                    ))}
+                </div>
+            ))}
         </div>
     )
 }

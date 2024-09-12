@@ -1,13 +1,17 @@
 import { CiCalendar } from 'react-icons/ci'
-import styles from '../../page/ChallengeDetailPage/ChallengeDetailPage.module.scss'
-import { IChallenge } from '../../type/IChallenge'
+import styles from './ChallengeDate.module.scss'
+import { IChallenge } from '../../../type/IChallenge'
+import { calculatorDday } from '../../../utils/calculatorDday';
+import { IUserAuth } from '../../../type/IUserAuth';
 
 interface ChallengeDateProps {
-    challenge:IChallenge;
-    diffDays:number;
+    challenge:IChallenge | IUserAuth;
 }
 
-const ChallengeDate = ({challenge,diffDays}:ChallengeDateProps) => {
+const ChallengeDate = ({challenge}:ChallengeDateProps) => {
+
+    const diffDays = calculatorDday(challenge.startDate, challenge.endDate);
+
     return (
         <div>
             <h1>챌린지 업로드 기간</h1>

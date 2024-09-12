@@ -5,15 +5,14 @@ import { IChallenge } from '../../type/IChallenge'
 import { useParams } from 'react-router-dom'
 import { IoMdPerson } from "react-icons/io";
 import { IoCheckmark } from "react-icons/io5";
-import { CiCalendar } from "react-icons/ci";
 import { CgRadioCheck } from "react-icons/cg";
 import { CgClose } from "react-icons/cg";
 import ChallengeJoinButton from './challenge-joinButton/ChallengeJoinButton'
 import ChallengeDescription from './challenge-description/ChallengeDescription'
 import { formattedTime } from '../../utils/formattedTime'
 import { calculatorDday } from '../../utils/calculatorDday'
-import ChallengeDate from '../../components/challengeDateTime/ChallengeDate'
-import ChallengeTime from '../../components/challengeDateTime/ChallengeTime'
+import ChallengeDate from '../../components/challengeDateTime/challengeDate/ChallengeDate'
+import ChallengeTime from '../../components/challengeDateTime/challengeTime/ChallengeTime'
 
 type RouteParams = {
     challengeId?:string;
@@ -69,7 +68,7 @@ const ChallengeDetailPage = () => {
                     </div>
                     {/* challenge startDay & endDay */}
                     {challengeData && (
-                        <ChallengeDate challenge={challengeData} diffDays={diffDays}/>
+                        <ChallengeDate challenge={challengeData}/>
                     )}
                     {/* challenge startTime & endTime */}
                     {challengeData && (

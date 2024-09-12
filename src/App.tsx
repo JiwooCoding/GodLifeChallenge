@@ -28,6 +28,7 @@ import ChallengePage from './page/ChallengePage';
 import ChallengeDetailPage from './page/ChallengeDetailPage';
 import AppliedDetailPage from './page/AppliedChallengeDetailPage';
 import ManageChallengePage from './page/ManageChallengePage/ManageAuthImage';
+import AuthDetailPage from './page/AppliedChallengeDetailPage/authDetailPage/AuthDetailPage';
 
 
 const Layout = () => {
@@ -82,6 +83,7 @@ const App = () => {
           <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
           {/* <Route path='/challenge/:challengeId/detail' element={<AppliedDetailPage/>}/> */}
           <Route path='/challenge1' element={<AppliedDetailPage/>}/>
+          <Route path='/challengeAuthDetail' element={<AuthDetailPage/>}/>
           {/* path변경해야함! */}
           <Route path='/managePage' element={<ManageChallengePage/>}/>
         </Route>

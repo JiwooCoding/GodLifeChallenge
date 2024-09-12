@@ -1,8 +1,48 @@
 import mainImage from '../image/girl1.png'
+import mainImage2 from '../image/girl2.png'
+
+const today = new Date();
 
 export const challenges = [
     {id:'djshkdsj', mainImage:mainImage, title:'8시 기상 미션', startDate:'2024-09-09', endDate:'2024-09-09', uploadStartTime:'18:00', uploadEndTime:'20:30'
-        ,progress:70, checkRecords:[mainImage,mainImage,mainImage,mainImage,mainImage]
+        ,progress:70,participationPoints:3000, checkRecords:[
+            {
+                checkDate:today,
+                image:mainImage,
+                status:'성공',
+                description:'오운완!'
+            },
+            {
+                checkDate:today,
+                image:mainImage2,
+                status:'성공',
+                description:'1안녕!'
+            },
+            {
+                checkDate:today,
+                image:mainImage,
+                status:'성공',
+                description:'오운완!'
+            },
+            {
+                checkDate:today,
+                image:mainImage2,
+                status:'성공',
+                description:'오운완!'
+            },
+            {
+                checkDate:today,
+                image:mainImage,
+                status:'성공',
+                description:'오운완!'
+            },
+            {
+                checkDate:today,
+                image:mainImage2,
+                status:'성공',
+                description:'오운완!'
+            },
+        ]
     },
 ]
 
