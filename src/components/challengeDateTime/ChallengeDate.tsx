@@ -4,9 +4,10 @@ import { IChallenge } from '../../type/IChallenge'
 
 interface ChallengeDateProps {
     challenge:IChallenge;
+    diffDays:number;
 }
 
-const ChallengeDate = ({challenge}:ChallengeDateProps) => {
+const ChallengeDate = ({challenge,diffDays}:ChallengeDateProps) => {
     return (
         <div>
             <h1>챌린지 업로드 기간</h1>
@@ -17,7 +18,7 @@ const ChallengeDate = ({challenge}:ChallengeDateProps) => {
                 </div>
                 <div className={styles.challenge_duration}>
                     <span>매일</span>
-                    <span>1일 동안</span>
+                    <span>{diffDays === 0 ? '하루' : `${diffDays}일 `}동안</span>
                 </div>
             </div>
         </div>

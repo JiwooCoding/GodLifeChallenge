@@ -130,7 +130,7 @@
         }
         
         &.rainy {
-            background-color: rgb(255, 130, 85);
+            background-color: #007bff;
             color: #fff;
         
             &:hover {
@@ -138,7 +138,7 @@
             }
         
             &:disabled {
-                background-color: rgb(255, 130, 85); 
+                background-color: #007bff; 
                 color: #fff;
                 font-weight: bold;
             }

@@ -46,4 +46,45 @@
     color: #333;
 }
 
+.deposit{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+
+    label {
+        white-space: nowrap;
+        font-weight: 600;  
+    }
+    
+    input[type="text"]{
+        font-size: 14px;
+        width: 100%;
+        padding: 8px 15px;
+        box-sizing: border-box;
+        outline: none;
+        border: 1px solid #e5e7eb;
+        transition: border-color 0.3s ease;
+        border-radius: 7px;
+
+        &:hover{
+            border-color: rgb(75, 75, 75);
+        }
+
+        &.active{
+            border-color: #007bff;
+        }
+    }
+
+    .cancleIcon{
+        font-size: 21px;
+        position: absolute;
+        right: 0.5rem;
+        color: #c7c7c7;
+        cursor: pointer;
+    }
+}
+
+
+
 

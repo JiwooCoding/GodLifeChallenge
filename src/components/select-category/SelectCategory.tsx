@@ -68,7 +68,7 @@ export default function SelectSmall<T extends FieldValues>({ id, label, setCateg
               borderColor: 'rgb(75, 75, 75)',
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              border: '1px solid rgb(255, 130, 85)',
+              border: '1px solid #007bff',
             },
           }}
         >

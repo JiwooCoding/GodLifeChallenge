@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import styles from './SignIn.module.scss'
 import api from '../../../api/api'
 import { useForm } from 'react-hook-form';
@@ -6,12 +5,12 @@ import Button from '../../../components/button/Button';
 import { useAppdispatch } from '../../../hooks/redux';
 import { setUserId } from '../../../store/cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import useActiveInput from '../../../hooks/useActiveInput';
 
 const SignIn = () => {
 
   const {register, handleSubmit, formState:{errors}, setError} = useForm<LoginFormData>();
-
-  const [activeInput, setActiveInput]= useState('');
+  const {activeInput, handleFocus, handleBlur} = useActiveInput();
 
   const dispatch = useAppdispatch();
   const navigate = useNavigate();
@@ -38,15 +37,6 @@ const SignIn = () => {
       setError('root', {type:'manual', message:'로그인에 실패했습니다. 다시 시도해주세요.'})
     }
   }
-
-  const handleFocus = (inputId:string) => {
-    setActiveInput(inputId);
-  }
-
-  const handleBlur = () => {
-    setActiveInput('');
-  }
-
 
 
   return (

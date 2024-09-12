@@ -1,11 +1,32 @@
 .challenge_item{
   position: relative;
-  padding: 0px 10px;
   cursor: pointer;
 
   img{
     width: 350px;
     height: 330px;
+  }
+
+  &.status_fin{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .status_availableJoin{
+    opacity: 0.8;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 15px;
+    padding: 5px;
+    position: absolute;
+    bottom: 59px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .state{

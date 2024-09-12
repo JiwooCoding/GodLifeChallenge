@@ -8,6 +8,7 @@ import api from '../../../api/api';
 import SelectSmall from '../../../components/select-category/SelectCategory';
 import Button from '../../../components/button/Button';
 import { handlePhotoChange } from '../../../utils/handlePhotoChange';
+import useActiveInput from '../../../hooks/useActiveInput';
 
 export type FormValues = {
     productCompany: string;
@@ -21,10 +22,11 @@ export type FormValues = {
 const ProductUploadForm: React.FC = () => {
     const { handleSubmit, control, register } = useForm<FormValues>();
     const [preview, setPreview] = useState<string>(noImage);
-    const [activeInput, setActiveInput] = useState('');
     const [category, setCategory] = useState<string>('');
 
     const navigate = useNavigate();
+    const {activeInput, handleFocus, handleBlur} = useActiveInput();
+
 
     const onSubmit = async (data: FormValues) => {
         const formData = new FormData();
@@ -48,14 +50,6 @@ const ProductUploadForm: React.FC = () => {
         } catch (error) {
             console.log('error => ', error);
         }
-    };
-
-    const handleFocus = (inputId: string) => {
-        setActiveInput(inputId);
-    };
-
-    const handleBlur = () => {
-        setActiveInput('');
     };
 
     const backToPage = () => {

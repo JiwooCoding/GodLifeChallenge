@@ -15,6 +15,7 @@ import ChallengeTime from './challenge-time/ChallengeTime';
 import { useModal } from '../../../contexts/ModalProvider';
 import Modal from '../../../components/modal';
 import { FormValues } from '../../../type/challengeData';
+import useActiveInput from '../../../hooks/useActiveInput';
 
 interface ChallengeUploadProps{
     existingChallenge?:FormValues;
@@ -26,23 +27,14 @@ const ChallengeUpload = ({existingChallenge}:ChallengeUploadProps) => {
     const {isOpen, openModal, closeModal} = useModal();
     const navigate = useNavigate();
 
-    const [activeInput, setActiveInput] = useState('');
     const [category, setCategory] = useState<string>('');
     
-
-    const handleFocus = (inputId: string) => {
-        setActiveInput(inputId);
-    };
-
-    const handleBlur = () => {
-        setActiveInput('');
-    };
 
     const backToPage = () => {
         navigate(-1);
     }
 
-    
+    const {activeInput, handleFocus, handleBlur} = useActiveInput();
 
     const onSubmit = async(data:FormValues) => {
 

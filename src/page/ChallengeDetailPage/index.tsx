@@ -69,7 +69,7 @@ const ChallengeDetailPage = () => {
                     </div>
                     {/* challenge startDay & endDay */}
                     {challengeData && (
-                        <ChallengeDate challenge={challengeData} />
+                        <ChallengeDate challenge={challengeData} diffDays={diffDays}/>
                     )}
                     {/* challenge startTime & endTime */}
                     {challengeData && (
@@ -108,7 +108,7 @@ const ChallengeDetailPage = () => {
                         </div>
                         <div className={styles.challenge_warning}>
                             <IoCheckmark size={20}/>
-                            <span>{diffDays+1}일 동안 매일, 하루에 1번 인증샷을 촬영하셔야 합니다.</span>
+                            <span>{diffDays === 0 ? '하루' : `${diffDays}일 `}동안 매일, 하루에 1번 인증샷을 촬영하셔야 합니다.</span>
                         </div>
                     </div>
                 </div>
@@ -123,6 +123,8 @@ const ChallengeDetailPage = () => {
             isJoined={isJoined}
             startTime={challengeData?.uploadStartTime}
             endTime={challengeData?.uploadEndTime}
+            limitParticipants={challengeData?.participantsLimit}
+            participants={challengeData?.participants}
         />
         </>
     )

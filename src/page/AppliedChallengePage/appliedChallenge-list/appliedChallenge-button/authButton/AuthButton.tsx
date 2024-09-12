@@ -5,11 +5,11 @@ import { SubmitHandler } from 'react-hook-form';
 import styles from './AuthButton.module.scss'
 import AuthChallenge from '../../../../../components/modal/authImage/AuthChallenge';
 import { isWithinTimeRange } from '../../../../../utils/isWithinTimeRange';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import CancleButton from '../cancleButton/CancleButton';
+import { isTodayWithinRange } from '../../../../../utils/isTodayWithinRange';
 
 export interface FormData {
-    description: string;
     images: FileList;
 }
 
@@ -20,9 +20,11 @@ interface ParticipationButtonProps {
     startTime: string;
     endTime: string;
     title: string;
+    todayStr:string;
+    today: Dayjs;
 }
 
-const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title }: ParticipationButtonProps) => {
+const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title, today, todayStr }: ParticipationButtonProps) => {
     const [disabled, setDisabled] = useState(false);
     const [participationStatus, setParticipationStatus] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -30,12 +32,9 @@ const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title
     const modalOpen = () => setIsOpen(true);
     const modalClose = () => setIsOpen(false);
 
-    const { user } = useUser();
-
     const uploadAuth: SubmitHandler<FormData> = async (data) => {
 
         const formData = new FormData();
-        formData.append('title', data.description);
         formData.append('image', data.images[0]);
 
 
@@ -57,17 +56,14 @@ const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title
         }
     };
 
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
-    const current = dayjs(); //오늘 날짜&시간
     const endDateTime = dayjs(`${endDate} ${endTime}`, 'YYYY-MM-DD HH:mm');
 
     return (
         <>
             <div className={styles.button_box}>
-                {current > endDateTime ? (
-                        <p>종료된 챌린지</p>
-                    ) : todayStr === startDate || todayStr === endDate ? (
+                {today > endDateTime ? (
+                        <p></p>
+                    ) : isTodayWithinRange(startDate, endDate, todayStr) ? (
                         isWithinTimeRange(startTime, endTime) ? (
                             <button className={styles.button} onClick={modalOpen} disabled={disabled}>인증하기</button>
                         ) : (

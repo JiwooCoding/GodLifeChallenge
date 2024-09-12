@@ -1,10 +1,12 @@
-export const calculatorDday = (startDateStr:string, endDateStr:string) => {
-    
-    //string타입의 날짜 '2024-09-05' 형식을 Date타입으로 변환
-    const startDate = new Date(startDateStr);
-    const endDate = new Date(endDateStr);
+import dayjs from 'dayjs';
 
-    const diffTime = endDate.getTime() - startDate.getTime();
-    
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-}
+export const calculatorDday = (startDateStr: string, endDateStr: string) => {
+    // string 형식의 날짜를 Day.js 객체로 변환
+    const startDate = dayjs(startDateStr);
+    const endDate = dayjs(endDateStr);
+
+    // endDate와 startDate 간의 차이를 일 단위로 계산
+    const diffDays = endDate.diff(startDate, 'day');
+
+    return diffDays;
+};

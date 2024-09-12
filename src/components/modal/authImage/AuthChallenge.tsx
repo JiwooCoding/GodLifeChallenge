@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import styles from './AuthChallenge.module.scss';
 import ImageField from '../../imageField/ImageField';
 import { useForm } from 'react-hook-form';
-import InputField from '../../inputField/InputField';
 import { FormData } from '../../../page/AppliedChallengePage/appliedChallenge-list/appliedChallenge-button/authButton/AuthButton';
 
 interface AuthChallengeProps {
@@ -12,17 +10,8 @@ interface AuthChallengeProps {
 }
 
 const AuthChallenge = ({ uploadAuth, modalClose, title }: AuthChallengeProps) => {
-    const { control, handleSubmit, register } = useForm<FormData>();
-
-    const [activeInput, setActiveInput] = useState('');
-
-    const handleFocus = (inputId: string) => {
-        setActiveInput(inputId);
-    };
-
-    const handleBlur = () => {
-        setActiveInput('');
-    };
+    
+    const { control, handleSubmit } = useForm<FormData>();
 
     return (
         <div className={styles.modal_overlay}>
@@ -35,18 +24,10 @@ const AuthChallenge = ({ uploadAuth, modalClose, title }: AuthChallengeProps) =>
                             label="인증 이미지"
                             name="images"
                         />
-                        <InputField
-                            id='description'
-                            label='인증 설명'
-                            type='text'
-                            placeholder='예) 매일 1만보 걷기'
-                            activeInput={activeInput}
-                            register={register}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                        />
-                        <button type='submit'>업로드</button>
-                        <button type='button' onClick={modalClose}>취소</button>
+                        <div className={styles.button_container}>
+                            <button className={styles.cancle_button} type='button' onClick={modalClose}>취소</button>
+                            <button className={styles.upload_button} type='submit'>업로드</button>
+                        </div>
                     </form>
                 </div>
             </div>

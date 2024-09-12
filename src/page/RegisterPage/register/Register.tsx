@@ -8,33 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/button/Button';
 import Modal from '../../../components/modal';
 import { useModal } from '../../../contexts/ModalProvider';
+import useActiveInput from '../../../hooks/useActiveInput';
 
 const Register = () => {
 
   const navigate = useNavigate();
 
-  const [activeInput, setActiveInput] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
   const [nickNameChecked, setNickNameChecked] = useState(false);
-  const [emailMessage, setEmailMessage] = useState<string | null>(null);  // 이메일 메시지 상태
+  const [emailMessage, setEmailMessage] = useState<string | null>(null); 
   const [nicknameMessage, setNicknameMessage] = useState<string | null>(null);
 
   const methods = useForm<RegisterFormData>();
   const {handleSubmit, register, watch, getValues, setError, clearErrors, formState:{errors}} = methods;
 
   const {isOpen, closeModal, openModal } = useModal();
+  const {activeInput, handleFocus, handleBlur} = useActiveInput();
 
   const passwordRef = useRef<string | undefined>(undefined);
   passwordRef.current = watch('password');
-
-  //css 관련 코드
-  const handleFocus = (inputId: string) => {
-    setActiveInput(inputId);
-  };
-
-  const handleBlur = () => {
-    setActiveInput('');
-  };
 
   const registerComplete = () => {
     navigate('/login');

@@ -23,7 +23,7 @@ const AppliedDetailPage = () => {
     // useEffect(() => {
     //     const fetchData = async() => {
     //         try {
-    //             const response = await api.get(`api/challenge/${challengeId}/auth-detail`);
+    //             const response = await api.get(`/api/challenge/${challengeId}/details`);
     //             setCDetail(response.data);
     //         } catch (error) {
     //             console.log(error);
