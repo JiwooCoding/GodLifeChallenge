@@ -1,5 +1,6 @@
 import mainImage from '../image/girl1.png'
 import mainImage2 from '../image/girl2.png'
+import main from '../image/KakaoTalk_20240827_174834837.jpg'
 
 const today = new Date();
 
@@ -8,13 +9,13 @@ export const challenges = [
         ,progress:70,participationPoints:3000, checkRecords:[
             {
                 checkDate:today,
-                image:mainImage,
+                image:main,
                 status:'성공',
                 description:'오운완!'
             },
             {
                 checkDate:today,
-                image:mainImage2,
+                image:main,
                 status:'성공',
                 description:'1안녕!'
             },

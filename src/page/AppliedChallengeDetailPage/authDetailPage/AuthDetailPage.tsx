@@ -1,22 +1,42 @@
-import React from 'react'
-import { challenges } from '../../../data/challengeData'
 import { useLocation } from 'react-router-dom'
+import { useUser } from '../../../contexts/UserProvider';
+import dayjs from 'dayjs';
+import styles from './AuthDetailPage.module.scss'
+import { FaRegHeart } from "react-icons/fa6";
+import { TbMessageCircle } from "react-icons/tb";
+import { HiOutlinePaperAirplane } from "react-icons/hi";
 
 const AuthDetailPage = () => {
 
     const location = useLocation();
     const {record} = location.state || {};
 
+    const {user} = useUser();
+
     if(!record) {
         return <p>상세데이터가 없습니다</p>
     }
+    
     return (
-        <div>
-            <h1>인증샷 상세</h1>
-            <img src={record.image} alt="인증샷" />
-            <p>날짜: {record.checkDate.toString()}</p>
-            <p>상태: {record.status}</p>
-            <p>설명: {record.description}</p>
+        <div className='page'>
+            <div className={styles.auth_field}>
+                <div className={styles.user_info}>
+                    <img src={user?.profileImage} alt='user profile Image'/>
+                    <span>{user?.name}</span>
+                </div>
+                <div className={styles.auth_detail}>
+                    <img src={record.image} alt="인증샷" />
+                    <div className={styles.icons}>
+                        <FaRegHeart size={25}/>
+                        <TbMessageCircle size={25}/>
+                        <HiOutlinePaperAirplane size={25}/>
+                    </div>
+                    <div className={styles.auth_detail_text}>
+                        <p>{record.description}</p>
+                        <p className={styles.date}>{dayjs(record.checkDate).format('YYYY-MM-DD HH:mm')}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,48 @@
+.auth_field{
+    // padding: 0px 55px;
+    border: 1px solid #eee;
+
+    .user_info{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        padding: 5px 10px;
+        border-bottom: 1px solid #eee;
+
+        img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        span{
+            font-weight: bold;
+        }
+    }
+
+    .auth_detail{
+
+        img{
+            width: 100%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .icons{
+            display: flex;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .auth_detail_text{
+            padding: 5px 10px;
+            display: flex;
+            gap: 11px;
+            flex-direction: column;
+
+            .date{
+                font-size: 12px;
+            }
+        }
+    }
+}
