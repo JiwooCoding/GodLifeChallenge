@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import api from '../../api/api'
-import { IChallengeHistory } from '../../type/challengeData';
+import { UserChallengeRecord } from '../../type/challengeData';
 import { useParams } from 'react-router-dom';
 import { challenges } from '../../data/challengeData';
 import styles from './AppliedDetailPage.module.scss'
@@ -11,30 +11,31 @@ import CurrentProgress from './challenge-currentProgress/CurrentProgress';
 import {Link} from 'react-router-dom'
 
 type RouteParams = {
-    challengeId:string;
+    userChallengeId:string;
 }
 
 const AppliedDetailPage = () => {
 
-    const [cDetail, setCDetail] = useState<IChallengeHistory>();
+    const [cDetail, setCDetail] = useState<UserChallengeRecord>();
     const [showMore, setShowMore] = useState(false);
-    //const imagesToShow = showMore ? challenge.checkRecords : challenge.checkRecords.slice(0, 4);
+    //const imagesToShow = showMore ? cDetail.checkRecords : cDetail.checkRecords.slice(0, 4);
 
 
-    // const {challengeId} = useParams<RouteParams>();
+    const {userChallengeId} = useParams<RouteParams>();
 
-    // useEffect(() => {
-    //     const fetchData = async() => {
-    //         try {
-    //             const response = await api.get(`/api/challenge/${challengeId}/details`);
-    //             setCDetail(response.data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const response = await api.get(`/api/challenge/${userChallengeId}/details`);
+                setCDetail(response.data);
+                console.log('detail',response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
-    //     fetchData();
-    // }, []);
+        fetchData();
+    }, []);
 
     return (
         <div className='page'>

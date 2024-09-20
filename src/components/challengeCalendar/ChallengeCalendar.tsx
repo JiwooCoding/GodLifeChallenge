@@ -19,7 +19,6 @@ interface ChallengeCalendarProps {
     placeholderText?: string;
     setValue: UseFormSetValue<FormValues>;
     minDate?: Date; 
-    disabled?: boolean;
 }
 
 const ChallengeCalendar = ({
@@ -29,7 +28,6 @@ const ChallengeCalendar = ({
     setValue,
     placeholderText,
     minDate, 
-    disabled
 }: ChallengeCalendarProps) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간은 00:00:00로 설정
@@ -74,7 +72,7 @@ const ChallengeCalendar = ({
                 placeholder={placeholderText}
                 className={`${styles.datePicker} ${activeInput === id ? 'active' : ''}`}
                 ref={ref} 
-                readOnly 
+                readOnly
             />
             <CiCalendar className={styles.calendarIcon}/>
             <IoIosCloseCircle className={styles.cancleIcon} onClick={clearInput}/>
@@ -94,7 +92,7 @@ const ChallengeCalendar = ({
                 }}
                 shouldCloseOnSelect
                 closeOnScroll={true}
-                disabled={disabled}
+                
                 dateFormat="yyyy-MM-dd" // 날짜만 포맷
                 customInput={<CustomInput value={selectedDate ? formatLocalDate(selectedDate) : ''} onClick={() => {}} />}
             />

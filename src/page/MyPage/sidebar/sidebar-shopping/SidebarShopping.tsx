@@ -1,7 +1,8 @@
+import { ComponentTypes } from '../../../../data/challengeData';
 import styles from './SidebarShopping.module.scss'
 
 interface SidebarShoppingProps {
-    handleClick: (component:'Product' | 'donation' | 'gift' | 'event') => void;
+    handleClick: (component:ComponentTypes) => void;
     activeItem:string | null;
 }
 

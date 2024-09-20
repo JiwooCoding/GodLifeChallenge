@@ -1,0 +1,39 @@
+.history_header{
+    height: 30px;
+    border-bottom: 1px solid #303033;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #303033;
+
+    .history_date, .history_points {
+        flex: 1; 
+        max-width: 150px; 
+        font-size: 14px;
+        color: #303033;
+        box-sizing: border-box;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .history_description {
+        flex: 3;
+        font-size: 14px;
+        color: #303033;
+        box-sizing: border-box;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .history_status {
+        flex: 0.5; 
+        max-width: 80px; 
+        font-size: 14px;
+        color: #303033;
+        box-sizing: border-box;
+        font-weight: 700;
+        text-align: center;
+    }
+}

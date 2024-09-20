@@ -81,8 +81,7 @@ const App = () => {
           <Route path='/challenge-upload' element={<ChallengeUploadPage/>}/>
           <Route path='/challenge' element={<ChallengePage/>}/>
           <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
-          {/* <Route path='/challenge/:challengeId/detail' element={<AppliedDetailPage/>}/> */}
-          <Route path='/challenge1' element={<AppliedDetailPage/>}/>
+          <Route path='/challenge/detail/:userChallengeId' element={<AppliedDetailPage/>}/>
           <Route path='/challengeAuthDetail' element={<AuthDetailPage/>}/>
           {/* path변경해야함! */}
           <Route path='/managePage' element={<ManageChallengePage/>}/>

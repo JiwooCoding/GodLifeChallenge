@@ -8,10 +8,12 @@ import { useState } from 'react';
 import SideBar from './sidebar/SideBar';
 import ReigsterChallengesPage from '../RegisteredChallengesPage/ReigsterChallengesPage';
 import AppliedChallengePage from '../AppliedChallengePage';
+import { ComponentTypes } from '../../data/challengeData';
+import ChallengeHistoryPage from './point-history/challenge';
 
 const MyPage = () => {
     
-    const [selectedComponent, setSelectedComponent] = useState<'Product' | 'gift' | 'donation' | 'event' | 'participate' | 'register' | null>(null);
+    const [selectedComponent, setSelectedComponent] = useState<ComponentTypes | null>(null);
 
     const renderComponent = () => {
         switch(selectedComponent){
@@ -26,7 +28,9 @@ const MyPage = () => {
             case 'participate':
                 return <AppliedChallengePage/>;   
             case 'register':
-                return <ReigsterChallengesPage/>;    
+                return <ReigsterChallengesPage/>;
+            case 'history':
+                return <ChallengeHistoryPage/>;
             default:
                 return null;
         }

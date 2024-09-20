@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
-import { IChallengeHistory } from '../../../../type/challengeData'
+import { UserChallengeRecord } from '../../../../type/challengeData'
 import RegisterChallengeButton from '../registerChallenge-button/RegisterChallengeButton'
 import styles from './RegisterChallengeItem.module.scss'
 import { calculatorDday } from '../../../../utils/calculatorDday'
 import { formattedDate } from '../../../../utils/formattedDate'
 import { formattedTime } from '../../../../utils/formattedTime'
 
-const RegisterChallengeItem = ({item}:{item:IChallengeHistory}) => {
+const RegisterChallengeItem = ({item}:{item:UserChallengeRecord}) => {
     
     const today = dayjs().format('YYYY-MM-DD');
     const isChallengeEnded = today > item.endDate;

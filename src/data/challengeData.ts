@@ -48,20 +48,40 @@ export const challenges = [
 ]
 
 export const authImage = [
-    {id:'fdsjjkfjsdjfl', images:mainImage},
-    {id:'fdsfdsfjsdjfl', images:mainImage},
-    {id:'fdsjsdfsdfdskfjsdjfl', images:mainImage},
-    {id:'fdsjjkfdfsfdsjsdjfl', images:mainImage},
-    {id:'fdsjjkfjdsffsfsdjfl', images:mainImage},
-    {id:'fdsjjdsdkfjsdjfl', images:mainImage},
-    {id:'fdsjjkfjsfdsfdsdsssdjfl', images:mainImage},
-    {id:'fdsjjkfjsdjssadsasdfl', images:mainImage},
-    {id:'fdsjjkfjssssdjfl', images:mainImage},
-    {id:'fdsjjkfjsdjfl', images:mainImage},
-    {id:'fdasdasdsjjkffjsdjfl', images:mainImage},
-    {id:'fdsjjkfjsdfsxc3242sdjfl', images:mainImage},
-    {id:'fdsjjkf32423424jsdjfl', images:mainImage},
-    {id:'fdsjjkfjsdjewr78654fl', images:mainImage},
-    {id:'fdsjjkfj2345eytergsfdsbsdjfl', images:mainImage}
+    {id:'fdsjjkfjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsfdsfjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjsdfsdfdskfjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfdfsfdsjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjdsffsfsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjdsdkfjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjsfdsfdsdsssdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjsdjssadsasdfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjssssdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdasdasdsjjkffjsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjsdfsxc3242sdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkf32423424jsdjfl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfjsdjewr78654fl', images:mainImage, userName:'지우'},
+    {id:'fdsjjkfj2345eytergsfdsbsdjfl', images:mainImage, userName:'지우'}
 ]
+
+export const participate = [
+    {id:'123', name:'지우', profile:mainImage},
+    {id:'1234', name:'지우', profile:mainImage},
+    {id:'12341', name:'지우', profile:mainImage},
+    {id:'123123', name:'지우', profile:mainImage},
+    {id:'123123123', name:'지우', profile:mainImage},
+]
+
+export const ComponentTypes = {
+    PRODUCT:'Product',
+    DONATION:'donation',
+    GIFT:'gift',
+    EVENT:'event',
+    PARTICIPATE: 'participate',
+    REGISTER: 'register',
+    HISTORY:'history'
+} as const;
+
+export type ComponentTypes = typeof ComponentTypes[keyof typeof ComponentTypes];
 

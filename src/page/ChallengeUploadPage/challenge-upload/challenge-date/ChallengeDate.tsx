@@ -16,7 +16,6 @@ const ChallengeDate = ({ activeInput, onBlur, onFocus, setValue }: ChallengeStar
     
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
-    const [disabled, setDisabled]  = useState(false);
 
     const handleStartDateChange = (date: Date | null) => {
         setStartDate(date);
@@ -25,10 +24,9 @@ const ChallengeDate = ({ activeInput, onBlur, onFocus, setValue }: ChallengeStar
     const handleEndDateChange = (date: Date | null) => {
         if(!startDate){
             alert('먼저 시작일을 선택해주세요');
-            setDisabled(true);
+            return;
         }
         setEndDate(date);
-        setDisabled(false);
     };
 
     return (
@@ -57,7 +55,6 @@ const ChallengeDate = ({ activeInput, onBlur, onFocus, setValue }: ChallengeStar
                     placeholderText='종료일'
                     setValue={setValue}
                     minDate={startDate || undefined}
-                    disabled={disabled}
                 />
             </div>
         </div>

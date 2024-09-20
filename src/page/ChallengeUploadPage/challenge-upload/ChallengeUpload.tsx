@@ -17,11 +17,8 @@ import Modal from '../../../components/modal';
 import { FormValues } from '../../../type/challengeData';
 import useActiveInput from '../../../hooks/useActiveInput';
 
-interface ChallengeUploadProps{
-    existingChallenge?:FormValues;
-}
 
-const ChallengeUpload = ({existingChallenge}:ChallengeUploadProps) => {
+const ChallengeUpload = () => {
 
     const {handleSubmit, register, control, formState: { errors }, setValue} = useForm<FormValues>();
     const {isOpen, openModal, closeModal} = useModal();
@@ -54,17 +51,26 @@ const ChallengeUpload = ({existingChallenge}:ChallengeUploadProps) => {
         
 
          // FormData 내용을 확인하는 코드
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
+        // for (let [key, value] of formData.entries()) {
+        //     console.log(`${key}:`, value);
+        // }
+
+        if(data.startDate > data.endDate){
+            alert('시작일이 종료일보다 클 수 없습니다!');
+            return;
+        }
+
+        if(data.uploadStartTime > data.uploadEndTime){
+            alert('시작시간이 종료시간보다 클 수 없습니다!');
+            return;
         }
 
         try {
-            const response = await api.post('/api/challenge', formData,{
+            await api.post('/api/challenge', formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('response => ', response.data);
             openModal();
         } catch (error) {
             console.log('챌린지 업로드 실패', error);
@@ -86,7 +92,6 @@ const ChallengeUpload = ({existingChallenge}:ChallengeUploadProps) => {
                     label="메인 이미지"
                     multiple={false}
                     control={control}
-                    //handlePhotoChange={(files) => handlePhotoChange(files, setPreview, noImage)}
                 />
                 {/* 챌린지 타이틀(제목) */}
                 <InputField

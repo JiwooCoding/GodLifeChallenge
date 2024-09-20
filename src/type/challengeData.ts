@@ -1,4 +1,4 @@
-export type IChallengeHistory = {
+export type UserChallengeRecord = {
     id:string;
     mainImage:string;
     title:string;
@@ -25,3 +25,21 @@ export type FormValues = {
     successImage:FileList; //예시 성공 인증샷
     failImage:FileList; //예시 실패 인증샷
 }
+
+
+export type Participant = {
+    userId:string;
+    name:string;
+}
+
+export type Participants = Participant[];
+
+export type UserHistory = {
+    challengeId:string;
+    changeDate:string;
+    point:number;
+    reason:string;
+    title:string;
+}
+
+export type UserHistories = UserHistory[]

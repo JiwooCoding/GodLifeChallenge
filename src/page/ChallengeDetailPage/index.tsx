@@ -13,6 +13,7 @@ import { formattedTime } from '../../utils/formattedTime'
 import { calculatorDday } from '../../utils/calculatorDday'
 import ChallengeDate from '../../components/challengeDateTime/challengeDate/ChallengeDate'
 import ChallengeTime from '../../components/challengeDateTime/challengeTime/ChallengeTime'
+import ChallengeParticipants from './challenge-participants/ChallengeParticipants'
 
 type RouteParams = {
     challengeId?:string;
@@ -24,6 +25,7 @@ const ChallengeDetailPage = () => {
     const {challengeId} = useParams<RouteParams>();
     const [challengeData, setChallengeData] = useState<IChallenge>();
     const [isJoined, setIsJoined] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchChallengeDetail = async() => {
@@ -38,6 +40,8 @@ const ChallengeDetailPage = () => {
                 }
             } catch (error) {
                 console.log('챌린지 상세 데이터 받아오기 실패', error);
+            }finally{
+                setIsLoading(false);
             }
         }
 
@@ -46,6 +50,8 @@ const ChallengeDetailPage = () => {
     
     //챌린지 기간 구하기
     const diffDays = calculatorDday(challengeData?.startDate ?? '', challengeData?.endDate ?? '');
+
+    if(isLoading) return <div>isloading...</div>
 
     return (
         <>
@@ -107,9 +113,12 @@ const ChallengeDetailPage = () => {
                         </div>
                         <div className={styles.challenge_warning}>
                             <IoCheckmark size={20}/>
-                            <span>{diffDays === 0 ? '하루' : `${diffDays}일 `}동안 매일, 하루에 1번 인증샷을 촬영하셔야 합니다.</span>
+                            <span>{diffDays === 0 ? '하루' : `${diffDays+1}일 `}동안 매일, 하루에 1번 인증샷을 촬영하셔야 합니다.</span>
                         </div>
                     </div>
+                    <ChallengeParticipants
+                        challengeId={challengeId}
+                    />
                 </div>
             </div>
         </div>

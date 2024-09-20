@@ -23,11 +23,11 @@ interface ParticipationButtonProps {
     title: string;
     todayStr:string;
     today: Dayjs;
+    hasCheckedIn:boolean;
 }
 
-const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title, today, todayStr }: ParticipationButtonProps) => {
-    const [disabled, setDisabled] = useState(false);
-    const [participationStatus, setParticipationStatus] = useState(false);
+const AuthButton = ({ hasCheckedIn, challengeId, startDate, endDate, startTime, endTime, title, today, todayStr }: ParticipationButtonProps) => {
+    
     const [isOpen, setIsOpen] = useState(false);
 
     const modalOpen = () => setIsOpen(true);
@@ -38,19 +38,12 @@ const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title
         const formData = new FormData();
         formData.append('image', data.images[0]);
 
-
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
-
         try {
             await api.post(`/api/challenge/${challengeId}/posts`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            setDisabled(true);
-            setParticipationStatus(true);
             modalClose();
         } catch (error) {
             console.log('챌린지 인증 실패', error);
@@ -66,7 +59,9 @@ const AuthButton = ({ challengeId, startDate, endDate, startTime, endTime, title
                         <p></p>
                     ) : isTodayWithinRange(startDate, endDate, todayStr) ? (
                         isWithinTimeRange(startTime, endTime) ? (
-                            <button className={styles.button} onClick={modalOpen} disabled={disabled}>인증하기</button>
+                            <button className={styles.button} onClick={modalOpen} disabled={hasCheckedIn}>{
+                                hasCheckedIn === true ? '인증완료' : '인증하기'}
+                            </button>
                         ) : (
                             <button className={styles.button} disabled={true}>인증불가</button>
                         )

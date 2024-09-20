@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { IChallenge } from '../../../type/IChallenge'
 import { calculatorDday } from '../../../utils/calculatorDday';
 import { formattedDate } from '../../../utils/formattedDate';
@@ -7,8 +8,8 @@ import styles from './InProgressChallengItem.module.scss'
 
 const InProgressChallengItem = ({item}:{item:IChallenge}) => {
 
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
+    const today = dayjs();
+    const todayStr = today.format('YYYY-MM-DD');
     const Dday = calculatorDday(todayStr, item.startDate);
 
     return (
@@ -34,6 +35,8 @@ const InProgressChallengItem = ({item}:{item:IChallenge}) => {
                     startTime={item.uploadStartTime}
                     endTime={item.uploadEndTime}
                     title={item.title}
+                    today={today}
+                    todayStr={todayStr}
                 />
             </div>
         </li>

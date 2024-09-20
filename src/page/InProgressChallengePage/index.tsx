@@ -14,7 +14,8 @@ const InProgressChallengePage = () => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await api.get('/api/user/challenge/participating');
+                const response = await api.get('/api/challenge/applied');
+                console.log('뭐있니' , response.data)
                 setChallenges(response.data);
             } catch (error) {
                 console.log(error);

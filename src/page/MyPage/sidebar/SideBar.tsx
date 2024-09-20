@@ -6,18 +6,19 @@ import { useLogout } from '../../../hooks/useLogout'
 import { useState } from 'react'
 import SideBarChallenge from './sidebar-challenge/SideBarChallenge'
 import SidebarShopping from './sidebar-shopping/SidebarShopping'
+import { ComponentTypes } from '../../../data/challengeData'
 
 interface SideBarUserInfoProps {
-    setSelectedComponent: React.Dispatch<React.SetStateAction<'Product' | 'donation' | 'gift' | 'event' | 'participate' | 'register' | null >>;
+    setSelectedComponent: React.Dispatch<React.SetStateAction<ComponentTypes | null >>;
 }
 
 const SideBar = ({setSelectedComponent}:SideBarUserInfoProps) => {
 
-    const [activeItem, setActiveItem] = useState<'Product' | 'donation' | 'gift' | 'event' |'participate' | 'register'| null>(null);
+    const [activeItem, setActiveItem] = useState<ComponentTypes | null>(null);
     const {user} = useUser();
     const handleLogout = useLogout();
 
-    const handleClick = (component:'Product' | 'donation' | 'gift' | 'event' | 'participate' | 'register') => {
+    const handleClick = (component:ComponentTypes) => {
         setSelectedComponent(component);
         setActiveItem(component);
     }

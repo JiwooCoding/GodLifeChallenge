@@ -81,7 +81,7 @@ const ChallengeJoinButton = ({ challengeId, startDate, startTime, endDate, endTi
                 setButtonText('참여완료'); 
                 setDisabled(true);
                 closeModal();
-                toast.success(`${todayStr === startDate ? '오늘' : `${diffDays}일 후 `}부터 인증해주세요`);
+                toast.success(`${todayStr === startDate ? '오늘' : `${diffDays+1}일 후 `}부터 인증해주세요`);
             } else {
                 console.log('challengeId가 없습니다!');
             }

@@ -14,66 +14,67 @@
         border-bottom: 1px solid #eee;
     }
 
-    .item_info_mainImage{
-        position: relative;
-
-        img{
-            width: 90px;
-            height: 90px;
-        }
-
-        .imageDday_msg{
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            font-size: 13px;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5); /* 배경색 추가, 필요에 따라 조정 */
-            color: #fff; /* 텍스트 색상 */
-            text-align: center;
-            padding: 5px 0; /* 필요에 따라 조정 */
-        }
-
-        .imageFinished_msg{
-
-            &::before {
-                content: "종료";
-                opacity: 0.8;
-                z-index: 3;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #fff;
-                font-size: 20px;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                text-align: center;
-                background-color: rgba(0, 0, 0, 0.6);
-            }
-
-        }
-    }
-
     .item_info{
         display: flex;
         gap: 20px;
-    }
-    
-    .item_info_text{
-        display: grid;
+        cursor: pointer;
 
-        h2{
-            font-size: 15px;
-            font-weight: bold;
+        .item_info_mainImage{
+            position: relative;
+    
+            img{
+                width: 90px;
+                height: 90px;
+            }
+    
+            .imageDday_msg{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                font-size: 13px;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.5); /* 배경색 추가, 필요에 따라 조정 */
+                color: #fff; /* 텍스트 색상 */
+                text-align: center;
+                padding: 5px 0; /* 필요에 따라 조정 */
+            }
+    
+            .imageFinished_msg{
+    
+                &::before {
+                    content: "종료";
+                    opacity: 0.8;
+                    z-index: 3;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    font-size: 20px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    background-color: rgba(0, 0, 0, 0.6);
+                }
+    
+            }
         }
 
-        .item_info_text_date{
-            font-size: 13px;
-            display: flex;
-            flex-direction: column;
+        .item_info_text{
+            display: grid;
+    
+            h2{
+                font-size: 15px;
+                font-weight: bold;
+            }
+    
+            .item_info_text_date{
+                font-size: 13px;
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
     

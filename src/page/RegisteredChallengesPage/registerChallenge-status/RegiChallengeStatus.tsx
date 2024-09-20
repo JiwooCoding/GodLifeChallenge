@@ -21,7 +21,7 @@ const RegiChallengeStatus = ({selectedStatus,onStatusChange}:StatusProps) => {
             >
                 <option value='전체'>전체</option>
                 <option value='진행중'>진행중</option>
-                <option value='모집전'>진행전</option>
+                <option value='진행전'>진행전</option>
                 <option value='종료'>종료</option>
             </select>
         </div>

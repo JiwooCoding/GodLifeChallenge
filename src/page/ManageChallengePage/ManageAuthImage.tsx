@@ -41,6 +41,7 @@ const ManageChallengePage = () => {
                 <div className={styles.authImage}>
                     {authImage.map((image, index) => (
                         <div className={styles.imageContainer}>
+                            <span>{image.userName}</span>
                             <img key={image.id} src={image.images} alt={`user upload ${index}`}/>
                             <FailButton/>
                         </div>

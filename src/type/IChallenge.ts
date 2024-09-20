@@ -6,12 +6,17 @@ export type IChallenge = {
     endDate:string;
     uploadStartTime:string;
     uploadEndTime:string;
-    state:string;
+    participantsLimit:number;
+    description:string;
+    authMethod:string;
     mainImage:string;
     successImage:string;
     failImage:string;
-    participantsLimit:number;
+    userNickname:string;
     participants:number;
     isJoined:boolean;
-    authMethod:string;
+    state:string;
+    prize:number;
+    hasCheckInToday:boolean;
+    userChallengeId:string;
 }

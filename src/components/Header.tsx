@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useUser } from '../contexts/UserProvider';
-import pointSmile from '../image/pointsmile.png';
+import godChall from '../image/header/wo! (3).png';
 import { useAppSelector } from '../hooks/redux';
 import { useLogout } from '../hooks/useLogout';
 
@@ -20,7 +20,7 @@ const Header = () => {
                 <div className='flex justify-between items-end'>
                     <div>
                         <Link to={'/'}>
-                            <img src={pointSmile} alt='mainLogo' style={{ width: '200px' }} />
+                            <img src={godChall} alt='mainLogo' style={{ width: '250px' }} />
                         </Link>
                     </div>
                     <div className='flex flex-col items-end gap-5'>

@@ -24,6 +24,7 @@ const RegisterChallengeList = ({state}:RegisterChallengeListProps) => {
                         state:state === '전체' ? null : state
                     }
                 });
+                console.log('---->', response.data)
                 setChallenges(response.data);
             } catch (error) {
                 console.log('챌린지 업로드 데이터를 가져올 수 없습니다!', error);

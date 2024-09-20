@@ -21,10 +21,10 @@ const ChallengeItem = ({item}:ChallengeItemProps) => {
 
   return (
     <>
-    <li className={`${item.state === '모집마감' ? `${styles.challenge_item} ${styles.status_fin}` : `${styles.challenge_item}`}`} onClick={handleClick}>
+    <li className={styles.challenge_item} onClick={handleClick}>
       <img src={item.mainImage} alt='challenge image'/>
-      <div className={`${item.state === '모집전' ? styles.status_availableJoin : ''}`}>
-        {item.state === '모집전' && '챌린지 모집중'}
+      <div className={`${item.state === '진행전' ? styles.status_availableJoin : ''}`}>
+        {item.state === '진행전' && '챌린지 모집중'}
       </div>
       <div className={styles.challenge_title}>
         <h2>{item.title}</h2>
@@ -36,7 +36,7 @@ const ChallengeItem = ({item}:ChallengeItemProps) => {
       <span className={`${item.state === '진행중' ? `${styles.state}` : ''}`}>{item.state === '진행중' && item.state}</span>
       <div className={styles.challenge_period}>
         <span>매일</span>
-        <span>{diffDays === 0 ? '하루' : `${diffDays}일 `}동안</span>
+        <span>{diffDays === 0 ? '하루' : `${diffDays+1}일 `}동안</span>
       </div>
     </li>
     </>

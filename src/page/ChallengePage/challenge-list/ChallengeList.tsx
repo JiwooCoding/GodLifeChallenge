@@ -25,6 +25,7 @@ const ChallengeList = ({ category, state }: ChallengeListProps) => {
                         state: state === '전체' ? null : state 
                     }
                 });
+                console.log('list', response.data);
                 setChallengeData(response.data.content);
             } catch (error) {
                 console.log('챌린지 데이터 받아오기 실패', error);

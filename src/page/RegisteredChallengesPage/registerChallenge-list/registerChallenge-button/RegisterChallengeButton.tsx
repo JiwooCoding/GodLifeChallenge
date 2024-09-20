@@ -2,6 +2,8 @@ import api from '../../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import styles from './RegisterChallengeButton.module.scss'
+import Modal from '../../../../components/modal';
+import { useModal } from '../../../../contexts/ModalProvider';
 
 interface ButtonProps {
     challengeId:string;
@@ -14,6 +16,7 @@ interface ButtonProps {
 const RegisterChallengeButton = ({challengeId, startDate, startTime, endDate, endTime}:ButtonProps) => {
 
     const navigate = useNavigate();
+    const {isOpen, openModal, closeModal} = useModal();
 
     const deleteChallenge = async(challengeId:string) => {
         try {
@@ -23,6 +26,7 @@ const RegisterChallengeButton = ({challengeId, startDate, startTime, endDate, en
                 }
             });
             console.log('챌린지 삭제 성공');
+            closeModal();
         } catch (error) {
             console.log('챌린지 삭제 오류',error);
         }
@@ -39,15 +43,29 @@ const RegisterChallengeButton = ({challengeId, startDate, startTime, endDate, en
 
 
     return (
-        <div>
-            {current > endDateTime ? (
-                '챌린지 종료'
-            ) : current <= startDateTime ? (
-                <button className={styles.delete_button} onClick={() => deleteChallenge(challengeId)}>삭제</button>
-            ) : (
-                <button className={styles.manage_button} onClick={manageChallenge}>관리</button>
-            )}
-        </div>
+        <>
+            <div>
+                {current > endDateTime ? (
+                    '챌린지 종료'
+                ) : current <= startDateTime ? (
+                    <button className={styles.delete_button} onClick={openModal}>삭제</button>
+                ) : (
+                    <button className={styles.manage_button} onClick={manageChallenge}>관리</button>
+                )}
+            </div>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <Modal.Header>
+                    챌린지 취소
+                </Modal.Header>
+                <Modal.Content>
+                    챌린지를 취소하시겠습니까?
+                </Modal.Content>
+                <Modal.Footer>
+                    <Modal.Button buttonStyle='button--secondary' onClick={closeModal}>닫기</Modal.Button>
+                    <Modal.Button buttonStyle='button--primary' onClick={() => deleteChallenge(challengeId)}>확인</Modal.Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     )
 }
 
