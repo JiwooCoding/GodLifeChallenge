@@ -6,13 +6,14 @@ import AuthButton from '../appliedChallenge-button/authButton/AuthButton';
 import styles from './AppliedItem.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { IChallenge } from '../../../../type/IChallenge';
+import CancleButton from '../appliedChallenge-button/cancleButton/CancleButton';
 
 interface AppliedItemProps {
-    hasCheckedIn:boolean;
     item:IChallenge;
+    onCancle:(id:string) => void;
 }
 
-const AppliedItem = ({item, hasCheckedIn}:AppliedItemProps) => {
+const AppliedItem = ({item, onCancle}:AppliedItemProps) => {
 
     const navigate = useNavigate();
     
@@ -42,7 +43,15 @@ const AppliedItem = ({item, hasCheckedIn}:AppliedItemProps) => {
                     </div>
                 </div>
             </div>
-            <div className={styles.item_button}>
+            {todayStr < item.startDate ? (
+                <div className={styles.item_button}>
+                    <CancleButton
+                        challengeId={item.id}
+                        onCancle={onCancle}
+                    />
+                </div>
+            ): (
+                <div className={styles.item_button}>
                 <AuthButton 
                     challengeId={item.id}
                     startDate={item.startDate}
@@ -52,9 +61,11 @@ const AppliedItem = ({item, hasCheckedIn}:AppliedItemProps) => {
                     title={item.title}
                     today={today}
                     todayStr={todayStr}
-                    hasCheckedIn={hasCheckedIn}
+                    hasCheckedIn={item.hasCheckedInToday}
                 />
             </div>
+            )}
+
         </li>
     )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../../../../../api/api';
 import { useUser } from '../../../../../contexts/UserProvider';
 import { SubmitHandler } from 'react-hook-form';
@@ -26,9 +26,10 @@ interface ParticipationButtonProps {
     hasCheckedIn:boolean;
 }
 
-const AuthButton = ({ hasCheckedIn, challengeId, startDate, endDate, startTime, endTime, title, today, todayStr }: ParticipationButtonProps) => {
+const AuthButton = ({ hasCheckedIn:initicialState, challengeId, startDate, endDate, startTime, endTime, title, today, todayStr }: ParticipationButtonProps) => {
     
     const [isOpen, setIsOpen] = useState(false);
+    const [hasCheckedInToday, setHasCheckInToday] = useState(initicialState);
 
     const modalOpen = () => setIsOpen(true);
     const modalClose = () => setIsOpen(false);
@@ -44,6 +45,7 @@ const AuthButton = ({ hasCheckedIn, challengeId, startDate, endDate, startTime, 
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            setHasCheckInToday(true);
             modalClose();
         } catch (error) {
             console.log('챌린지 인증 실패', error);
@@ -59,19 +61,13 @@ const AuthButton = ({ hasCheckedIn, challengeId, startDate, endDate, startTime, 
                         <p></p>
                     ) : isTodayWithinRange(startDate, endDate, todayStr) ? (
                         isWithinTimeRange(startTime, endTime) ? (
-                            <button className={styles.button} onClick={modalOpen} disabled={hasCheckedIn}>{
-                                hasCheckedIn === true ? '인증완료' : '인증하기'}
+                            <button className={styles.button} onClick={modalOpen} disabled={hasCheckedInToday}>
+                                {hasCheckedInToday === true ? '인증완료' : '인증하기'}
                             </button>
                         ) : (
                             <button className={styles.button} disabled={true}>인증불가</button>
                         )
-                    ) : todayStr < startDate ? (
-                        <div className={styles.buttons}>
-                            <CancleButton
-                                challengeId={challengeId}
-                            />
-                        </div>
-                    ) : null}
+                    ): null}
             </div>
             {isOpen && (
                 <AuthChallenge

@@ -17,6 +17,6 @@ export type IChallenge = {
     isJoined:boolean;
     state:string;
     prize:number;
-    hasCheckInToday:boolean;
+    hasCheckedInToday:boolean;
     userChallengeId:string;
 }

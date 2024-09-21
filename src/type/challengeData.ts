@@ -8,7 +8,13 @@ export type UserChallengeRecord = {
     uploadEndTime:string;
     authCount?:number;
     progress?:number;
-    checkRecords?:[];
+    prize:number;
+    checkRecords?:{
+        checkDate:string;
+        imageUrl:string;
+        status:string;
+        description:string;
+    }[];
 }
 
 export type FormValues = {

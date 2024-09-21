@@ -15,7 +15,6 @@ const AppliedList = ({state}:AppliedListProps) => {
     const [challenges, setChallenges] = useState<IChallenge[]>([]);
     const [filteredChallenges, setFilteredChallenges] = useState<IChallenge[]>([]);
     const [loading, setLoading] = useState(true);
-    const [hasCheckedIn, setHasCheckedIn] = useState(false);
 
     useEffect(() => {
         const fetchParticipationChallenges = async() => {
@@ -27,11 +26,6 @@ const AppliedList = ({state}:AppliedListProps) => {
                 });
                 console.log('진행중 챌린지', response.data.content);
                 setChallenges(response.data.content);
-                setHasCheckedIn(response.data.content.hasCheckedInToday); //서버에서 가져온 인증여부
-
-                if(hasCheckedIn === true){
-                    setHasCheckedIn(true);
-                }
 
             } catch (error) {
                 console.log('챌린지 참여 내역 데이터 가져오기 실패!!',error);
@@ -55,7 +49,9 @@ const AppliedList = ({state}:AppliedListProps) => {
         filterChallengStatus();
     }, [challenges, state])
     
-
+    const handleCancle = (challengeId:string) => {
+        setChallenges(prevChallenges => prevChallenges.filter(challenge => challenge.id !== challengeId));
+    }
 
     return (
         <>
@@ -67,7 +63,7 @@ const AppliedList = ({state}:AppliedListProps) => {
                         <AppliedItem
                             key={challenge.id}
                             item={challenge}
-                            hasCheckedIn={hasCheckedIn}
+                            onCancle={handleCancle}
                         />
                     ))}
                 </ul>

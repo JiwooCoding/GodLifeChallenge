@@ -19,7 +19,7 @@ const FailButton = () => {
 
     const handleClickFail = async() => {
         try {
-            await api.post(`api/challenge/${challengeId}/posts/${postId}/status`,{
+            await api.post(`/api/challenge/${challengeId}/check-status/${postId}`,{
                 status:"fail"
             });
             setDisabled(true);

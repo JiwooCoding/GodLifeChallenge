@@ -37,6 +37,7 @@ const InProgressChallengItem = ({item}:{item:IChallenge}) => {
                     title={item.title}
                     today={today}
                     todayStr={todayStr}
+                    hasCheckedIn={item.hasCheckedInToday}
                 />
             </div>
         </li>

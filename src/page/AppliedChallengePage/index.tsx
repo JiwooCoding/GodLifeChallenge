@@ -11,6 +11,8 @@ const AppliedChallengePage = () => {
         setSelectedStatus(status);
     }
 
+    console.log('현재 선택된 상태:', selectedStatus);
+
     return (
         <div className={styles.challengeList}>
             <div className={styles.titleAndFilter}>

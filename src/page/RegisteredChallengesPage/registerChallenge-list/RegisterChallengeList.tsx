@@ -19,13 +19,12 @@ const RegisterChallengeList = ({state}:RegisterChallengeListProps) => {
     useEffect(() => {
         const fetchRegisterChallenges = async () => {
             try {
-                const response = await api.get(`/api/challenge/applied`,{
+                const response = await api.get(`/api/user/challenge/admin`,{
                     params:{
                         state:state === '전체' ? null : state
                     }
                 });
-                console.log('---->', response.data)
-                setChallenges(response.data);
+                setChallenges(response.data.content);
             } catch (error) {
                 console.log('챌린지 업로드 데이터를 가져올 수 없습니다!', error);
             } finally {
@@ -46,7 +45,11 @@ const RegisterChallengeList = ({state}:RegisterChallengeListProps) => {
             setFilteredChallenges(filtered);
         }
         filterChallengStatus();
-    }, [challenges, state])
+    }, [challenges, state]);
+
+    const handleDelete = (challengeId:string) => {
+        setChallenges(prevChallenge => prevChallenge.filter(challenge => challenge.id !== challengeId));
+    }
 
     return (
         <>
@@ -58,6 +61,7 @@ const RegisterChallengeList = ({state}:RegisterChallengeListProps) => {
                     <RegisterChallengeItem
                         key={challenge.id}
                         item={challenge}
+                        onDelete={handleDelete}
                     />
                 ))}
             </ul>

@@ -18,7 +18,8 @@ const ManageChallengePage = () => {
     useEffect(() => {
         const fetchAuthImage = async() => {
             try {
-                const response = await api.get(`/api/challenge/${challengeId}/posts`);
+                const response = await api.get(`/api/challenge/${challengeId}/check-status`);
+                console.log('ddd', response.data);
                 setUserImages(response.data);
             } catch (error) {
                 console.log('인증사진 받아오기 오류!',error);

@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import styles from './RegisterChallengeButton.module.scss'
 import Modal from '../../../../components/modal';
 import { useModal } from '../../../../contexts/ModalProvider';
+import { toast } from 'react-toastify';
 
 interface ButtonProps {
     challengeId:string;
@@ -11,9 +12,10 @@ interface ButtonProps {
     startTime:string;
     endDate:string;
     endTime:string;
+    onDelete:(id:string) => void;
 }
 
-const RegisterChallengeButton = ({challengeId, startDate, startTime, endDate, endTime}:ButtonProps) => {
+const RegisterChallengeButton = ({onDelete, challengeId, startDate, startTime, endDate, endTime}:ButtonProps) => {
 
     const navigate = useNavigate();
     const {isOpen, openModal, closeModal} = useModal();
@@ -21,19 +23,21 @@ const RegisterChallengeButton = ({challengeId, startDate, startTime, endDate, en
     const deleteChallenge = async(challengeId:string) => {
         try {
             await api.delete(`/api/challenge`,{
-                data:{
-                    id:challengeId
+                params:{
+                    challengeId
                 }
             });
             console.log('챌린지 삭제 성공');
+            onDelete(challengeId);
             closeModal();
+            toast.success('챌린지 삭제가 성공적으로 되었습니다!');
         } catch (error) {
             console.log('챌린지 삭제 오류',error);
         }
     }
 
     const manageChallenge = () => {
-        navigate('/managePage');
+        navigate(`/managePage/${challengeId}`);
     }
 
     //const today = dayjs().format('YYYY-MM-DD');
@@ -55,10 +59,10 @@ const RegisterChallengeButton = ({challengeId, startDate, startTime, endDate, en
             </div>
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <Modal.Header>
-                    챌린지 취소
+                    챌린지 삭제
                 </Modal.Header>
                 <Modal.Content>
-                    챌린지를 취소하시겠습니까?
+                    챌린지를 삭제하시겠습니까?
                 </Modal.Content>
                 <Modal.Footer>
                     <Modal.Button buttonStyle='button--secondary' onClick={closeModal}>닫기</Modal.Button>

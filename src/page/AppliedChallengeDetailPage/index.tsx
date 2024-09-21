@@ -16,10 +16,9 @@ type RouteParams = {
 
 const AppliedDetailPage = () => {
 
-    const [cDetail, setCDetail] = useState<UserChallengeRecord>();
+    const [cDetail, setCDetail] = useState<UserChallengeRecord[]>([]);
     const [showMore, setShowMore] = useState(false);
-    //const imagesToShow = showMore ? cDetail.checkRecords : cDetail.checkRecords.slice(0, 4);
-
+    const imagesToShow = showMore ? cDetail[0]?.checkRecords : cDetail[0]?.checkRecords?.slice(0, 4);
 
     const {userChallengeId} = useParams<RouteParams>();
 
@@ -27,8 +26,8 @@ const AppliedDetailPage = () => {
         const fetchData = async() => {
             try {
                 const response = await api.get(`/api/challenge/${userChallengeId}/details`);
-                setCDetail(response.data);
-                console.log('detail',response.data);
+                setCDetail(response.data.content);
+                console.log('디테일', response.data.content);
             } catch (error) {
                 console.log(error);
             }
@@ -39,34 +38,23 @@ const AppliedDetailPage = () => {
 
     return (
         <div className='page'>
-            {challenges.map(challenge => (
+            {cDetail.length > 0 ? (
                 <div className={styles.detail_container}>
                     <div className={styles.mainImage}>
-                        <img src={challenge.mainImage}/>
-                        <h1 className={styles.title}>{challenge.title}</h1>
+                        <img src={cDetail[0].mainImage}/>
+                        <h1 className={styles.title}>{cDetail[0].title}</h1>
                     </div>
                     {/* 챌린지 업로드 날짜 */}
-                    <h1>챌린지 업로드 기간</h1>
-                    <div className={styles.challenge_schedule_date}>
-                        <div className={styles.challenge_date}>
-                            <CiCalendar size={22} style={{fontWeight:'bold'}}/>
-                            <span>{challenge.startDate} ~ {challenge.endDate}</span>
-                        </div>
-                        <div className={styles.challenge_duration}>
-                            <span>매일</span>
-                            <span>1일 동안</span>
-                        </div>
-                    </div>
                     <ChallengeDate
-                        challenge={challenge}
+                        challenge={cDetail[0]}
                     />
                     {/* 챌린지 업로드 시간 */}
                     <ChallengeTime
-                        challenge={challenge}
+                        challenge={cDetail[0]}
                     />
                     {/* 인증현황 차트 */}
                     <CurrentProgress
-                        challenge={challenge}
+                        challenge={cDetail[0]}
                     />
                     {/* 인증 실패 성공 횟수 */}
                     <div className={styles.authResult}>
@@ -80,19 +68,26 @@ const AppliedDetailPage = () => {
                         </div>
                         <div>
                             <span>상금</span>
-                            <span>+ 2,000P</span>
+                            <span>{cDetail[0].prize}</span>
                         </div>
                     </div>
                     {/* 유저 인증 사진 */}
                     <h1>나의 인증샷</h1>
                     <div className={styles.imageContainer}>
-                        {challenges[0].checkRecords.map((record, index) => (
-                            <div className={styles.imageItem} key={index}>
-                                <Link to='/challengeAuthDetail' state={{ record }}>
-                                    <img src={record.image} alt={`인증샷 ${index}`} />
-                                </Link>
+                        {cDetail[0].checkRecords && cDetail[0].checkRecords.length > 0 ? (
+                            <div>
+                                {cDetail[0].checkRecords.map((record, index) => (
+                                    <div className={styles.imageItem} key={index}>
+                                        <Link to='/challengeAuthDetail' state={{ record }}>
+                                            <img src={record.imageUrl} alt={`인증샷 ${index}`} />
+                                        </Link>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        ):
+                        (
+                            <div>인증 사진이 없습니다.</div>
+                        )}
                     </div>
 
                     {/* 더보기 버튼 */}
@@ -105,7 +100,8 @@ const AppliedDetailPage = () => {
                         </button>
                     )}
                 </div>
-            ))}
+            ):<div>fheldfnd</div>
+        }
         </div>
     )
 }

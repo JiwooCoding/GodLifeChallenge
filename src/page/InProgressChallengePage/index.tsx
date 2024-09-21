@@ -14,9 +14,9 @@ const InProgressChallengePage = () => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await api.get('/api/challenge/applied');
-                console.log('뭐있니' , response.data)
-                setChallenges(response.data);
+                const response = await api.get('/api/challenge/ongoing-challenge');
+                console.log('진행중인 챌린지', response.data.content);
+                setChallenges(response.data.content);
             } catch (error) {
                 console.log(error);
             } finally{

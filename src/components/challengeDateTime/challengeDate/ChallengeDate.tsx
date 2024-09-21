@@ -4,9 +4,10 @@ import { IChallenge } from '../../../type/IChallenge'
 import { calculatorDday } from '../../../utils/calculatorDday';
 import { IUserAuth } from '../../../type/IUserAuth';
 import { useMemo } from 'react';
+import { UserChallengeRecord } from '../../../type/challengeData';
 
 interface ChallengeDateProps {
-    challenge:IChallenge | IUserAuth;
+    challenge:IChallenge | IUserAuth | UserChallengeRecord;
 }
 
 const ChallengeDate = ({challenge}:ChallengeDateProps) => {

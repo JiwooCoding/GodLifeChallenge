@@ -6,7 +6,12 @@ import { calculatorDday } from '../../../../utils/calculatorDday'
 import { formattedDate } from '../../../../utils/formattedDate'
 import { formattedTime } from '../../../../utils/formattedTime'
 
-const RegisterChallengeItem = ({item}:{item:UserChallengeRecord}) => {
+interface ReigsterProps {
+    item:UserChallengeRecord;
+    onDelete:(id:string) => void;
+}
+
+const RegisterChallengeItem = ({item, onDelete}:ReigsterProps) => {
     
     const today = dayjs().format('YYYY-MM-DD');
     const isChallengeEnded = today > item.endDate;
@@ -34,6 +39,7 @@ const RegisterChallengeItem = ({item}:{item:UserChallengeRecord}) => {
                     endDate={item.endDate}
                     startTime={item.uploadStartTime}
                     endTime={item.uploadEndTime}
+                    onDelete={onDelete}
                 />
             </div>
         </li>

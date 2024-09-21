@@ -84,7 +84,7 @@ const App = () => {
           <Route path='/challenge/detail/:userChallengeId' element={<AppliedDetailPage/>}/>
           <Route path='/challengeAuthDetail' element={<AuthDetailPage/>}/>
           {/* path변경해야함! */}
-          <Route path='/managePage' element={<ManageChallengePage/>}/>
+          <Route path='/managePage/:challengeId' element={<ManageChallengePage/>}/>
         </Route>
 
         <Route path='/login' element={<LoginRoute><LoginPage /></LoginRoute>} />
