@@ -1,13 +1,13 @@
 import dayjs from 'dayjs'
-import { UserChallengeRecord } from '../../../../type/challengeData'
-import RegisterChallengeButton from '../registerChallenge-button/RegisterChallengeButton'
 import styles from './RegisterChallengeItem.module.scss'
 import { calculatorDday } from '../../../../utils/calculatorDday'
 import { formattedDate } from '../../../../utils/formattedDate'
 import { formattedTime } from '../../../../utils/formattedTime'
+import { IChallenge } from '../../../../type/IChallenge'
+import RegisterChallengeButton from '../registerChallenge-button/RegisterChallengeButton'
 
 interface ReigsterProps {
-    item:UserChallengeRecord;
+    item:IChallenge;
     onDelete:(id:string) => void;
 }
 
@@ -34,11 +34,8 @@ const RegisterChallengeItem = ({item, onDelete}:ReigsterProps) => {
             </div>
             <div className={styles.item_button}>
                 <RegisterChallengeButton
+                    item={item}
                     challengeId={item.id}
-                    startDate={item.startDate}
-                    endDate={item.endDate}
-                    startTime={item.uploadStartTime}
-                    endTime={item.uploadEndTime}
                     onDelete={onDelete}
                 />
             </div>

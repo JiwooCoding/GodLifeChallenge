@@ -5,19 +5,27 @@ import Loading from '../../../../../components/loading/Loading';
 import { UserHistories, UserHistory } from '../../../../../type/challengeData';
 import usePagination from '../../../../../hooks/usePagination';
 import ChallengeItem from './challenge-item/ChallengeItem';
+import Pagination from '../../../../../components/pagination/Pagination';
 
 const ChallengeList = () => {
     const [history, setHistory] = useState<UserHistories>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [itemsPerPage] = useState(10);
-    const pageCount = Math.ceil(history.length / itemsPerPage);
+    const [itemsPerPage, setItemsPerPage] = useState(10);//한 페이지당 갯수
+    const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
     const {currentPage, handlePageClick} = usePagination();
 
     useEffect(() => {
         const fetchHistory = async() => {
             try {
-                const response = await api.get('/api/challenge/applied');
+                const response = await api.get(`/api/challenge/applied`,{
+                    params:{
+                        page:currentPage,
+                        size:itemsPerPage
+                    }
+                });
                 setHistory(response.data.content);
+                setTotalPages(response.data.totalPages); // 전체 페이지 수
+                setItemsPerPage(response.data.size); //한 페이지당 갯수
             } catch (error) {
                 console.log('챌린지 히스토리 가져오기 실패',error);
             } finally{
@@ -26,10 +34,7 @@ const ChallengeList = () => {
         }
 
         fetchHistory();
-    }, []);
-
-    // 페이지별로 보여줄 히스토리 목록을 계산
-    const currentHistories = history.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    }, [currentPage, itemsPerPage]);
 
     return (
         <div>
@@ -41,15 +46,21 @@ const ChallengeList = () => {
             </div>
             {isLoading ? (
                 <Loading />
-            ) : currentHistories.length > 0 ? (
+            ) : history.length > 0 ? (
+                <>
                 <ul className={styles.history_list}>
-                    {currentHistories.map((historyItem: UserHistory, index) => (
+                    {history.map((historyItem: UserHistory, index) => (
                         <ChallengeItem
                             key={index}
                             item={historyItem}
                         />
                     ))}
                 </ul>
+                <Pagination
+                    pageCount={totalPages}
+                    handlePageClick={handlePageClick}
+                />
+                </>
             ) : (
                 <div>히스토리가 없습니다.</div>
             )}

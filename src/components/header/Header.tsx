@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useUser } from '../contexts/UserProvider';
-import godChall from '../image/header/wo! (3).png';
-import { useAppSelector } from '../hooks/redux';
-import { useLogout } from '../hooks/useLogout';
+import { useUser } from '../../contexts/UserProvider';
+import { useAppSelector } from '../../hooks/redux';
+import { useLogout } from '../../hooks/useLogout';
+import godChall from '../../image/header/wo! (2).png'
 
 const Header = () => {
 

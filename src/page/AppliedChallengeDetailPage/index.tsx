@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import api from '../../api/api'
 import { UserChallengeRecord } from '../../type/challengeData';
 import { useParams } from 'react-router-dom';
-import { challenges } from '../../data/challengeData';
 import styles from './AppliedDetailPage.module.scss'
 import { CiCalendar } from 'react-icons/ci';
 import ChallengeDate from '../../components/challengeDateTime/challengeDate/ChallengeDate';
@@ -91,14 +90,14 @@ const AppliedDetailPage = () => {
                     </div>
 
                     {/* 더보기 버튼 */}
-                    {challenges[0].checkRecords.length > 6 && (
+                    {/* {challenges[0].checkRecords.length > 6 && (
                         <button 
                             className={styles.showMoreButton} 
                             onClick={() => setShowMore(!showMore)}
                         >
                             {showMore ? '간단히 보기' : '더보기'}
                         </button>
-                    )}
+                    )} */}
                 </div>
             ):<div>fheldfnd</div>
         }

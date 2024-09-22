@@ -38,6 +38,7 @@ const AuthButton = ({ hasCheckedIn:initicialState, challengeId, startDate, endDa
 
         const formData = new FormData();
         formData.append('image', data.images[0]);
+        formData.append('description', data.description);
 
         try {
             await api.post(`/api/challenge/${challengeId}/posts`, formData, {

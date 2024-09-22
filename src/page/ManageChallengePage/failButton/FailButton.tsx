@@ -10,30 +10,36 @@ type RouteParmas = {
     postId:string;
 }
 
-const FailButton = () => {
+const FailButton = ({postId}:{postId:string}) => {
 
-    const {challengeId, postId} = useParams<RouteParmas>();
-    const {isOpen, openModal, closeModal} = useModal();
+    const {challengeId} = useParams<RouteParmas>();
+    //const {isOpen, openModal, closeModal} = useModal();
 
     const [disabled, setDisabled] = useState(false);
 
     const handleClickFail = async() => {
         try {
-            await api.post(`/api/challenge/${challengeId}/check-status/${postId}`,{
-                status:"fail"
+            await api.put(`/api/challenge/${challengeId}/check-status/${postId}`, null, {
+                params: { 
+                    status: "인증실패"
+                }
             });
+            console.log('postId',postId);
+            console.log('challengeId', challengeId)
             setDisabled(true);
-            closeModal();
-            toast.success('인증실패 처리가 완료되었습니다!')
+            //closeModal();
+            toast.success('인증실패 처리가 완료되었습니다!');
         } catch (error) {
-            console.log('인증실패처리 실패!',error);
+            console.log('인증실패처리 실패!', error);
+            console.log('postId',postId);
+            console.log('challengeId', challengeId)
         }
     }
 
     return (
         <>
-        <button onClick={openModal} disabled={disabled}>인증실패</button>
-        {isOpen && (
+        <button onClick={handleClickFail} disabled={disabled}>인증실패</button>
+        {/* {isOpen && (
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <Modal.Header>
                     인증실패 처리
@@ -46,7 +52,7 @@ const FailButton = () => {
                     <Modal.Button buttonStyle='button--primary' onClick={handleClickFail}>확인</Modal.Button>
                 </Modal.Footer>
             </Modal>
-        )}
+        )} */}
         </>
     )
 }

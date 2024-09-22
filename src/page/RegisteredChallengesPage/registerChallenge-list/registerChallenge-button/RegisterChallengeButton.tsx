@@ -5,22 +5,22 @@ import styles from './RegisterChallengeButton.module.scss'
 import Modal from '../../../../components/modal';
 import { useModal } from '../../../../contexts/ModalProvider';
 import { toast } from 'react-toastify';
+import { IChallenge } from '../../../../type/IChallenge';
 
 interface ButtonProps {
     challengeId:string;
-    startDate:string;
-    startTime:string;
-    endDate:string;
-    endTime:string;
     onDelete:(id:string) => void;
+    item:IChallenge;
 }
 
-const RegisterChallengeButton = ({onDelete, challengeId, startDate, startTime, endDate, endTime}:ButtonProps) => {
+const RegisterChallengeButton = ({item, onDelete, challengeId}:ButtonProps) => {
+    
 
     const navigate = useNavigate();
-    const {isOpen, openModal, closeModal} = useModal();
+    //const {isOpen, openModal, closeModal} = useModal();
+    
 
-    const deleteChallenge = async(challengeId:string) => {
+    const deleteChallenge = async() => {
         try {
             await api.delete(`/api/challenge`,{
                 params:{
@@ -29,10 +29,11 @@ const RegisterChallengeButton = ({onDelete, challengeId, startDate, startTime, e
             });
             console.log('챌린지 삭제 성공');
             onDelete(challengeId);
-            closeModal();
+            //closeModal();
             toast.success('챌린지 삭제가 성공적으로 되었습니다!');
         } catch (error) {
             console.log('챌린지 삭제 오류',error);
+            console.log('challengeId-->',challengeId);
         }
     }
 
@@ -42,8 +43,8 @@ const RegisterChallengeButton = ({onDelete, challengeId, startDate, startTime, e
 
     //const today = dayjs().format('YYYY-MM-DD');
     const current = dayjs(); //오늘 날짜&시간
-    const startDateTime = dayjs(`${startDate} ${startTime}`, 'YYYY-MM-DD HH:mm'); //시작 날짜&시간
-    const endDateTime = dayjs(`${endDate} ${endTime}`, 'YYYY-MM-DD HH:mm');
+    const startDateTime = dayjs(`${item.startDate} ${item.uploadStartTime}`, 'YYYY-MM-DD HH:mm'); //시작 날짜&시간
+    const endDateTime = dayjs(`${item.endDate} ${item.uploadEndTime}`, 'YYYY-MM-DD HH:mm');
 
 
     return (
@@ -52,23 +53,26 @@ const RegisterChallengeButton = ({onDelete, challengeId, startDate, startTime, e
                 {current > endDateTime ? (
                     '챌린지 종료'
                 ) : current <= startDateTime ? (
-                    <button className={styles.delete_button} onClick={openModal}>삭제</button>
+                    <button className={styles.delete_button} onClick={deleteChallenge}>삭제</button>
                 ) : (
                     <button className={styles.manage_button} onClick={manageChallenge}>관리</button>
                 )}
             </div>
-            <Modal isOpen={isOpen} onClose={closeModal}>
-                <Modal.Header>
-                    챌린지 삭제
-                </Modal.Header>
-                <Modal.Content>
-                    챌린지를 삭제하시겠습니까?
-                </Modal.Content>
-                <Modal.Footer>
-                    <Modal.Button buttonStyle='button--secondary' onClick={closeModal}>닫기</Modal.Button>
-                    <Modal.Button buttonStyle='button--primary' onClick={() => deleteChallenge(challengeId)}>확인</Modal.Button>
-                </Modal.Footer>
+            {/* {isOpen && (
+                <Modal isOpen={isOpen} onClose={closeModal}>
+                    <Modal.Header>
+                        챌린지 삭제
+                    </Modal.Header>
+                    <Modal.Content>
+                        챌린지를 삭제하시겠습니까?
+                    </Modal.Content>
+                    <Modal.Footer>
+                        <Modal.Button buttonStyle='button--secondary' onClick={closeModal}>닫기</Modal.Button>
+                        <Modal.Button buttonStyle='button--primary' onClick={deleteChallenge}>확인</Modal.Button>
+                    </Modal.Footer>
             </Modal>
+            )} */}
+            
         </>
     )
 }

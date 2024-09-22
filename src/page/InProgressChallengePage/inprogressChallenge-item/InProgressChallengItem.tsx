@@ -5,6 +5,7 @@ import { formattedDate } from '../../../utils/formattedDate';
 import { formattedTime } from '../../../utils/formattedTime';
 import AuthButton from '../../AppliedChallengePage/appliedChallenge-list/appliedChallenge-button/authButton/AuthButton';
 import styles from './InProgressChallengItem.module.scss'
+import { useNavigate } from 'react-router-dom';
 
 const InProgressChallengItem = ({item}:{item:IChallenge}) => {
 
@@ -12,9 +13,15 @@ const InProgressChallengItem = ({item}:{item:IChallenge}) => {
     const todayStr = today.format('YYYY-MM-DD');
     const Dday = calculatorDday(todayStr, item.startDate);
 
+    const navigate = useNavigate();
+
+    const goToDetailPage = () => {
+        navigate(`/challenge/detail/${item.userChallengeId}`);
+    }
+
     return (
         <li className={styles.itembox}>
-            <div className={styles.item_info}>
+            <div className={styles.item_info} onClick={goToDetailPage}>
                 <div className={styles.item_info_mainImage}>
                     <img src={item.mainImage} alt='mainImage'/>
                     {todayStr < item.startDate && <div className={styles.imageDday_msg}>{Dday}일 남음</div>}

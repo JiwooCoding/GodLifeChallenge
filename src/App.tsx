@@ -10,7 +10,6 @@ import Attendance from './page/EventPage/attendance';
 import Roulette from './page/EventPage/roulette';
 import Donation from './page/DonationPage';
 import DonationDetail from './page/DonationPage/DetailPage/DonationDetail';
-import Header from './components/Header';
 import Footer from './components/footer/Footer';
 import CartPage from './page/CartPage';
 import Redirect from './page/KakaoRedirectPage/Redirect';
@@ -29,6 +28,8 @@ import ChallengeDetailPage from './page/ChallengeDetailPage';
 import AppliedDetailPage from './page/AppliedChallengeDetailPage';
 import ManageChallengePage from './page/ManageChallengePage/ManageAuthImage';
 import AuthDetailPage from './page/AppliedChallengeDetailPage/authDetailPage/AuthDetailPage';
+import Header from './components/header/Header';
+import ChallengeList from './page/MyPage/point-history/challenge/challenge-list/ChallengeList';
 
 
 const Layout = () => {
@@ -83,7 +84,6 @@ const App = () => {
           <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
           <Route path='/challenge/detail/:userChallengeId' element={<AppliedDetailPage/>}/>
           <Route path='/challengeAuthDetail' element={<AuthDetailPage/>}/>
-          {/* path변경해야함! */}
           <Route path='/managePage/:challengeId' element={<ManageChallengePage/>}/>
         </Route>
 

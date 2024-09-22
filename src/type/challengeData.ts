@@ -9,11 +9,13 @@ export type UserChallengeRecord = {
     authCount?:number;
     progress?:number;
     prize:number;
-    checkRecords?:{
+    checkRecord?:{
         checkDate:string;
         imageUrl:string;
         status:string;
         description:string;
+        postId:string;
+        userName:string;
     }[];
 }
 
