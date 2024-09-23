@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AppliedList from './appliedChallenge-list/AppliedList'
 import styles from './index.module.scss'
-import AppliedChallengeStatus from './appliedChallenge-status/AppliedChallengeStatus';
+import SelectOption from '../../components/selectOption/SelectOption';
 
 const AppliedChallengePage = () => {
 
@@ -17,7 +17,7 @@ const AppliedChallengePage = () => {
         <div className={styles.challengeList}>
             <div className={styles.titleAndFilter}>
                 <h1>참여 챌린지 내역</h1>
-                <AppliedChallengeStatus
+                <SelectOption
                     selectedStatus={selectedStatus}
                     onStatusChange={handleStatusChange}
                 />

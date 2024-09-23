@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import ChallengeCategory from './challenge-category/ChallengeCategory'
-import ChallengeState from './challenge-state/ChallengeState';
 import styles from './ChallengePage.module.scss'
 import ChallengeList from './challenge-list/ChallengeList';
+import SelectOption from '../../components/selectOption/SelectOption';
 
 const ChallengePage = () => {
 
     const [selectedCategory, setSelectedCategory] = useState('전체');
-    const [selectedState, setSelectedState] = useState('전체');
+    const [selectedStatus, setSelectedStatus] = useState('전체');
 
     const handleCategoryChange = (category:string) => {
         setSelectedCategory(category);
     }
 
     const handleStateChange = (state:string) => {
-        setSelectedState(state);
+        setSelectedStatus(state);
     }
 
     return (
@@ -25,14 +25,14 @@ const ChallengePage = () => {
                     selectedCategory={selectedCategory}
                     onCategoryChange={handleCategoryChange}
                 />
-                <ChallengeState
-                    selectedState={selectedState}
-                    onStateChange={handleStateChange}
+                <SelectOption
+                    selectedStatus={selectedStatus}
+                    onStatusChange={handleStateChange}
                 />
             </div>
             <ChallengeList
                 category={selectedCategory}
-                state={selectedState}
+                state={selectedStatus}
             />
         </div>
     )

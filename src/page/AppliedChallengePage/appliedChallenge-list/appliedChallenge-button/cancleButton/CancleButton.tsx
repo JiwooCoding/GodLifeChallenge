@@ -3,6 +3,7 @@ import api from '../../../../../api/api'
 import Modal from '../../../../../components/modal';
 import { useModal } from '../../../../../contexts/ModalProvider';
 import styles from './CancleButton.module.scss'
+import ChallengeButton from '../../../../../components/button/challengeButton/ChallengeButton';
 
 interface CancleButtonProps {
     challengeId:string;
@@ -31,7 +32,7 @@ const CancleButton = ({challengeId, onCancle}:CancleButtonProps) => {
 
     return (
         <div>
-            <button className={styles.cancle_button} onClick={openModal}>취소</button>
+            <ChallengeButton variant='cancle' onClick={openModal}>취소</ChallengeButton>
             {isOpen && (
                 <Modal isOpen={isOpen} onClose={closeModal}>
                     <Modal.Header>

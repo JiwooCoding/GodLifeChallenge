@@ -18,7 +18,11 @@ const AppliedItem = ({item, onCancle}:AppliedItemProps) => {
     const navigate = useNavigate();
     
     const goToDetailPage = () => {
-        navigate(`/challenge/detail/${item.userChallengeId}`);
+        if(item.state === "진행전"){
+            navigate(`/challenge/${item.id}`);
+        }else{
+            navigate(`/challenge/detail/${item.userChallengeId}`);
+        }
     }
 
     const today: Dayjs = dayjs(); 

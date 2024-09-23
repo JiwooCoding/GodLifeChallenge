@@ -19,4 +19,5 @@ export type IChallenge = {
     prize:number;
     hasCheckedInToday:boolean;
     userChallengeId:string;
+    isLimited:boolean;
 }

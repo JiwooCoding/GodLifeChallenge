@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RegisterChallengeList from "./registerChallenge-list/RegisterChallengeList"
-import RegiChallengeStatus from "./registerChallenge-status/RegiChallengeStatus";
 import styles from './ReigsterChallengesPage.module.scss'
+import SelectOption from "../../components/selectOption/SelectOption";
 
 const ReigsterChallengesPage = () => {
 
@@ -15,7 +15,7 @@ const ReigsterChallengesPage = () => {
         <div>
             <div className={styles.titleAndFilter}>
                 <h1>개설 챌린지 내역</h1>
-                <RegiChallengeStatus
+                <SelectOption
                     selectedStatus={selectedStatus}
                     onStatusChange={handleStatusChange}
                 />

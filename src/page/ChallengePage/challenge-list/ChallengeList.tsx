@@ -32,6 +32,7 @@ const ChallengeList = ({ category, state }: ChallengeListProps) => {
                         size: itemsPerPage // 페이지당 항목 수
                     }
                 });
+                console.log('챌린지 목록==> ', response.data)
                 setChallengeData(response.data.content);
                 setTotalPages(response.data.totalPages);
                 setItemsPerPage(response.data.size);
@@ -43,7 +44,7 @@ const ChallengeList = ({ category, state }: ChallengeListProps) => {
         };
 
         fetchChallenges();
-    }, [category, state, currentPage, itemsPerPage]); // currentPage와 itemsPerPage를 의존성에 추가
+    }, [category, state, currentPage, itemsPerPage]); 
 
     useEffect(() => {
         const filterChallenges = () => {

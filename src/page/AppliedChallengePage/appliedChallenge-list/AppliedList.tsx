@@ -5,6 +5,8 @@ import Loading from "../../../components/loading/Loading";
 import noChallenge from '../../../image/challenge/noChallengeHistory.png'
 import styles from './AppliedList.module.scss'
 import { IChallenge } from "../../../type/IChallenge";
+import usePagination from "../../../hooks/usePagination";
+import Pagination from "../../../components/pagination/Pagination";
 
 interface AppliedListProps{
     state: string;
@@ -15,18 +17,24 @@ const AppliedList = ({state}:AppliedListProps) => {
     const [challenges, setChallenges] = useState<IChallenge[]>([]);
     const [filteredChallenges, setFilteredChallenges] = useState<IChallenge[]>([]);
     const [loading, setLoading] = useState(true);
+    const [totalPages, setTotalPages] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const {currentPage, handlePageClick} = usePagination();
 
     useEffect(() => {
         const fetchParticipationChallenges = async() => {
             try {
                 const response = await api.get(`/api/user/challenge/participating`,{
                     params:{
-                        state:state === '전체' ? null : state
+                        state:state === '전체' ? null : state,
+                        page:currentPage,
+                        size:itemsPerPage,
                     }
                 });
-                console.log('진행중 챌린지', response.data.content);
+                console.log('진행중 챌린지', response.data);
                 setChallenges(response.data.content);
-
+                setTotalPages(response.data.totalPages);
+                setItemsPerPage(response.data.size);
             } catch (error) {
                 console.log('챌린지 참여 내역 데이터 가져오기 실패!!',error);
             } finally{
@@ -35,7 +43,7 @@ const AppliedList = ({state}:AppliedListProps) => {
         };
 
         fetchParticipationChallenges();
-    }, [state]);
+    }, [state, currentPage, itemsPerPage]);
     
 
     useEffect(() => {
@@ -58,6 +66,7 @@ const AppliedList = ({state}:AppliedListProps) => {
             {loading ? (
                 <Loading/>
             ) : filteredChallenges.length > 0 ? (
+                <>
                 <ul>
                     {filteredChallenges.map(challenge => (
                         <AppliedItem
@@ -67,6 +76,11 @@ const AppliedList = ({state}:AppliedListProps) => {
                         />
                     ))}
                 </ul>
+                <Pagination
+                    pageCount={totalPages}
+                    handlePageClick={handlePageClick}
+                />
+                </>
             ): (
                 <div className={styles.noChallenge}>
                     <img src={noChallenge} alt="no apply challenge"/>

@@ -111,6 +111,20 @@
                 width: 100%;              /* 이미지가 컨테이너의 너비에 맞게 조정 */
                 height: auto;             /* 이미지 비율을 유지하며 높이 자동 조정 */
             }
+
+            .auth_status{
+                color: #fff;
+                text-align: center;
+                font-size: 14px;
+                padding: 5px;
+                &.fail{
+                    background-color: red;
+                }
+
+                &.success{
+                    background-color: green;
+                }
+            }
         }
     }
 

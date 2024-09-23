@@ -1,0 +1,49 @@
+.confirm{
+    background: #007bff;
+    padding: 4px 10px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:disabled{
+        cursor: not-allowed;
+        background-color: rgb(182 182 182);
+    }
+}
+
+.cancle{
+    background: #ff6060;
+    padding: 4px 10px;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:disabled{
+        cursor: not-allowed;
+        background-color: #ff60609e;
+    }
+}
+
+.finish{
+    background: #545454;
+    padding: 4px 10px;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:disabled{
+        cursor: not-allowed;
+        background-color: #5454547d;
+    }
+}
+
+.inaccessible{
+    background-color: rgb(182 182 182);
+    padding: 4px 10px;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 3px;
+}

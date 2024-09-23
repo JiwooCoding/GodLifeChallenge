@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import api from '../../../../../api/api';
-import { useUser } from '../../../../../contexts/UserProvider';
 import { SubmitHandler } from 'react-hook-form';
 import styles from './AuthButton.module.scss'
 import AuthChallenge from '../../../../../components/modal/authImage/AuthChallenge';
 import { isWithinTimeRange } from '../../../../../utils/isWithinTimeRange';
 import dayjs, { Dayjs } from 'dayjs';
-import CancleButton from '../cancleButton/CancleButton';
 import { isTodayWithinRange } from '../../../../../utils/isTodayWithinRange';
+import ChallengeButton from '../../../../../components/button/challengeButton/ChallengeButton';
 
 export interface FormData {
     images: FileList;
@@ -62,11 +61,11 @@ const AuthButton = ({ hasCheckedIn:initicialState, challengeId, startDate, endDa
                         <p></p>
                     ) : isTodayWithinRange(startDate, endDate, todayStr) ? (
                         isWithinTimeRange(startTime, endTime) ? (
-                            <button className={styles.button} onClick={modalOpen} disabled={hasCheckedInToday}>
+                            <ChallengeButton variant='confirm' onClick={modalOpen} disabled={hasCheckedInToday}>
                                 {hasCheckedInToday === true ? '인증완료' : '인증하기'}
-                            </button>
+                            </ChallengeButton>
                         ) : (
-                            <button className={styles.button} disabled={true}>인증불가</button>
+                            <ChallengeButton variant='confirm' disabled={true}>인증불가</ChallengeButton>
                         )
                     ): null}
             </div>

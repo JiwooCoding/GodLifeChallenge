@@ -19,7 +19,7 @@ const CurrentProgress = ({challenge}:CurrentSiturationProps) => {
                     </div>
                     <div className={styles.deposit}>
                         <span>예치금</span>
-                        <span>10,000</span>
+                        
                     </div>
                 </div>
                 <div className={styles.progressBar}>

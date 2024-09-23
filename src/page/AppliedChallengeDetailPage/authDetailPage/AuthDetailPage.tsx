@@ -13,6 +13,8 @@ const AuthDetailPage = () => {
 
     const {user} = useUser();
 
+    console.log('record', record)
+
     if(!record) {
         return <p>상세데이터가 없습니다</p>
     }
@@ -25,7 +27,7 @@ const AuthDetailPage = () => {
                     <span>{user?.name}</span>
                 </div>
                 <div className={styles.auth_detail}>
-                    <img src={record.image} alt="인증샷" />
+                    <img src={record.imageUrl} alt="인증샷" />
                     <div className={styles.icons}>
                         <FaRegHeart size={25}/>
                         <TbMessageCircle size={25}/>
@@ -33,7 +35,7 @@ const AuthDetailPage = () => {
                     </div>
                     <div className={styles.auth_detail_text}>
                         <p>{record.description}</p>
-                        <p className={styles.date}>{dayjs(record.checkDate).format('YYYY-MM-DD HH:mm')}</p>
+                        <p className={styles.date}>{dayjs(record.checkDate).format('YYYY-MM-DD')}</p>
                     </div>
                 </div>
             </div>

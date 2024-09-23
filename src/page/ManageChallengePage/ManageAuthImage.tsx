@@ -4,6 +4,7 @@ import api from "../../api/api";
 import { useParams } from "react-router-dom";
 import styles from './ManageChallengePage.module.scss'
 import { UserChallengeRecord } from "../../type/challengeData";
+import AuthDateOption from "./auth-date-option/AuthDateOption";
 
 type RouteParmas = {
     challengeId:string;
@@ -41,8 +42,10 @@ const ManageChallengePage = () => {
                         <h1 className={styles.title}>{userImages.title}</h1>
                     </div>
                 )}
+                <AuthDateOption
+                    item={userImages}
+                />
                 <div className={styles.authImage}>
-                    
                     {userImages?.checkRecord && userImages.checkRecord.length > 0 ? (
                         userImages.checkRecord.map((record) => (
                             <div key={record.postId} className={styles.imageContainer}>

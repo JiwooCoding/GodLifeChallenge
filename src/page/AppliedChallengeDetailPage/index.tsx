@@ -3,11 +3,11 @@ import api from '../../api/api'
 import { UserChallengeRecord } from '../../type/challengeData';
 import { useParams } from 'react-router-dom';
 import styles from './AppliedDetailPage.module.scss'
-import { CiCalendar } from 'react-icons/ci';
 import ChallengeDate from '../../components/challengeDateTime/challengeDate/ChallengeDate';
 import ChallengeTime from '../../components/challengeDateTime/challengeTime/ChallengeTime';
 import CurrentProgress from './challenge-currentProgress/CurrentProgress';
 import {Link} from 'react-router-dom'
+import { countHelper } from '../../utils/countHelper';
 
 type RouteParams = {
     userChallengeId:string;
@@ -35,6 +35,9 @@ const AppliedDetailPage = () => {
         fetchData();
     }, []);
 
+    const [countSuccess, countFail] = cDetail.length > 0 ? countHelper(cDetail[0]) : [0, 0];
+
+
     return (
         <div className='page'>
             {cDetail.length > 0 ? (
@@ -59,11 +62,11 @@ const AppliedDetailPage = () => {
                     <div className={styles.authResult}>
                         <div>
                             <span>인증성공</span>
-                            <span>1회</span>
+                            <span>{countSuccess}회</span>
                         </div>
                         <div>
                             <span>인증실패</span>
-                            <span>0회</span>
+                            <span>{countFail}회</span>
                         </div>
                         <div>
                             <span>상금</span>
@@ -78,7 +81,8 @@ const AppliedDetailPage = () => {
                                 {cDetail[0].checkRecords.map((record, index) => (
                                     <div className={styles.imageItem} key={index}>
                                         <Link to='/challengeAuthDetail' state={{ record }}>
-                                            <img src={record.imageUrl} alt={`인증샷 ${index}`} />
+                                            <img src={record.imageUrl} alt={`인증샷 ${index}`}/>
+                                            <p className={`${record.status === '인증' ? `${styles.auth_status} ${styles.success}` :`${styles.auth_status} ${styles.fail}`}`}>{record.status}</p>
                                         </Link>
                                     </div>
                                 ))}
@@ -90,7 +94,7 @@ const AppliedDetailPage = () => {
                     </div>
 
                     {/* 더보기 버튼 */}
-                    {/* {challenges[0].checkRecords.length > 6 && (
+                    {/* {cDetail[0].checkRecords.length > 6 && (
                         <button 
                             className={styles.showMoreButton} 
                             onClick={() => setShowMore(!showMore)}

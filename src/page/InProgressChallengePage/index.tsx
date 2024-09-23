@@ -5,17 +5,29 @@ import InProgressChallengItem from './inprogressChallenge-item/InProgressChallen
 import noChallenge from '../../image/challenge/noOngoingChallenge.png'
 import { IChallenge } from '../../type/IChallenge';
 import styles from './inprogressChallenge-item/InProgressChallengItem.module.scss'
+import usePagination from '../../hooks/usePagination';
+import Pagination from '../../components/pagination/Pagination';
 
 const InProgressChallengePage = () => {
 
     const [challenges, setChallenges] = useState<IChallenge[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [totalPage, setTotalPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const {currentPage, handlePageClick} = usePagination();
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await api.get('/api/challenge/ongoing-challenge');
-                console.log('진행중인 챌린지', response.data.content);
+                const response = await api.get('/api/challenge/ongoing-challenge', {
+                    params:{
+                        page:currentPage,
+                        size:itemsPerPage
+                    }
+                });
+                console.log('진행중인 챌린지', response.data);
+                setTotalPage(response.data.totalPages);
+                setItemsPerPage(response.data.size);
                 setChallenges(response.data.content);
             } catch (error) {
                 console.log(error);
@@ -25,7 +37,7 @@ const InProgressChallengePage = () => {
         }
 
         fetchData();
-    }, []);
+    }, [currentPage, itemsPerPage]);
     
 
     return (
@@ -36,6 +48,7 @@ const InProgressChallengePage = () => {
             ) : (
                 <>
                 {challenges.length > 0 ? (
+                    <>
                     <ul>
                         {challenges.map(challenge => (
                             <InProgressChallengItem
@@ -44,6 +57,11 @@ const InProgressChallengePage = () => {
                             />
                         ))}
                     </ul>
+                    <Pagination
+                        pageCount={totalPage}
+                        handlePageClick={handlePageClick}
+                    />
+                    </>
                 ) : (
                     <div className={styles.noChallenge}>
                         <img src={noChallenge} alt='no Inprocess challenges'/>

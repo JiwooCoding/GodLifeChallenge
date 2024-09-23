@@ -1,11 +1,10 @@
 import api from '../../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import styles from './RegisterChallengeButton.module.scss'
-import Modal from '../../../../components/modal';
-import { useModal } from '../../../../contexts/ModalProvider';
 import { toast } from 'react-toastify';
 import { IChallenge } from '../../../../type/IChallenge';
+import ChallengeFinishButton from './challengeFinish-button/ChallengeFinishButton';
+import ChallengeButton from '../../../../components/button/challengeButton/ChallengeButton';
 
 interface ButtonProps {
     challengeId:string;
@@ -51,11 +50,11 @@ const RegisterChallengeButton = ({item, onDelete, challengeId}:ButtonProps) => {
         <>
             <div>
                 {current > endDateTime ? (
-                    '챌린지 종료'
+                    <ChallengeFinishButton/>
                 ) : current <= startDateTime ? (
-                    <button className={styles.delete_button} onClick={deleteChallenge}>삭제</button>
+                    <ChallengeButton variant='cancle' onClick={deleteChallenge}>삭제</ChallengeButton>
                 ) : (
-                    <button className={styles.manage_button} onClick={manageChallenge}>관리</button>
+                    <ChallengeButton variant='confirm' onClick={manageChallenge}>관리</ChallengeButton>
                 )}
             </div>
             {/* {isOpen && (
