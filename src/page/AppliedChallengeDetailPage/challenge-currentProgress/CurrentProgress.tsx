@@ -1,5 +1,6 @@
 import { UserChallengeRecord } from '../../../type/challengeData';
 import { IUserAuth } from '../../../type/IUserAuth';
+import { formatNumberWithCommas } from '../../../utils/fomatNumberWithCommas';
 import styles from './CurrentProgress.module.scss'
 
 
@@ -19,7 +20,7 @@ const CurrentProgress = ({challenge}:CurrentSiturationProps) => {
                     </div>
                     <div className={styles.deposit}>
                         <span>예치금</span>
-                        
+                        <span>{formatNumberWithCommas(challenge.deposit)}</span>
                     </div>
                 </div>
                 <div className={styles.progressBar}>

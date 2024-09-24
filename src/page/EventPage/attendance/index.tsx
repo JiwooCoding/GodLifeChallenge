@@ -9,6 +9,7 @@ import { useUser } from '../../../contexts/UserProvider';
 import { useModal } from '../../../contexts/ModalProvider';
 import Modal from '../../../components/modal';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 const Attendance = () => {
 
@@ -95,12 +96,15 @@ const Attendance = () => {
         }
     };
 
+    const firstDayOfMonth = dayjs().startOf('month').format('YYYY.MM.DD');
+    const lastDayOfMonth = dayjs().endOf('month').format('YYYY.MM.DD');
+
     return (
         <>
             <div className={styles.event_top}>
                 <h1>출석체크 이벤트🎉</h1>
                 <div className={styles.event_detail}>
-                    <p>08.01 MON-08.31 WED</p>
+                    <p>{firstDayOfMonth} ~ {lastDayOfMonth}</p>
                 </div>
             </div>
             <div className={styles.background}>

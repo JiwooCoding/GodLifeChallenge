@@ -8,6 +8,8 @@ interface AttendanceButtonProps {
 
 const AttendanceButton = ({BtnClickHandler,isButtonDisabled,hasAttendance}:AttendanceButtonProps) => {
 
+    
+
     return (
         <div className="button-container">
             <Button 

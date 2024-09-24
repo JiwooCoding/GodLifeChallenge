@@ -9,6 +9,7 @@ export type UserChallengeRecord = {
     authCount?:number;
     progress?:number;
     prize:number;
+    deposit:number;
     checkRecords?:{
         checkDate:string;
         imageUrl:string;
@@ -16,7 +17,6 @@ export type UserChallengeRecord = {
         description:string;
         postId:string;
         userName:string;
-        deposit:number;
     }[];
 }
 
@@ -49,6 +49,7 @@ export type UserHistory = {
     point:number;
     reason:string;
     title:string;
+    status:string;
 }
 
 export type UserHistories = UserHistory[]

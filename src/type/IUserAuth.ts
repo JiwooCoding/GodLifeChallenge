@@ -14,6 +14,7 @@ export type IUserAuth = {
     uploadStartTime:string;
     uploadEndTime:string;
     progress:number;
+    deposit:number;
     checkRecords:CheckRecords[];
     earnedPrize?:number;
     participationPoints:number;

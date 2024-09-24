@@ -36,9 +36,9 @@ const RegisterChallengeButton = ({item, onDelete, challengeId}:ButtonProps) => {
         }
     }
 
-    const manageChallenge = () => {
-        navigate(`/managePage/${challengeId}`);
-    }
+    // const manageChallenge = () => {
+    //     navigate(`/managePage/${challengeId}`);
+    // }
 
     //const today = dayjs().format('YYYY-MM-DD');
     const current = dayjs(); //오늘 날짜&시간
@@ -49,13 +49,13 @@ const RegisterChallengeButton = ({item, onDelete, challengeId}:ButtonProps) => {
     return (
         <>
             <div>
-                {current > endDateTime ? (
-                    <ChallengeFinishButton/>
-                ) : current <= startDateTime ? (
-                    <ChallengeButton variant='cancle' onClick={deleteChallenge}>삭제</ChallengeButton>
-                ) : (
-                    <ChallengeButton variant='confirm' onClick={manageChallenge}>관리</ChallengeButton>
-                )}
+            {current > endDateTime ? (
+                <ChallengeFinishButton
+                    challengeId={challengeId}
+                />
+            ) : current <= startDateTime ? (
+                <ChallengeButton variant='cancle' onClick={deleteChallenge}>삭제</ChallengeButton>
+            ) : null}
             </div>
             {/* {isOpen && (
                 <Modal isOpen={isOpen} onClose={closeModal}>

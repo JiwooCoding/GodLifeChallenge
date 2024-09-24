@@ -5,6 +5,7 @@ import { formattedDate } from '../../../../utils/formattedDate'
 import { formattedTime } from '../../../../utils/formattedTime'
 import { IChallenge } from '../../../../type/IChallenge'
 import RegisterChallengeButton from '../registerChallenge-button/RegisterChallengeButton'
+import { useNavigate } from 'react-router-dom'
 
 interface ReigsterProps {
     item:IChallenge;
@@ -16,10 +17,16 @@ const RegisterChallengeItem = ({item, onDelete}:ReigsterProps) => {
     const today = dayjs().format('YYYY-MM-DD');
     const isChallengeEnded = today > item.endDate;
     const Dday = calculatorDday(today, item.startDate);
+
+    const navigate = useNavigate();
+
+    const manageChallenge = () => {
+        navigate(`/managePage/${item.id}`);
+    }
     
     return (
         <li className={`${styles.itembox} ${isChallengeEnded ? styles.ended : ''}`}>
-            <div className={styles.item_info}>
+            <div className={styles.item_info} onClick={manageChallenge}>
                 <div className={styles.item_info_mainImage}>
                     <img src={item.mainImage} alt='mainImage'/>
                     {today < item.startDate && <div className={styles.imageDday_msg}>{Dday}일 남음</div>}

@@ -23,6 +23,7 @@ const ChallengeList = () => {
                         size:itemsPerPage
                     }
                 });
+                console.log('히스토리',response.data);
                 setHistory(response.data.content);
                 setTotalPages(response.data.totalPages); // 전체 페이지 수
                 setItemsPerPage(response.data.size); //한 페이지당 갯수

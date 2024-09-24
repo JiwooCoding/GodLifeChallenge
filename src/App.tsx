@@ -26,10 +26,9 @@ import ChallengeUploadPage from './page/ChallengeUploadPage';
 import ChallengePage from './page/ChallengePage';
 import ChallengeDetailPage from './page/ChallengeDetailPage';
 import AppliedDetailPage from './page/AppliedChallengeDetailPage';
-import ManageChallengePage from './page/ManageChallengePage/ManageAuthImage';
 import AuthDetailPage from './page/AppliedChallengeDetailPage/authDetailPage/AuthDetailPage';
 import Header from './components/header/Header';
-import ChallengeList from './page/MyPage/point-history/challenge/challenge-list/ChallengeList';
+import ManageAuthPage from './page/ManageChallengePage';
 
 
 const Layout = () => {
@@ -84,7 +83,7 @@ const App = () => {
           <Route path='/challenge/:challengeId' element={<ChallengeDetailPage/>}/>
           <Route path='/challenge/detail/:userChallengeId' element={<AppliedDetailPage/>}/>
           <Route path='/challengeAuthDetail' element={<AuthDetailPage/>}/>
-          <Route path='/managePage/:challengeId' element={<ManageChallengePage/>}/>
+          <Route path='/managePage/:challengeId' element={<ManageAuthPage/>}/>
         </Route>
 
         <Route path='/login' element={<LoginRoute><LoginPage /></LoginRoute>} />

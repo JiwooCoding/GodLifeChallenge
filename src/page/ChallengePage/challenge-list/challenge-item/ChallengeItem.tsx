@@ -21,15 +21,16 @@ const ChallengeItem = ({item}:ChallengeItemProps) => {
   const changeText = (state:string, limited:boolean) => {
     if(item.state === "진행전" && item.isLimited === true){
       return '모집마감'
-    }else{
-      return '챌린지 모집중'
+    }
+    if(item.state === "진행전" && item.isLimited === false){
+      return '챌린지 인원 모집중'
     }
   }
 
 
   return (
     <>
-    <li className={styles.challenge_item} onClick={handleClick}>
+    <li className={`${item.state === '종료' ? `${styles.challenge_item} ${styles.status_fin}` : styles.challenge_item}`} onClick={handleClick}>
       <img src={item.mainImage} alt='challenge image'/>
       <div className={`${item.state === '진행전' ? styles.status_availableJoin : ''}`}>
         {changeText(item.state, item.isLimited)}

@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import api from '../../../api/api';
 import { useParams } from 'react-router-dom';
-import { useModal } from '../../../contexts/ModalProvider';
-import Modal from '../../../components/modal';
 import { toast } from 'react-toastify';
+import api from '../../../../api/api';
 
 type RouteParmas = {
     challengeId:string;
