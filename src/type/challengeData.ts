@@ -20,6 +20,15 @@ export type UserChallengeRecord = {
     }[];
 }
 
+export type UserAuthImages = {
+    checkDate:string;
+    imageUrl:string;
+    status:string;
+    description:string;
+    postId:string;
+    userName:string;
+}[];
+
 export type FormValues = {
     title: string; //챌린지 제목
     category: string; // 챌린지 카테고리

@@ -24,8 +24,8 @@ const ProductList = ({ selectedCategory, currentPage, productsPerPage, handlePag
             try {
                 const response = await api.get('/api/shop');
                 setProducts(response.data);
-                console.log(response.data);
                 setFilteredProducts(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.log(error);
             }

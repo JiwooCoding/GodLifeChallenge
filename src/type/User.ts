@@ -5,6 +5,12 @@ interface User {
     profileImage: string;
     totalPoint:number;
     id:string;
+    challengeStats?:{
+        createdChallenges:number;
+        endChallenges:number;
+        ongoingChallenges:number;
+        userTotalPrize:number;
+    };
 }
 
 interface ProfileImageUploadData {

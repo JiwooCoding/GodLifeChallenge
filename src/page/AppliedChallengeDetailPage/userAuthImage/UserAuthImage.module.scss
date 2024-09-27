@@ -1,0 +1,33 @@
+.imageContainer {
+        display: grid;                   
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 16px;
+        margin-top: 5px;                   
+    
+        .imageItem {
+            display: flex;               
+            justify-content: center;     
+            align-items: center;          
+            overflow: hidden;             
+            
+            
+            img {
+                width: 176px;
+                height: 176px;
+            }
+
+            .auth_status{
+                color: #fff;
+                text-align: center;
+                font-size: 14px;
+                padding: 5px;
+                &.fail{
+                    background-color: red;
+                }
+
+                &.success{
+                    background-color: green;
+                }
+            }
+        }
+    }

@@ -5,17 +5,17 @@
     margin: 0 auto;
 
     .profile_image{
-        width: 160px;
-        height: 160px;
-        border-radius: 40%;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
         object-fit: cover;
     }
 
     .upload_profile{
-        width: 48px;
+        width: 32px;
         position: absolute;
-        top: 108px;
-        left: 107px;
+        top: 98px;
+        left: 93px;
         cursor: pointer;
     }
 

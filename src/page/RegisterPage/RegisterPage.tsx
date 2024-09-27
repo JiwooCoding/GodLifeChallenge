@@ -1,15 +1,16 @@
 import Register from './register/Register'
 import { Link } from 'react-router-dom'
+import mainImage from '../../image/login&register/러닝 크루 모여라.png'
 import styles from './RegisterPage.module.scss'
 
 const RegisterPage = () => {
   return (
-    <div className='register-container'>
-      <div className='register'>
-          <div className='register-text'>
-            <h1 className={styles.email_register}>이메일 간편가입</h1>
+    <div className={styles.register_container}>
+      <div className={styles.register}>
+          <div className={styles.register_text}>
+            <img src={mainImage}/>
           </div>
-          <div className='register-form'>
+          <div className={styles.register_form}>
             <div>
               <Register/>
             </div>

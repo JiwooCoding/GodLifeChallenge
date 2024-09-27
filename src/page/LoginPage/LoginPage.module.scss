@@ -1,4 +1,4 @@
-.register_container{
+.login_container{
     padding: 60px 0px;
     margin: 0 auto;
     height: 100vh;
@@ -6,7 +6,7 @@
     align-items: center;
     background: #f2f4f7;
 
-    .register{
+    .login{
         margin: 0 auto;
         padding: 20px 0;
         position: relative;
@@ -14,20 +14,21 @@
         gap: 150px;
         display: flex;
 
-        .register_form{
+        .login_form{
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .register_form_text{
+        .login_form_text{
             font-size: 31px;
             font-weight: bold;
             margin-bottom: 20px;
         }
         
-        .register_text{
+        .login_text{
             flex: 1.5;
-            display: flex;
-            align-items: center;
         }
 
         .nouser_yet{
@@ -45,15 +46,3 @@
     }
 }
 
-
-.already_have_account{
-    display: flex;
-    font-size: 14px;
-    justify-content: center;
-    gap: 10px;
-
-    p{
-        text-decoration: underline;
-        color: #007bff;
-    }
-}

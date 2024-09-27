@@ -68,7 +68,7 @@ const Redirect = () => {
 
                 const user = convertToUser(userResponse.data);
                 setUser(user);
-                console.log(user);
+                console.log('kakaoUser',user);
 
                 // 로그 추가
                 const response2 = await api.post('/api/login/oauth', user);
@@ -79,8 +79,8 @@ const Redirect = () => {
                 if (!accessToken || !refreshToken) {
                     throw new Error('AccessToken 또는 RefreshToken이 없습니다.');
                 }
-                localStorage.setItem('accessToken_Kakao', access_token);
-                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('accessToken_Kakao', access_token); //카카오 api와 상호작용할 떄 쓰이는 토큰
+                localStorage.setItem('accessToken', accessToken); // 서버로부터 받아온 토큰
                 localStorage.setItem('refreshToken', refreshToken);
                 localStorage.setItem('userId', userId);
                 navigate('/');

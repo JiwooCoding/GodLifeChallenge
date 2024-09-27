@@ -4,70 +4,34 @@ import rouletteData from '../../../../data/rouletteData';
 import arrow from '../../../../image/event/arrow.png'
 import api from '../../../../api/api';
 import styles from './RouletteContent.module.scss'
-import { useUser } from '../../../../contexts/UserProvider';
-import { useAppdispatch } from '../../../../hooks/redux';
-
+import RouletteButton from './roulette-button/RouletteButton';
 
 const RouletteContent = () => {
 
   const [spin, setSpin] = useState(false); // 룰렛 회전 애니메이션
-  const [spinCount, setSpinCount] = useState(4); // 스핀 카운트 초기화
+  const [spinCount, setSpinCount] = useState(3); // 스핀 카운트 초기화
   const [prizeNumber, setPrizeNumber] = useState<number | null>(null); // 당첨 인덱스
   const [isButtonDisabled, setIsButtonDisabled] = useState(false); // 룰렛 버튼 활성화/비활성화
 
-  const {user, setUser} = useUser();
-  const dispatch = useAppdispatch();
-
-
   const eventId = "f924a3b4-3c1b-4468-b735-5260b858789b";
+  
   useEffect(() => {
-    fetchPointData(); // 초기 로드 시 스핀 카운트 서버에서 받아옴
+    const fetchPointData = async () => {
+      try {
+        const response = await api.get(`/api/event/roulette/count/${eventId}`);
+        setSpinCount(response.data);
+        
+        if (spinCount === 0) {
+          setIsButtonDisabled(true); 
+        }
+      } catch (error) {
+        console.log('룰렛 돌리기 에러!',error);
+      }
+    };
+    
+    fetchPointData(); 
   }, []);
 
-  const fetchPointData = async () => {
-    try {
-      // 서버에서 스핀 카운트 가져오기
-      const response = await api.get(`/api/event/roulette/count/${eventId}`);
-      setSpinCount(response.data);
-      
-      // 스핀 카운트가 0이면 버튼 비활성화
-      if (response.data === 0) {
-        setIsButtonDisabled(true); 
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSpinClick = () => {
-    
-    // spinStop false이고 남은 스핀 카운트가 있을 때만 실행
-    if (!spin && spinCount > 0) { 
-      const pivot = Math.floor((Math.random() * 99) + 1);
-      let stack = 0;
-
-      let percentage = rouletteData.map((row) => {
-        return row.percentage; 
-      });
-
-      let newPrizeNumber: number | null = null;
-
-      percentage.some((row, index) => {
-        stack += row;
-
-        if (pivot <= stack) {
-          newPrizeNumber = index;
-          return true;
-        }
-        return false;
-      });
-
-      if (newPrizeNumber !== null) {
-        setPrizeNumber(newPrizeNumber);
-        setSpin(true);
-      }
-    }
-  };
 
   const stopSpinning = async () => {
     setSpin(false);
@@ -86,21 +50,8 @@ const RouletteContent = () => {
           earnedPoints: selectedOption.points
         });
 
-        setUser((prevUser) => {
-          if (!prevUser) return prevUser;
-
-          return {
-              ...prevUser,
-              totalPoint: prevUser.totalPoint + selectedOption.points,
-          };
-      });
-        
-        // 스핀 횟수 업데이트
-        const updatedSpinCount = spinCount - 1;
-        setSpinCount(updatedSpinCount);
-
         // 스핀 횟수가 0이 되면 비활성화
-        if (updatedSpinCount === 0) {
+        if (spinCount === 0) {
           setIsButtonDisabled(true);
         }
       } catch (error) {
@@ -131,13 +82,14 @@ const RouletteContent = () => {
         />
       </div>
       <img src={arrow} alt='roulette-arrow' className={styles.arrow} style={{width:'150px'}}/>
-      <button
-        className={`${styles.roulette_button} ${isButtonDisabled ? 'disabled' : ''}`}
-        onClick={handleSpinClick}
+      <RouletteButton
         disabled={isButtonDisabled}
-      >
-        START
-      </button>
+        spin={spin}
+        setSpin={setSpin}
+        setPrizeNumber={setPrizeNumber}
+        spinCount={spinCount}
+        
+      />
     </div>
     {/* <div>남은 스핀 횟수: {spinCount}</div> */}
     </>

@@ -60,7 +60,7 @@ const ChallengeList = ({ category, state }: ChallengeListProps) => {
     }, [challengeData, category, state]);
 
     return (
-        <>
+        <div>
             {isLoading ? (
                 <Loading />
             ) : filteredChallenges.length === 0 ? (
@@ -83,7 +83,7 @@ const ChallengeList = ({ category, state }: ChallengeListProps) => {
                     />
                 </>
             )}
-        </>
+        </div>
     );
 };
 

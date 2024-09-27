@@ -29,6 +29,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
                 const response = await api.get<User>('/api/user');
                 setUser(response.data);
+                console.log('유저정보', response.data)
                 localStorage.setItem('user', JSON.stringify(response.data));
 
             } catch (error) {

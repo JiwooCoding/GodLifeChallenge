@@ -5,9 +5,11 @@ import { useParams } from 'react-router-dom';
 import styles from './AppliedDetailPage.module.scss'
 import ChallengeDate from '../../components/challengeDateTime/challengeDate/ChallengeDate';
 import ChallengeTime from '../../components/challengeDateTime/challengeTime/ChallengeTime';
-import CurrentProgress from './challenge-currentProgress/CurrentProgress';
+import CurrentProgress from './currentProgress/CurrentProgress';
 import {Link} from 'react-router-dom'
 import { countHelper } from '../../utils/countHelper';
+import UserAuthImage from './userAuthImage/UserAuthImage';
+import AuthResult from './authResult/AuthResult';
 
 type RouteParams = {
     userChallengeId:string;
@@ -15,18 +17,18 @@ type RouteParams = {
 
 const AppliedDetailPage = () => {
 
-    const [cDetail, setCDetail] = useState<UserChallengeRecord[]>([]);
-    const [showMore, setShowMore] = useState(false);
-    const imagesToShow = showMore ? cDetail[0]?.checkRecords : cDetail[0]?.checkRecords?.slice(0, 4);
+    const [cDetail, setCDetail] = useState<UserChallengeRecord>();
+    //const [showMore, setShowMore] = useState(false);
+    //const imagesToShow = showMore ? cDetail[0]?.checkRecords : cDetail[0]?.checkRecords?.slice(0, 4);
 
     const {userChallengeId} = useParams<RouteParams>();
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await api.get(`/api/challenge/${userChallengeId}/details`);
-                setCDetail(response.data.content);
-                console.log('디테일', response.data.content);
+                const response = await api.get(`/api/challenge/${userChallengeId}/user-info`);
+                setCDetail(response.data);
+                console.log('디테일', response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -35,64 +37,41 @@ const AppliedDetailPage = () => {
         fetchData();
     }, []);
 
-    const [countSuccess, countFail] = cDetail.length > 0 ? countHelper(cDetail[0]) : [0, 0];
-
-
     return (
         <div className='page'>
-            {cDetail.length > 0 ? (
+            {cDetail ? (
                 <div className={styles.detail_container}>
                     <div className={styles.mainImage}>
-                        <img src={cDetail[0].mainImage}/>
-                        <h1 className={styles.title}>{cDetail[0].title}</h1>
+                        <img src={cDetail.mainImage}/>
+                        <h1 className={styles.title}>{cDetail.title}</h1>
                     </div>
                     {/* 챌린지 업로드 날짜 */}
                     <ChallengeDate
-                        challenge={cDetail[0]}
+                        challenge={cDetail}
                     />
                     {/* 챌린지 업로드 시간 */}
                     <ChallengeTime
-                        challenge={cDetail[0]}
+                        challenge={cDetail}
                     />
                     {/* 인증현황 차트 */}
                     <CurrentProgress
-                        challenge={cDetail[0]}
+                        challenge={cDetail}
                     />
                     {/* 인증 실패 성공 횟수 */}
                     <div className={styles.authResult}>
-                        <div>
-                            <span>인증성공</span>
-                            <span>{countSuccess}회</span>
-                        </div>
-                        <div>
-                            <span>인증실패</span>
-                            <span>{countFail}회</span>
-                        </div>
+                        <AuthResult
+                            userChallengeId={userChallengeId}
+                        />
                         <div>
                             <span>상금</span>
-                            <span>{cDetail[0].prize}</span>
+                            <span>{cDetail.prize}</span>
                         </div>
                     </div>
                     {/* 유저 인증 사진 */}
                     <h1>나의 인증샷</h1>
-                    <div className={styles.imageContainer}>
-                        {cDetail[0].checkRecords && cDetail[0].checkRecords.length > 0 ? (
-                            <div>
-                                {cDetail[0].checkRecords.map((record, index) => (
-                                    <div className={styles.imageItem} key={index}>
-                                        <Link to='/challengeAuthDetail' state={{ record }}>
-                                            <img src={record.imageUrl} alt={`인증샷 ${index}`}/>
-                                            <p className={`${record.status === '인증' ? `${styles.auth_status} ${styles.success}` :`${styles.auth_status} ${styles.fail}`}`}>{record.status}</p>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
-                        ):
-                        (
-                            <div>인증 사진이 없습니다.</div>
-                        )}
-                    </div>
-
+                    <UserAuthImage
+                        userChallengeId={userChallengeId}
+                    />
                     {/* 더보기 버튼 */}
                     {/* {cDetail[0].checkRecords.length > 6 && (
                         <button 
@@ -103,7 +82,7 @@ const AppliedDetailPage = () => {
                         </button>
                     )} */}
                 </div>
-            ):<div>fheldfnd</div>
+            ):<div>챌린지 내역이 없습니다!</div>
         }
         </div>
     )

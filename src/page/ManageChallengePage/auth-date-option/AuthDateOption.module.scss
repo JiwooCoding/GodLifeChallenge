@@ -1,0 +1,17 @@
+.option_container{
+    display: flex;
+    justify-content: end;
+
+    .selectbox{
+    border: 1px solid #9c9c9c;
+    font-size: 13px;
+    width: 120px;
+    height: 26px;
+    padding: 0px 7px;
+    border-radius: 7px;
+    outline: none;
+    color: #333;
+    margin: 20px 0px;
+}
+}
+

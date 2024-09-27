@@ -1,9 +1,10 @@
 import Swipter from '../../components/swiper/Swipter'
+import main from '../../image/mainpage/mainPageImage.png'
 
 const Homepage = () => {
   return (
     <div>
-      <Swipter/>
+      <img src={main}/>
     </div>
   )
 }

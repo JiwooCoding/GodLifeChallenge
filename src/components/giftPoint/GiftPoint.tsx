@@ -185,14 +185,6 @@ const GiftPoint = () => {
                         <img src={deleteIcon} onClick={deleteNumber} alt='delete-icon' style={{ width: '17px', position: 'absolute', bottom: '89px', right: '21px', cursor: 'pointer' }} />
                     </div>
                     {errors.customPoint && <p className={styles.errorMessage}>{errors.customPoint.message}</p>}
-                        {!user ? (
-                            <Button
-                            variant='main'
-                            onclick={() => navigate('/login')}
-                        >
-                            로그인하기
-                        </Button>
-                        ) : (
                             <Button
                             variant='main'
                             onclick={handleGiftButtonClick}
@@ -200,7 +192,6 @@ const GiftPoint = () => {
                         >
                             선물하기
                         </Button>
-                        )}
                 </div>
             </div>
             {isOpen && (

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import noProfile from '../../../../image/girl2.png';
+import noProfile from '../../../../image/login&register/NoUserImage.png';
 import { Controller, useFormContext } from 'react-hook-form';
 import styles from './ProfileUpload.module.scss'
-import upload from '../../../../image/upload-photo.png'
+import upload from '../../../../image/login&register/cameraIcon.png'
 
 const ProfileUpload = () => {
     const [profileImage, setProfileImage] = useState<string>(noProfile);

@@ -27,7 +27,7 @@ const ProductPage = () => {
                 onCategoryChange={handleCategoryChange} 
                 activeButtonIndex={activeButtonIndex} 
             />
-            {selectedCategory === '포인트 전환' ? (
+            {selectedCategory === '포인트 선물' ? (
                 <GiftPoint/>
             ) : (
                 <ProductList 

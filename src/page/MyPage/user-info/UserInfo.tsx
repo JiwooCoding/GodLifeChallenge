@@ -23,7 +23,7 @@ const UserInfo = ({selectedComponent}:UserInfoProps) => {
                         </div>
                         <div className={styles.user_point}>
                             <span>상금</span>
-                            <p>4,000P</p>
+                            <p>{user?.challengeStats.userTotalPrize}P</p>
                         </div>
                     </div>
                 </div>
@@ -32,15 +32,15 @@ const UserInfo = ({selectedComponent}:UserInfoProps) => {
                     <div className={styles.event_box}>
                         <div className={styles.user_point}>
                             <span>참가중</span>
-                            <p>3</p>
+                            <p>{user?.challengeStats.ongoingChallenges}</p>
                         </div>
                         <div className={styles.user_point}>
                             <span>완료</span>
-                            <p>4</p>
+                            <p>{user?.challengeStats.endChallenges}</p>
                         </div>
                         <div className={styles.user_point}>
                             <span>개설</span>
-                            <p>0</p>
+                            <p>{user?.challengeStats.createdChallenges}</p>
                         </div>
                     </div>
                 </div>

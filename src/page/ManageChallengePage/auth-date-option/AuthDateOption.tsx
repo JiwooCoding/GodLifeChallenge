@@ -1,5 +1,6 @@
 import { UserChallengeRecord } from '../../../type/challengeData'
 import { dateArray } from '../../../utils/dateArray';
+import styles from './AuthDateOption.module.scss'
 
 interface AuthDateOptionProps {
     selectedStatus:string;
@@ -16,10 +17,11 @@ const AuthDateOption = ({item, onStatusChange, selectedStatus}:AuthDateOptionPro
     }
 
     return (
-        <div>
+        <div className={styles.option_container}>
             <select
                 value={selectedStatus}
                 onChange={handleStateChange}
+                className={styles.selectbox}
             >
                 {dates.map((date, index) => (
                     <option key={index} value={date}>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserProvider';
 import { useAppSelector } from '../../hooks/redux';
 import { useLogout } from '../../hooks/useLogout';
-import godChall from '../../image/header/wo! (2).png'
+import godChall from '../../image/header/mainIcon.png'
 
 const Header = () => {
 
@@ -17,14 +17,14 @@ const Header = () => {
     return (
         <header className='navbar'>
             <div className='nav_inner'>
-                <div className='flex justify-between items-end'>
+                <div className='flex justify-between items-center'>
                     <div>
                         <Link to={'/'}>
-                            <img src={godChall} alt='mainLogo' style={{ width: '250px' }} />
+                            <img src={godChall} alt='mainLogo' style={{ width: '200px' }} />
                         </Link>
                     </div>
-                    <div className='flex flex-col items-end gap-5'>
-                        <div className='flex gap-5'>
+                    <div className='flex flex-col items-end gap-3'>
+                        <div className='flex gap-5 w-full justify-end'>
                             {isLoggedIn ? (
                                 <>
                                     <Link to={'/mypage'}>

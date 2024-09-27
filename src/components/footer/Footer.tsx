@@ -1,4 +1,3 @@
-import React from 'react'
 import KakoAPI from '../KakaoAPI'
 import styles from './Footer.module.scss'
 
