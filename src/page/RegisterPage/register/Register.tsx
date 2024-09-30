@@ -60,12 +60,12 @@ const Register = () => {
         setNickNameChecked(false);
         setNicknameMessage(null);
       }else{
-        clearErrors('email');
+        clearErrors('nickname');
         setNickNameChecked(true);
-        setNicknameMessage('사용 가능한 이메일입니다');
+        setNicknameMessage('사용 가능한 닉네임입니다');
       }
     } catch (error) {
-      console.log('이메일 중복 확인 오류!!!!!', error);
+      console.log('닉네임 중복 확인 오류!!!!!', error);
     }
   }
   

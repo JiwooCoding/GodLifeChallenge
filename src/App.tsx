@@ -1,5 +1,5 @@
 import './App.css';
-import { Outlet, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Routes, Route, Navigate, useLocation, useNavigate, matchPath } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import EventPage from './page/EventPage/EventPage';
 import RegisterPage from './page/RegisterPage/RegisterPage';
@@ -37,7 +37,8 @@ const Layout = () => {
   const navigate = useNavigate();
 
   const hideFabPath = ['/login', '/register', '/kakaoauth', '/404','/challenge-upload', '/challenge/:challengeId'];
-  const shouldHideFab = hideFabPath.includes(location.pathname);
+  const shouldHideFab = hideFabPath.includes(location.pathname) || matchPath('/challenge/:challengeId', location.pathname);
+
 
   return (
     <>
@@ -48,13 +49,13 @@ const Layout = () => {
       {!hideHeaderFooter && <Footer />}
       {/* Floating Icon */}
       {!shouldHideFab && (
-        <Fab 
-          color="primary" 
-          aria-label="add" 
-          className="floating-icon" 
-          onClick={()=>navigate('/challenge-upload')}>
-          <AddIcon />
-        </Fab>
+          <Fab 
+            color="primary" 
+            aria-label="add" 
+            className="floating-icon" 
+            onClick={()=>navigate('/challenge-upload')}>
+            <AddIcon />
+          </Fab>
       )}
     </>
   );

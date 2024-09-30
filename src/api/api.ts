@@ -11,18 +11,36 @@ const logout = () => {
     window.location.href = '/login';
 };
 
+
 export const postRefreshToken = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    const accessToken = localStorage.getItem('accessToken');
+
     try {
         const response = await axios.post('http://localhost:8081/api/refreshToken', {
-            refreshToken: localStorage.getItem('refreshToken'),
+            refreshToken,
+            accessToken
         });
-        const accessToken = response.data.accessToken;
-        localStorage.setItem('accessToken', accessToken); // 갱신된 accessToken 저장
-        return accessToken; // 갱신된 accessToken 반환
+
+        if(response.status === 200){
+            //토큰이 성공적으로 발급된 경우
+            localStorage.setItem("accessToken",response.data.accessToken);
+            return response.data.accessToken;
+        } else if(response.status === 401){
+            handleTokenExpiration();
+        }
     } catch (error) {
-        logout(); // 토큰 갱신 실패 시 로그아웃 처리
+        handleTokenExpiration();
     }
+    return null;
 };
+
+const handleTokenExpiration = () => {
+    localStorage.clear();
+    window.alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+    logout();
+};
+
 
 // 요청이 서버로 전송되기 전에 실행됨
 api.interceptors.request.use(
@@ -41,34 +59,26 @@ api.interceptors.request.use(
 
 // 응답이 클라이언트에 도달하기 전에 실행됨
 api.interceptors.response.use(
-    // 응답이 정상적으로 처리된 경우 (200번대 응답)
     (response) => {
         return response; 
-    },
+    }, //정상응답
 
-    // 200번대 응답 아닐 경우 (특히 401 Unauthorized)
+    //401응답에 대한 처리
     async (error) => {
         const originalRequest = error.config;
 
         // accessToken 만료 시 처리
-        if (error.response.status === 401 && !originalRequest.sent) {
-            originalRequest.sent = true; // 요청이 재시도되지 않았음을 표시
+        if (error.response.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true; // 요청이 재시도되지 않았음을 표시
 
-            try {
-                const newAccessToken = await postRefreshToken(); // 갱신된 accessToken
-                localStorage.setItem('accessToken', newAccessToken);
-
-                // 원래 요청의 'Authorization' 헤더에 새로운 accessToken으로 업데이트
+            const newAccessToken = await postRefreshToken();
+            if(newAccessToken){
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                return api(originalRequest); // 원래 요청을 재시도
-            } catch (refreshError) {
-                // 401 에러 발생 시 경고 메시지 출력 후 로그아웃
-                alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-                logout();
-                return Promise.reject(refreshError);
+                return api(originalRequest); //요청 재시도
             }
         }
-
+        //401이외의 에러
+        window.alert('예기치 않은 오류가 발생했습니다. 다시 시도해 주세요.');
         return Promise.reject(error);
     }
 );

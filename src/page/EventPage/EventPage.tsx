@@ -9,10 +9,16 @@ const EventPage = () => {
     const [filter, setFilter] = useState('all');
     const [filteredEvents, setFilteredEvents] = useState<IEventData[]>(eventData);
 
-    const isEventPast = (endDate:Date) => {
+    const isEventPast = (endDate: Date) => {
         const today = new Date();
-        return today > endDate;
+        
+        // 종료일에 하루를 더해, 다음 날 00:00부터 과거로 처리
+        const endOfEvent = new Date(endDate);
+        endOfEvent.setHours(23, 59, 59, 999); // 종료일을 포함하도록 마지막 순간까지 설정
+    
+        return today > endOfEvent;
     };
+    
 
     const filterEvents = () => {
         switch (filter) {

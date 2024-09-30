@@ -6,9 +6,7 @@ import api from '../../../api/api';
 import AttendanceButton from './attendance-button/AttendanceButton';
 import AttendanceInfo from './attendance-info/AttendanceInfo';
 import { useUser } from '../../../contexts/UserProvider';
-import { useModal } from '../../../contexts/ModalProvider';
-import Modal from '../../../components/modal';
-import { useNavigate } from 'react-router-dom';
+
 import dayjs from 'dayjs';
 
 const Attendance = () => {
@@ -19,9 +17,7 @@ const Attendance = () => {
     const [attendanceCount, setAttendanceCount] = useState(0); //누적출석 횟수
     const [isButtonDisabled, setIsButtonDisabled] = useState(false); //버튼 비활
 
-    const { user, setUser } = useUser();
-    const {isOpen, openModal, closeModal} = useModal();
-    const navigate = useNavigate();
+    const { setUser } = useUser();
 
     const date = new Date();
     const month = date.getMonth() + 1;
@@ -52,10 +48,6 @@ const Attendance = () => {
     }, []);
 
     const BtnClickHandler = async () => {
-
-        if(!user){
-            openModal();
-        }
 
         if (hasAttendance) {
             alert('이미 출석체크를 하셨습니다.');
@@ -127,19 +119,6 @@ const Attendance = () => {
                     />
                 </div>  
             </div>
-            {isOpen && (
-                <Modal isOpen={isOpen} onClose={closeModal}>
-                    <Modal.Header>
-                        로그인
-                    </Modal.Header>
-                    <Modal.Content>
-                        로그인이 필요한 이벤트입니다.
-                    </Modal.Content>
-                    <Modal.Footer>
-                        <Modal.Button buttonStyle='button--primary' onClick={() => {navigate('/login'); closeModal();}}>로그인</Modal.Button>
-                    </Modal.Footer>
-                </Modal>
-            )}
         </>
     )
 } 

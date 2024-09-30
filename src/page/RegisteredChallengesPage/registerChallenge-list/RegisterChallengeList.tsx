@@ -31,7 +31,7 @@ const RegisterChallengeList = ({state}:RegisterChallengeListProps) => {
                         size:itemsPerPage
                     }
                 });
-                console.log(response.data)
+                console.log('개설 챌린지 내역',response.data)
                 setTotalPages(response.data.totalPages);
                 setItemsPerPage(response.data.size);
                 setChallenges(response.data.content);

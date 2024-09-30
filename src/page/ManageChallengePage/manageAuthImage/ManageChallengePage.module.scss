@@ -48,39 +48,25 @@
         }
     }
 
-    .authImage{
+    .authImage {
         display: grid;
         grid-template-columns: repeat(2, 1fr); // 한 줄에 2개의 열
         gap: 20px;
-        
+    
         .imageContainer {
             display: flex;
             flex-direction: column;
             align-items: center; // 버튼을 이미지 하단 중앙에 정렬
             position: relative;
-
-            span{
-
-                // &::after{
-                //     content: "";
-                //         position: absolute;
-                //         top: 0;
-                //         left: 0;
-                //         width: 100%;
-                //         height: 100%;
-                //         background-color: rgba(0, 0, 0, 0.5);
-                //         z-index: 1;
-                // }
-            }
-
-            img{
+    
+            img {
                 width: 270px;
                 height: 270px;
                 object-fit: cover;
                 border-radius: 4px 4px 0px 0px;
             }
-
-            button{
+    
+            button {
                 background-color: #dc3545;
                 width: 100%;
                 color: #fff;
@@ -88,39 +74,43 @@
                 padding: 5px;
                 transition: box-shadow 0.3s ease;
                 border-radius: 0px 0px 4px 4px;
-                
-                &:hover{
+    
+                &:hover {
                     box-shadow: 0px 4px 6px rgba(220, 53, 69, 0.5);
                 }
-                
-
-                &:disabled{
+    
+                &:disabled {
                     background-color: #dc35457a;
                     cursor: not-allowed;
-
+    
                     &:hover {
                         box-shadow: none;
                     }
-
-                    &::before {
-                        content: "인증실패 완료";
-                        opacity: 0.8;
-                        z-index: 3;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        color: #fff;
-                        font-size: 20px;
-                        font-weight: bold;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        text-align: center;
-                        background-color: rgba(0, 0, 0, 0.6);
-                    }
                 }
+            }
+        }
+    
+        // 인증실패 상태일 때 적용
+        .authFail {
+            position: relative;
+    
+            &::before {
+                content: "인증실패 완료";
+                opacity: 0.9;
+                z-index: 3;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 20px;
+                font-weight: bold;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                background-color: rgba(0, 0, 0, 0.6);
             }
         }
     }

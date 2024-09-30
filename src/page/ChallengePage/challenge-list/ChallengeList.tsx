@@ -3,7 +3,7 @@ import api from '../../../api/api';
 import { IChallenge } from '../../../type/IChallenge';
 import ChallengeItem from './challenge-item/ChallengeItem';
 import styles from './ChallengeList.module.scss';
-import noChallenge from '../../../image/challenge/noChallenge.png';
+import noChallenge from '../../../image/challenge/noChall.png';
 import Loading from '../../../components/loading/Loading';
 import usePagination from '../../../hooks/usePagination';
 import Pagination from '../../../components/pagination/Pagination';

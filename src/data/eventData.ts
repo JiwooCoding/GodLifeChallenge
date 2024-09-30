@@ -31,7 +31,7 @@ const eventData = [
         title:'룰렛이벤트',
         description: '룰렛이벤트 참여하면 최대 5000포인트를 쏩니다!🎉🎁',
         startDate: new Date('2024-07-01'),
-        endDate:new Date('2024-09-30'),
+        endDate:new Date('2024-10-31'),
         path: 'roulette'
     },
     {

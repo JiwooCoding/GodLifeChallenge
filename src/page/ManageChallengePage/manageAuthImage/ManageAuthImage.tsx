@@ -23,7 +23,7 @@ const ManageAuthImage = ({challengeId, selectedStatus, onStatusChange}:ManageAut
                         authDate:selectedStatus
                     }
                 });
-                console.log('data==>',response.data);
+                console.log('data==>',response.data.checkRecords);
                 setUserImages(response.data);
             } catch (error) {
                 console.log('인증사진 받아오기 오류!',error);
@@ -48,7 +48,7 @@ const ManageAuthImage = ({challengeId, selectedStatus, onStatusChange}:ManageAut
             <div className={styles.authImage}>
                 {userImages?.checkRecords && userImages.checkRecords.length > 0 ? (
                     userImages.checkRecords.map((record) => (
-                        <div key={record.postId} className={`${record.status === '인증실패' ? `${styles.imageContainer} ${styles.authFail}` : `${styles.imageContainer}`}`}>
+                        <div key={record.postId} className={`${styles.imageContainer} ${record.status === '인증실패' ? styles.authFail : ''}`}>
                             <span>유저이름: {record.userName}</span>
                             <img className={styles.user_authImage} src={record.imageUrl} alt={`check record`} />
                             <FailButton postId={record.postId}/>
