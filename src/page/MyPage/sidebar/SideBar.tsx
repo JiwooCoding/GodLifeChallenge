@@ -1,9 +1,9 @@
 import styles from './SideBar.module.scss'
 import { MdOutlineModeEdit } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useUser } from '../../../contexts/UserProvider'
 import { useLogout } from '../../../hooks/useLogout'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SideBarChallenge from './sidebar-challenge/SideBarChallenge'
 import SidebarShopping from './sidebar-shopping/SidebarShopping'
 import { ComponentTypes } from '../../../data/challengeData'
@@ -17,10 +17,25 @@ const SideBar = ({setSelectedComponent}:SideBarUserInfoProps) => {
     const [activeItem, setActiveItem] = useState<ComponentTypes | null>(null);
     const {user} = useUser();
     const handleLogout = useLogout();
+    const location = useLocation();
+
+    useEffect(() => {
+        const savedComponent = localStorage.getItem('activeComponent') as ComponentTypes | null;
+        if(savedComponent){
+            setSelectedComponent(savedComponent);
+            setActiveItem(savedComponent);
+        }
+
+        return () => {
+            localStorage.removeItem('activeComponent');
+        };
+    }, [setSelectedComponent, location]);
+    
 
     const handleClick = (component:ComponentTypes) => {
         setSelectedComponent(component);
         setActiveItem(component);
+        localStorage.setItem('activeComponent', component);
     }
 
     return (
